@@ -93,21 +93,35 @@ const Index: FC<Props> = () => {
         </div>
       </div>
 
-      {/* Mobile layout — compact but clean */}
-      <div className="hidden md:block border-t border-gray-2 px-4 py-3">
-        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-1.5">
+      {/* Mobile layout — prettified, PWA-safe area ready */}
+      <div
+        className="hidden md:block border-t border-gray-2 px-5 pt-5"
+        style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}
+      >
+        {/* Brand mark */}
+        <div className="flex justify-center mb-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/foody7-icon.png" alt="Foody7" width={36} height={36} />
+        </div>
+
+        {/* Links — 2×2 grid */}
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-3 mb-4">
           {links.map(({ title, fn }) => (
             <li
               aria-label="button"
               onClick={fn}
-              className="cursor-pointer text-xs text-text-4 transition hover:text-black"
+              className="cursor-pointer text-xs text-text-4 text-center py-1 transition hover:text-black"
               key={title}
             >
               {t(title)}
             </li>
           ))}
         </ul>
-        <p className="text-center text-xs text-text-4">© 2025 Foody7</p>
+
+        {/* Copyright */}
+        <div className="border-t border-gray-2 pt-3">
+          <p className="text-center text-xs text-text-4">© 2025 Foody7</p>
+        </div>
       </div>
 
       {(modals.cooperationModal || modals.feedbackModal) && (
