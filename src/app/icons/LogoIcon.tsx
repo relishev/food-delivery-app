@@ -43,13 +43,12 @@ export const LogoIcon: FC<LogoIconProps> = ({ className, width = 130, ...props }
         }}
       />
 
-      {/* Foody7 full text logo — hidden on mobile */}
+      {/* Foody7 full text logo — hidden on mobile, no priority (mobile never sees it) */}
       <Image
         src="/foody7-logo.png"
         alt="Foody7"
         width={width}
         height={textH}
-        priority
         className="md:hidden"
         style={{ flexShrink: 0 }}
       />

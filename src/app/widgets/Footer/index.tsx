@@ -93,23 +93,21 @@ const Index: FC<Props> = () => {
         </div>
       </div>
 
-      {/* Mobile layout — ultra-compact */}
-      <div className="hidden md:block px-4 py-2">
-        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-          <ul className="flex flex-wrap gap-x-3 gap-y-1">
-            {links.map(({ title, fn }) => (
-              <li
-                aria-label="button"
-                onClick={fn}
-                className="cursor-pointer text-xs text-text-4 transition hover:text-black"
-                key={title}
-              >
-                {t(title)}
-              </li>
-            ))}
-          </ul>
-          <p className="text-xs text-text-4 whitespace-nowrap">© 2025 Foody7</p>
-        </div>
+      {/* Mobile layout — compact but clean */}
+      <div className="hidden md:block border-t border-gray-2 px-4 py-3">
+        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-1.5">
+          {links.map(({ title, fn }) => (
+            <li
+              aria-label="button"
+              onClick={fn}
+              className="cursor-pointer text-xs text-text-4 transition hover:text-black"
+              key={title}
+            >
+              {t(title)}
+            </li>
+          ))}
+        </ul>
+        <p className="text-center text-xs text-text-4">© 2025 Foody7</p>
       </div>
 
       {(modals.cooperationModal || modals.feedbackModal) && (

@@ -68,6 +68,10 @@ module.exports = {
         },
       },
     },
+    // DESKTOP-FIRST breakpoints (max-width, not min-width!)
+    // Convention: prefix = "at this size and smaller"
+    //   md:hidden  = hidden on mobile (≤720px), visible on desktop
+    //   hidden md:block = visible on mobile (≤720px), hidden on desktop
     screens: {
       "2xl": { max: "1400px" },
       xl: { max: "1080px" },
