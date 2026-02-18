@@ -41,6 +41,7 @@ const Index: FC<Props> = ({}) => {
   const [isAuth, setAuth] = useAtom(atoms.isAuth);
   const setUserProfile = useSetAtom(atoms.userProfile);
   const handleQuery = useSetAtom(atoms.query);
+  const [selectedCity, setSelectedCity] = useAtom(atoms.selectedCity);
 
   const { currentUser } = useLoginMe();
 
@@ -52,6 +53,36 @@ const Index: FC<Props> = ({}) => {
       setUserProfile(currentUser);
     }
   }, [currentUser]);
+
+  // Auto-detect city from geolocation on first visit
+  useEffect(() => {
+    if (selectedCity && selectedCity !== "Turkmenabat") return;
+    if (!cities?.length) return;
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords;
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=en`,
+            { headers: { "User-Agent": "foody7.com food delivery app" } }
+          );
+          const data = await res.json();
+          const detected = data.address?.city || data.address?.town || data.address?.state;
+          if (detected && cities.some((c: City) => c.title.toLowerCase() === detected.toLowerCase())) {
+            setSelectedCity(detected);
+          }
+        } catch {
+          // fallback: keep Seoul
+        }
+      },
+      () => {
+        // permission denied or error: keep Seoul
+      },
+      { timeout: 5000 }
+    );
+  }, [cities]);
 
   const isBucketPage = pathName.includes("bucket");
   return (

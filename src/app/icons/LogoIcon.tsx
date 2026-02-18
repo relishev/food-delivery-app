@@ -31,10 +31,10 @@ export const LogoIcon: FC<LogoIconProps> = ({ className, width = 130, ...props }
         style={{ flexShrink: 0 }}
       />
 
-      {/* Thin vertical divider */}
+      {/* Thin vertical divider — hidden on mobile */}
       <span
+        className="hidden sm:block"
         style={{
-          display: "block",
           width: "1.5px",
           height: `${Math.round(textH * 0.75)}px`,
           background: "rgba(29,52,97,0.25)",
@@ -43,13 +43,14 @@ export const LogoIcon: FC<LogoIconProps> = ({ className, width = 130, ...props }
         }}
       />
 
-      {/* Foody7 full text logo */}
+      {/* Foody7 full text logo — hidden on mobile */}
       <Image
         src="/foody7-logo.png"
         alt="Foody7"
         width={width}
         height={textH}
         priority
+        className="hidden sm:block"
         style={{ flexShrink: 0 }}
       />
     </div>

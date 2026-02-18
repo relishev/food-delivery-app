@@ -78,7 +78,7 @@ export const useCreateAddressFormScheme = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      city: "Turkmenabat",
+      city: "Seoul",
       district: "",
       houseNumber: "",
       apartment: "",

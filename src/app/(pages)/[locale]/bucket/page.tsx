@@ -82,7 +82,7 @@ export default function Bucket() {
           houseNumber,
           phoneNumber: +phoneNumber,
           isDelivery: true,
-          city: "Turkmenabat",
+          city: "Seoul",
           commentToCourier,
           commentToRestaurant,
           entrance,
