@@ -219,7 +219,7 @@ const Restaurants: CollectionConfig = {
       },
       label: "Which restaurant?",
       relationTo: "customers",
-      required: true,
+      required: false,
       type: "relationship",
     },
     {
