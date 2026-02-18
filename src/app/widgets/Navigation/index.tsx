@@ -86,7 +86,7 @@ const Index: FC<Props> = ({}) => {
 
   const isBucketPage = pathName.includes("bucket");
   return (
-    <header className="fixed top-0 z-20 flex h-20 w-screen items-center justify-between space-x-6 bg-bg-1 py-4 pl-3 pr-6 shadow-md xl:space-x-6 xl:pl-2 xl:pr-4 lg:space-x-4 md:h-16 md:space-x-2 md:px-3 md:py-2">
+    <header style={{ paddingTop: "env(safe-area-inset-top)" }} className="fixed top-0 z-20 flex h-20 w-screen items-center justify-between space-x-6 bg-bg-1 py-4 pl-3 pr-6 shadow-md xl:space-x-6 xl:pl-2 xl:pr-4 lg:space-x-4 md:h-16 md:space-x-2 md:px-3 md:py-2">
       {isBucketPage && (
         <button className="flex items-center space-x-2 text-text-3 md:hidden" onClick={back}>
           <BackIcon fill="text-text-3" />
