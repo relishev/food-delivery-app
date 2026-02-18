@@ -21,17 +21,17 @@ interface Props {}
 
 const contacts = [
   {
-    icon: <PhoneIcon className="h-8 w-8 2xl:h-7 2xl:w-7" />,
+    icon: <PhoneIcon className="h-6 w-6 text-primary" />,
     title: "MainPage.phone",
     subtitle: "+82 2-1234-5678",
   },
   {
-    icon: <MessageIcon className="h-8 w-8 2xl:h-7 2xl:w-7" />,
+    icon: <MessageIcon className="h-6 w-6 text-primary" />,
     title: "MainPage.email",
     subtitle: "support@foody7.com",
   },
   {
-    icon: <LocationIcon className="h-8 w-8 2xl:h-7 2xl:w-7" />,
+    icon: <LocationIcon className="h-6 w-6 text-primary" />,
     title: "MainPage.address",
     subtitle: "Seoul, South Korea",
   },
@@ -54,36 +54,61 @@ const Index: FC<Props> = () => {
   ];
 
   return (
-    <footer className="z-[2000] h-auto w-full bg-gray-3 px-40 py-10 shadow-2xl 2xl:px-20 xl:px-10 lg:px-5 lg:py-6 md:mt-4 md:px-4 md:py-4">
-      <div className="mx-auto flex max-w-[1440px] flex-col space-y-8 md:space-y-4 md:pt-1">
-        <div className="flex flex-wrap justify-between gap-x-6 lg:items-center lg:justify-evenly lg:gap-y-6 md:flex-col md:gap-y-3">
-          {contacts.map(({ icon, title, subtitle }) => (
-            <div key={title} className="flex space-x-3 md:space-x-2">
-              <span className="md:hidden">{icon}</span>
-              <div>
-                <p className="text-text-4 xl:text-sm md:text-xs">{t(title as any)}</p>
-                <p className="xl:text-md md:text-sm">{subtitle}</p>
+    <footer className="z-[2000] w-full bg-gray-3 shadow-2xl">
+      {/* Desktop layout */}
+      <div className="hidden md:block px-40 py-10 2xl:px-20 xl:px-10 lg:px-6">
+        <div className="mx-auto max-w-[1440px]">
+          {/* Top: contacts */}
+          <div className="flex justify-between gap-6 lg:gap-4">
+            {contacts.map(({ icon, title, subtitle }) => (
+              <div key={title} className="flex items-center gap-3 rounded-xl bg-white/60 px-5 py-4 flex-1 shadow-sm">
+                <span className="shrink-0">{icon}</span>
+                <div>
+                  <p className="text-xs font-medium text-text-4 uppercase tracking-wide">{t(title as any)}</p>
+                  <p className="mt-0.5 text-sm font-semibold">{subtitle}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="border-t border-gray-2 py-6 md:py-3">
-          <div className="flex gap-y-2 xl:flex-col md:flex-col">
-            <ul className="flex flex-wrap gap-x-8 gap-y-2 xl:mb-4 xl:justify-center sm:flex-col sm:items-center md:flex-row md:flex-wrap md:justify-center md:gap-x-4 md:gap-y-1 md:mb-2">
+          {/* Divider */}
+          <div className="my-6 border-t border-gray-2" />
+
+          {/* Bottom: links + copyright */}
+          <div className="flex items-center justify-between gap-4">
+            <ul className="flex gap-6 lg:gap-4">
               {links.map(({ title, fn }) => (
                 <li
                   aria-label="button"
                   onClick={fn}
-                  className="cursor-pointer transition hover:text-black/75 md:text-sm"
+                  className="cursor-pointer text-sm text-text-4 transition hover:text-black"
                   key={title}
                 >
                   {t(title)}
                 </li>
               ))}
             </ul>
-            <div className="flex-1 text-end xl:text-center md:text-center md:text-xs">© 2024-2025 Foody7. {t("MainPage.rights")}</div>
+            <p className="text-sm text-text-4">© 2024-2025 Foody7. {t("MainPage.rights")}</p>
           </div>
+        </div>
+      </div>
+
+      {/* Mobile layout — ultra-compact */}
+      <div className="md:hidden px-4 py-2">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <ul className="flex flex-wrap gap-x-3 gap-y-1">
+            {links.map(({ title, fn }) => (
+              <li
+                aria-label="button"
+                onClick={fn}
+                className="cursor-pointer text-xs text-text-4 transition hover:text-black"
+                key={title}
+              >
+                {t(title)}
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-text-4 whitespace-nowrap">© 2025 Foody7</p>
         </div>
       </div>
 
