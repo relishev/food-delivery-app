@@ -3,6 +3,9 @@ import type { CollectionConfig } from "payload";
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 import { checkRole } from "../utils/access/checkRole";
 import { admins } from "../utils/access/admins";
+import { passwordResetEmail, welcomeEmail } from "@/app/email/templates";
+
+const SERVER_URL = process.env.PAYLOAD_PUBLIC_SERVER_URL || "https://foody7.com";
 
 const Customers: CollectionConfig = {
   access: {
@@ -36,6 +39,20 @@ const Customers: CollectionConfig = {
     depth: 0,
     maxLoginAttempts: 20,
     tokenExpiration: 604800,
+    forgotPassword: {
+      generateEmailHTML: ({ token }: { token?: string }) => {
+        const url = `${SERVER_URL}/reset-password?token=${token}`;
+        return passwordResetEmail(url).html;
+      },
+      generateEmailSubject: () => "Reset your Foody7 password",
+    },
+    verify: {
+      generateEmailHTML: ({ token }: { token?: string }) => {
+        const url = `${SERVER_URL}/verify?token=${token}`;
+        return welcomeEmail().html;
+      },
+      generateEmailSubject: () => "Welcome to Foody7 🍜",
+    },
   },
 
   fields: [

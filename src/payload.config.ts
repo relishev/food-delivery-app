@@ -7,7 +7,7 @@ import path from "path";
 import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
-import { passwordResetEmail, welcomeEmail } from "./app/email/templates";
+
 
 import Categories from "./app/(payload)/collections/Categories";
 import Cities from "./app/(payload)/collections/Cities";
@@ -43,16 +43,6 @@ export default buildConfig({
       secure: false,
       // No auth needed — kiberos.ai is in smtp-relay MYNETWORKS trusted IPs
     },
-    generateVerificationEmailHTML: ({ token, user }) => {
-      const url = `${process.env.PAYLOAD_PUBLIC_SERVER_URL || "https://foody7.com"}/verify?token=${token}`;
-      return welcomeEmail((user as any)?.username).html;
-    },
-    generateForgotPasswordEmailHTML: ({ token, user }) => {
-      const url = `${process.env.PAYLOAD_PUBLIC_SERVER_URL || "https://foody7.com"}/admin/reset-password?token=${token}`;
-      return passwordResetEmail(url).html;
-    },
-    generateForgotPasswordEmailSubject: () => "Reset your Foody7 password",
-    generateVerificationEmailSubject: () => "Welcome to Foody7 🍜",
   }),
   cookiePrefix: "foody7",
   collections: [
