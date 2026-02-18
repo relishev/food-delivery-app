@@ -40,15 +40,15 @@ const Customers: CollectionConfig = {
     maxLoginAttempts: 20,
     tokenExpiration: 604800,
     forgotPassword: {
-      generateEmailHTML: ({ token }: { token?: string }) => {
-        const url = `${SERVER_URL}/reset-password?token=${token}`;
+      generateEmailHTML: (args?: { req?: any; token?: string; user?: any }) => {
+        const url = `${SERVER_URL}/reset-password?token=${args?.token}`;
         return passwordResetEmail(url).html;
       },
       generateEmailSubject: () => "Reset your Foody7 password",
     },
     verify: {
-      generateEmailHTML: ({ token }: { token?: string }) => {
-        const url = `${SERVER_URL}/verify?token=${token}`;
+      generateEmailHTML: (args?: { req?: any; token?: string; user?: any }) => {
+        const url = `${SERVER_URL}/verify?token=${args?.token}`;
         return welcomeEmail().html;
       },
       generateEmailSubject: () => "Welcome to Foody7 🍜",
