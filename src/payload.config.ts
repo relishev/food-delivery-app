@@ -1,11 +1,13 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
+import { passwordResetEmail, welcomeEmail } from "./app/email/templates";
 
 import Categories from "./app/(payload)/collections/Categories";
 import Cities from "./app/(payload)/collections/Cities";
@@ -32,6 +34,26 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.SMTP_FROM || "noreply@foody7.com",
+    defaultFromName: "Foody7",
+    transportOptions: {
+      host: process.env.SMTP_HOST || "smtp.muid.io",
+      port: Number(process.env.SMTP_PORT) || 587,
+      secure: false,
+      // No auth needed — kiberos.ai is in smtp-relay MYNETWORKS trusted IPs
+    },
+    generateVerificationEmailHTML: ({ token, user }) => {
+      const url = `${process.env.PAYLOAD_PUBLIC_SERVER_URL || "https://foody7.com"}/verify?token=${token}`;
+      return welcomeEmail((user as any)?.username).html;
+    },
+    generateForgotPasswordEmailHTML: ({ token, user }) => {
+      const url = `${process.env.PAYLOAD_PUBLIC_SERVER_URL || "https://foody7.com"}/admin/reset-password?token=${token}`;
+      return passwordResetEmail(url).html;
+    },
+    generateForgotPasswordEmailSubject: () => "Reset your Foody7 password",
+    generateVerificationEmailSubject: () => "Welcome to Foody7 🍜",
+  }),
   cookiePrefix: "foody7",
   collections: [
     Restaurants,
