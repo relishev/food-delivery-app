@@ -42,6 +42,7 @@ export default buildConfig({
       port: Number(process.env.SMTP_PORT) || 587,
       secure: false,
       // No auth needed — kiberos.ai is in smtp-relay MYNETWORKS trusted IPs
+      tls: { rejectUnauthorized: false },
     },
   }),
   cookiePrefix: "foody7",
