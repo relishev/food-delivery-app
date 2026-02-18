@@ -27,6 +27,9 @@ import { useOrderSubmit } from "@/app/services/useOrders";
 import useProductItem from "@/app/hooks/useProductItem";
 import useToast from "@/app/hooks/useToast";
 
+//types
+import type { ShippingQuote } from "@/app/shipping/types";
+
 export default function Bucket() {
   const t = useTranslations();
   const queryClient = useQueryClient();
@@ -40,6 +43,17 @@ export default function Bucket() {
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
   const { handleOrder } = useOrderSubmit();
   const [isLoading, setLoading] = useState(false);
+  const [selectedShippingQuote, setSelectedShippingQuote] = useState<ShippingQuote | null>(null);
+
+  // Watch form values for customer address
+  const watchedLatitude = form.watch("latitude");
+  const watchedLongitude = form.watch("longitude");
+  const watchedFullAddress = form.watch("fullAddress");
+
+  // Build customer address object for shipping selector
+  const customerAddress = watchedLatitude && watchedLongitude
+    ? { lat: watchedLatitude, lng: watchedLongitude, fullAddress: watchedFullAddress }
+    : undefined;
 
   const isRestaurantAvailable = isRestaurantOpen(
     restaurantInfo?.workingHours?.openTime,
@@ -57,7 +71,7 @@ export default function Bucket() {
       return;
     }
     if (restaurantInfo?.id && userProfile?.id && selectedItems?.dishes.length) {
-      const { apartment, commentToCourier, district, entrance, houseNumber, phoneNumber, commentToRestaurant } = values;
+      const { apartment, commentToCourier, district, entrance, houseNumber, phoneNumber, commentToRestaurant, latitude, longitude, fullAddress } = values;
       try {
         setLoading(true);
         const res = await handleOrder({
@@ -72,10 +86,15 @@ export default function Bucket() {
           commentToCourier,
           commentToRestaurant,
           entrance,
+          latitude,
+          longitude,
+          fullAddress,
           dishes: selectedItems.dishes.map(({ id, count, availableAmount }) => ({
             id,
             quantity: Math.min(count, availableAmount),
           })),
+          // Include shipping quote if selected
+          ...(selectedShippingQuote && { shippingQuoteId: selectedShippingQuote.quoteId }),
         });
         //order response
         if (res?.id) {
@@ -145,6 +164,8 @@ export default function Bucket() {
                   deliveryPrice={totalPrice >= restaurantInfo?.freeAfterAmount ? 0 : restaurantInfo?.deliveryPrice}
                   disabled={isLoading}
                   t={t}
+                  customerAddress={customerAddress}
+                  onShippingQuoteSelect={setSelectedShippingQuote}
                 />
               )}
             </div>

@@ -1,0 +1,43 @@
+# syntax=docker/dockerfile:1.4
+# Development Dockerfile with BuildKit cache for fast rebuilds
+FROM node:20-alpine AS base
+
+# Install libc6-compat for sharp and other native modules
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+# Install dependencies with cache mount
+FROM base AS deps
+COPY package.json package-lock.json* ./
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --legacy-peer-deps
+
+# Development image
+FROM base AS dev
+# Copy node_modules from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+
+# Copy package files for npm scripts
+COPY package.json package-lock.json* ./
+
+# Copy config files needed at startup
+COPY next.config.mjs tsconfig.json tailwind.config.ts postcss.config.js ./
+COPY components.json ./
+
+# Source code will be mounted via volumes for hot reload
+# These COPY commands are fallbacks if volumes aren't mounted
+COPY src ./src
+COPY locales ./locales
+COPY public ./public
+
+# Expose Next.js dev server port
+EXPOSE 3000
+
+# Environment for development
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV WATCHPACK_POLLING=true
+
+# Dev server with hot reload
+CMD ["npm", "run", "dev"]

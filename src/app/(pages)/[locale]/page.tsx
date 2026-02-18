@@ -36,6 +36,14 @@ export default function Home() {
   //use "fetchNextPage" for infinite scroll
   const { isFetchingNextPage, filteredRestaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters, query);
 
+  // Debug logging
+  console.log('[DEBUG] Page render:', {
+    isLoading,
+    filteredRestaurants: filteredRestaurants?.length,
+    firstPage: filteredRestaurants?.[0]?.length,
+    data: filteredRestaurants?.[0]?.[0]?.title
+  });
+
   const { categories } = useGetCategories();
 
   return (

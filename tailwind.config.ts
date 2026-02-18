@@ -5,7 +5,7 @@ module.exports = {
   plugins: [require("tailwindcss-animate")],
   theme: {
     colors: {
-      accent: "rgb(255, 225, 156)",
+      accent: "#f5821f",
       "bg-1": "#fff",
       "bg-2": "#f1f1f1",
 
@@ -18,8 +18,8 @@ module.exports = {
       "gray-3": "#F8F9FA",
       info: "#4361ee",
 
-      onHover: "rgba(	251, 219, 101,0.8)",
-      primary: "rgb(251, 219, 101)",
+      onHover: "rgba(245, 130, 31, 0.85)",
+      primary: "#f5821f",
       success: "#208B3A",
 
       "text-1": "#21201f",

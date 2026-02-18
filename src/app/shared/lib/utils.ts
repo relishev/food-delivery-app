@@ -46,7 +46,7 @@ export function constructMetadata({
       shortcut: "/favicon-16x16.png",
       apple: "/apple-touch-icon.png",
     },
-    metadataBase: new URL("https://ashpez-food-delivery-app.vercel.app/"),
+    metadataBase: new URL("https://foody7.com/"),
     ...props,
   };
 }

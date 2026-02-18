@@ -54,6 +54,9 @@ export const bucketFormScheme = (t: (arg: string) => string) =>
       }),
     commentToCourier: z.string(),
     commentToRestaurant: z.string(),
+    latitude: z.number().optional(),
+    longitude: z.number().optional(),
+    fullAddress: z.string().optional(),
   });
 
 // Profile scheme
@@ -89,4 +92,17 @@ export const addressFormScheme = (t: (arg: string) => string) =>
     apartment: z.string().min(1, {
       message: t("Zod.invalidApartment"),
     }),
+  });
+
+// Kakao Address Scheme (for Korean address search integration)
+export const kakaoAddressScheme = (t: (arg: string) => string) =>
+  z.object({
+    alias: z.string().max(20).optional(),
+    isDefault: z.boolean().optional(),
+    fullAddress: z.string().min(5, {
+      message: t("Zod.invalidAddress"),
+    }),
+    addressDetail: z.string().max(50).optional(),
+    latitude: z.number(),
+    longitude: z.number(),
   });

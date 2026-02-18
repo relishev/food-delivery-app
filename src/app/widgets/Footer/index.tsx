@@ -23,17 +23,17 @@ const contacts = [
   {
     icon: <PhoneIcon className="h-8 w-8 2xl:h-7 2xl:w-7" />,
     title: "MainPage.phone",
-    subtitle: "8 800 555 35 35",
+    subtitle: "+82 2-1234-5678",
   },
   {
     icon: <MessageIcon className="h-8 w-8 2xl:h-7 2xl:w-7" />,
     title: "MainPage.email",
-    subtitle: "hermanos@gmail.com",
+    subtitle: "support@foody7.com",
   },
   {
     icon: <LocationIcon className="h-8 w-8 2xl:h-7 2xl:w-7" />,
     title: "MainPage.address",
-    subtitle: "Albuquerque, 87105",
+    subtitle: "Seoul, South Korea",
   },
 ];
 
@@ -82,7 +82,7 @@ const Index: FC<Props> = () => {
                 </li>
               ))}
             </ul>
-            <div className="flex-1 text-end xl:text-center">© 2023-2024. {t("MainPage.rights")}</div>
+            <div className="flex-1 text-end xl:text-center">© 2024-2025 Foody7. {t("MainPage.rights")}</div>
           </div>
         </div>
       </div>

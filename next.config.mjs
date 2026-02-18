@@ -5,7 +5,9 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Your Next.js config here
+  output: 'standalone',
+  // Transpile @turf packages for server-side usage
+  transpilePackages: ['@turf/turf', '@turf/distance', '@turf/helpers'],
 };
 
 export default withNextIntl(withPayload(nextConfig));

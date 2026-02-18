@@ -19,9 +19,9 @@ const Index: FC<Props> = ({ isDelivery, deliveryTime, deliveryTitle, deliveryPri
         {isDelivery ? <MotocycleIcon width={24} height={24} /> : <WalkIcon />}
       </div>
 
-      <p className={`text-sm font-medium leading-3 ${isDeliveryFree && "text-success"}`}>
-        {deliveryTitle} {deliveryPrice && deliveryPrice}
-        {deliveryTime && <>{!isNaN(deliveryTime) && `${deliveryTime - 10} - ${deliveryTime + t("Index.min")}`}</>}
+      <p className={`text-sm font-medium leading-3 ${isDeliveryFree ? "text-success" : ""}`}>
+        {deliveryTitle} {deliveryPrice ? deliveryPrice : null}
+        {deliveryTime && !isNaN(deliveryTime) ? `${deliveryTime - 10} - ${deliveryTime + t("Index.min")}` : null}
       </p>
     </div>
   );

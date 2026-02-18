@@ -1,0 +1,237 @@
+{
+  "Index": {
+    "search": "검색",
+    "searchPlaceholder": "레스토랑 검색...",
+    "chooseCity": "도시를 선택하세요",
+    "city": "도시",
+    "back": "뒤로",
+    "delivery": "배달",
+    "deliveryDetailed": "배달 시간",
+    "selfCare": "픽업",
+    "selfCareTitle": "픽업 장소",
+    "selfCareDetailed": "준비 시간",
+    "orderType": "수령 방법",
+    "gr": "g",
+    "clear": "초기화",
+    "bucket": "장바구니",
+    "toBucket": "장바구니로",
+    "noItems": "아직 추가한 항목이 없습니다",
+    "emptyBucket": "장바구니가 비어 있습니다",
+    "add": "추가",
+    "phoneNumber": "전화번호",
+    "min": "분",
+    "now": "지금",
+    "show": "보기",
+    "account": "계정",
+    "profile": "프로필",
+    "logout": "로그아웃",
+    "language": "언어",
+    "home": "홈",
+    "categories": "카테고리",
+    "save": "저장",
+    "delete": "삭제",
+    "cancel": "취소",
+    "continue": "계속",
+    "noReview": "리뷰 부족",
+    "description": "설명",
+    "quantity": "수량",
+    "dishes": "요리",
+    "freeDelivery": "무료 배달",
+    "availableLater": "나중에 이용 가능",
+    "deliveryPrice": "배달비",
+    "clearFilters": "필터 초기화"
+  },
+
+  "Login": {
+    "login": "로그인",
+    "rules": "계속하시면 이용약관에 동의하게 됩니다",
+    "noAccount": "계정이 없으신가요?",
+    "haveAccount": "이미 계정이 있으신가요?",
+    "register": "회원가입",
+    "resetPassword": "비밀번호 재설정",
+    "loginViaEmail": "이메일로 로그인",
+    "registerAccount": "이메일로 무료 계정 만들기"
+  },
+
+  "MainPage": {
+    "heading": "인기 레스토랑",
+
+    "sortBy": "정렬 기준",
+    "whichShow": "먼저 보여줄 것은?",
+    "trustOne": "추천순",
+    "ratingOne": "평점 높은순",
+    "fastOne": "빠른순",
+    "budgetOne": "저렴한순",
+    "expensiveOne": "비싼순",
+    "average": "평균",
+
+    "phone": "전화",
+    "email": "이메일",
+    "address": "주소",
+    "workingHours": "영업시간",
+    "about": "소개",
+    "advertisement": "광고",
+    "collab": "제휴",
+    "feedback": "피드백 남기기",
+    "rights": "All rights reserved"
+  },
+
+  "RestaurantPage": {
+    "menu": "메뉴",
+    "currentRestaurant": "현재 레스토랑",
+    "changeRestaurant1": "이전에 추가한 모든 요리가",
+    "changeRestaurant2": "장바구니에서 삭제됩니다.",
+    "freeDeliveryAfter": "{price}원 이상 주문 시 무료 배달"
+  },
+
+  "BucketForm": {
+    "fillForm": "양식을 작성하세요",
+    "district": "구/동 *",
+    "houseNumber": "건물 번호 *",
+    "kw": "호수 *",
+    "phoneNumber": "전화번호 *",
+    "entrance": "동",
+    "leaveComment": "배달기사님께 메모 (도로명 등)",
+    "deliveryTime": "배달 시간",
+    "chooseAddress": "주소 선택",
+    "addNewAddress": "새 주소 추가",
+    "createNewAddress": "새 주소 만들기"
+  },
+
+  "BucketPage": {
+    "orders": "주문 내역",
+    "tools": "수저",
+    "summary": "합계",
+    "price": "상품 금액",
+    "totalPrice": "총 금액",
+    "submit": "확인 후 주문하기",
+    "menuReturn": "레스토랑 목록으로 돌아가기",
+    "clearTrash": "장바구니 비우기",
+    "yesClear": "비우기",
+    "noClear": "아니요, 유지",
+    "restaurantComment": "레스토랑 요청사항",
+    "restaurantCommentPlaceholder": "주문에 대한 요청사항을 적어주세요..."
+  },
+
+  "ProfilePage": {
+    "yourProfile": "내 프로필",
+    "yourName": "이름",
+    "phoneNumber": "전화번호",
+    "deliveryAddress": "배달 주소",
+    "yourEmail": "이메일",
+    "chooseAddress": "배달 주소 선택",
+    "history": "주문 내역",
+    "info": "프로필에서 주문 내역과 현재 상태를 확인할 수 있습니다. '상태' 열에서 진행 상황을 추적할 수 있습니다. 정보는 실시간으로 업데이트됩니다.",
+    "emptyHistory": "아직 주문 내역이 없습니다",
+    "restaurantName": "레스토랑명",
+    "dishesName": "요리명",
+    "price": "가격",
+    "deliveryType": "주문 유형",
+    "orderTime": "주문 시간",
+    "status": "상태",
+    "changeAddressSettings": "주소 설정 변경",
+    "city": "도시",
+    "houseNumber": "건물 *",
+    "appartmentOffice": "호수 *",
+
+    "dishTitle": "요리명"
+  },
+
+  "Status": {
+    "pending": "대기 중",
+    "recieved": "접수됨",
+    "sended": "배송 중",
+    "delivered": "배달 완료",
+    "rejected": "거절됨"
+  },
+
+  "Placeholder": {
+    "email": "이메일을 입력하세요",
+    "password": "비밀번호",
+    "name": "이름을 입력하세요",
+    "phone": "전화번호를 입력하세요",
+    "enterDistrict": "구/동을 입력하세요",
+    "enterCity": "도시를 입력하세요",
+    "enterHouseNumber": "건물 번호를 입력하세요",
+    "enterAppartmentOffice": "호수를 입력하세요"
+  },
+
+  "Categories": {
+    "all": "전체",
+    "burgers": "버거",
+    "sushi": "초밥",
+    "pasta": "파스타",
+    "breakfasts": "아침",
+    "lunches": "점심",
+    "dinner": "저녁"
+  },
+
+  "KakaoAddress": {
+    "searchAddress": "주소 검색",
+    "confirmLocation": "위치 확인",
+    "adjustMarker": "마커를 드래그하여 위치를 조정하세요",
+    "enterDetail": "상세 주소 입력",
+    "alias": "주소 별칭 (선택사항)",
+    "aliasPlaceholder": "집, 회사 등",
+    "detailPlaceholder": "층, 호수 등",
+    "setDefault": "기본 주소로 설정",
+    "saveForFuture": "다음 주문을 위해 주소 저장",
+    "save": "주소 저장",
+    "back": "뒤로",
+    "confirm": "확인",
+    "step": "단계"
+  },
+
+  "Zod": {
+    "invalidEmail": "유효한 이메일을 입력해주세요.",
+    "invalidPassLength": "비밀번호는 8자 이상이어야 합니다.",
+
+    "invalidUsername": "이름은 4자 이상이어야 합니다.",
+    "invalidPhone": "전화번호 마지막 8자리",
+
+    "invalidKakaoAddress": "유효한 주소를 선택해주세요",
+    "invalidAddress": "배달 도시를 선택하세요",
+    "invalidDistrict": "배달 지역을 입력하세요",
+    "invalidHome": "건물 번호를 입력하세요",
+    "invalidApartment": "호수를 입력하세요",
+    "invalidEntrance": "동을 입력하세요 (해당되는 경우)",
+    "invalidComment": "배달기사님이 찾기 쉽도록 메모를 남겨주세요"
+  },
+
+  "Errors": {
+    "somethingWentWrong": "문제가 발생했습니다..."
+  },
+
+  "Actions": {
+    "logoutUser": "로그아웃 완료",
+    "maxAvailableAmount": "최대 수량을 추가했습니다.",
+    "maxAddressesReached": "최대 4개의 주소만 저장할 수 있습니다. 기존 주소를 먼저 삭제해주세요.",
+    "errorOccurred": "오류가 발생했습니다. 다시 시도해주세요.",
+    "noDeliveryAvailable": "현재 이 레스토랑은 배달 서비스를 제공하지 않습니다.",
+    "loginToAddAddresses": "배달 주소를 선택하려면 로그인해주세요.",
+    "loginToOrder": "주문하려면 로그인이 필요합니다.",
+    "chooseRestaurant": "레스토랑을 선택해주세요",
+    "successOrder": "주문이 완료되었습니다. 담당자가 확인을 위해 연락드릴 수 있습니다",
+    "successAddress": "새 주소가 추가되었습니다",
+    "cooperation": "감사합니다. 곧 연락드리겠습니다",
+    "feedback": "피드백 감사합니다.",
+    "closedRestaurant": "이 레스토랑은 현재 영업 중이 아닙니다. 다른 곳을 선택해주세요.",
+    "notFound": "검색 결과가 없습니다",
+    "restaurantNotFound": "문제가 발생했습니다. 이 레스토랑이 폐업했을 수 있습니다.",
+    "returnToMain": "메인 페이지로 돌아가기"
+  },
+
+  "Footer": {
+    "coopHeading": "제휴",
+    "coopSubHead": "가게를 확장하고 새로운 고객을 유치하고 싶으신가요? 신청하시면 곧 연락드리겠습니다.",
+    "coopTellAbout": "가게에 대해 간략히 소개하고 주소를 알려주세요 *",
+    "coopRestriction": "참고: 현재 저희 플랫폼은 투르크메나바트 시에서만 이용 가능합니다.",
+    "coopSend": "신청하기",
+
+    "feedbackHeading": "서비스 피드백 보내기",
+    "feedbackSubHeading": "저희 서비스에 관심을 가져주시고 개선에 도움을 주셔서 감사합니다!",
+    "feedbackSend": "신청하기",
+    "feedbackTitle": "문제를 설명해주세요",
+    "feedbackPlaceholder": "피드백을 보내시는 이유를 알려주세요"
+  }
+}

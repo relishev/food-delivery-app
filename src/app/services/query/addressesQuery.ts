@@ -4,9 +4,21 @@ mutation UpdateUser ($id: String!, $userData: mutationUserUpdateInput!) {
     id
     phone
     addresses {
-      district,
+      alias
+      isDefault
+      fullAddress
+      roadAddress
+      jibunAddress
+      zonecode
+      latitude
+      longitude
+      buildingName
+      addressDetail
+      district
       houseNumber
       apartment
+      entrance
+      city
     }
   }
 }

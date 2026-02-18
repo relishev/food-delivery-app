@@ -21,6 +21,11 @@ export interface Config {
     media: Media;
     categories: Category;
     FeedbackAndCooperations: FeedbackAndCooperation;
+    'delivery-origins': DeliveryOrigin;
+    'distance-tiers': DistanceTier;
+    'shipping-providers': ShippingProvider;
+    'shipping-quotes': ShippingQuote;
+    'shipping-bookings': ShippingBooking;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -36,6 +41,11 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     FeedbackAndCooperations: FeedbackAndCooperationsSelect<false> | FeedbackAndCooperationsSelect<true>;
+    'delivery-origins': DeliveryOriginsSelect<false> | DeliveryOriginsSelect<true>;
+    'distance-tiers': DistanceTiersSelect<false> | DistanceTiersSelect<true>;
+    'shipping-providers': ShippingProvidersSelect<false> | ShippingProvidersSelect<true>;
+    'shipping-quotes': ShippingQuotesSelect<false> | ShippingQuotesSelect<true>;
+    'shipping-bookings': ShippingBookingsSelect<false> | ShippingBookingsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -106,6 +116,7 @@ export interface Restaurant {
   deliveryTime: '30' | '45' | '60' | '90' | '120';
   deliveryPrice: number;
   freeAfterAmount?: number | null;
+  enabledShippingProviders?: (string | ShippingProvider)[] | null;
   workingHours: {
     openTime: '0700' | '0730' | '0800' | '0830' | '0900' | '0930' | '1000' | '1030' | '1100' | '1130' | '1200';
     closeTime: '1900' | '1930' | '2000' | '2030' | '2100' | '2130' | '2200' | '2230' | '2300' | '2330' | '2400';
@@ -119,6 +130,28 @@ export interface Restaurant {
   isBlocked?: boolean | null;
   relatedToUser: string | Customer;
   cities?: (string | City)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-providers".
+ */
+export interface ShippingProvider {
+  id: string;
+  restaurantId: string | Restaurant;
+  providerType: 'distance' | 'manual' | 'baemin' | 'coupang' | 'yogiyo';
+  isEnabled?: boolean | null;
+  priority: number;
+  config?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -214,10 +247,31 @@ export interface Order {
   apartment: string;
   houseNumber: string;
   entrance?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  fullAddress?: string | null;
   phoneNumber: number;
   orderStatus?: ('pending' | 'recieved' | 'sended' | 'delivered' | 'rejected') | null;
   totalAmount?: number | null;
   deliveryPrice?: string | null;
+  shippingQuoteId?: string | null;
+  shippingProvider?: string | null;
+  shippingBookingId?: string | null;
+  shippingStatus?:
+    | (
+        | 'pending'
+        | 'quoted'
+        | 'pending_manual'
+        | 'awaiting_customer_response'
+        | 'confirmed'
+        | 'cancelled_timeout'
+        | 'cancelled_by_customer'
+        | 'in_progress'
+        | 'delivered'
+      )
+    | null;
+  scheduledDeliveryTime?: string | null;
+  deliveryOriginId?: string | null;
   restaurantName?: string | null;
   commentToCourier?: string | null;
   commentToRestaurant?: string | null;
@@ -249,6 +303,16 @@ export interface User {
         apartment: string;
         houseNumber: string;
         entrance?: string | null;
+        alias?: string | null;
+        isDefault?: boolean | null;
+        fullAddress?: string | null;
+        roadAddress?: string | null;
+        jibunAddress?: string | null;
+        zonecode?: string | null;
+        latitude?: number | null;
+        longitude?: number | null;
+        buildingName?: string | null;
+        addressDetail?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -274,6 +338,98 @@ export interface FeedbackAndCooperation {
   phoneNumber?: string | null;
   description: string;
   type: 'cooperation' | 'feedback';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "delivery-origins".
+ */
+export interface DeliveryOrigin {
+  id: string;
+  restaurantId: string | Restaurant;
+  name: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  operatingHours?:
+    | {
+        day: number;
+        open: string;
+        close: string;
+        id?: string | null;
+      }[]
+    | null;
+  maxCapacity: number;
+  currentLoad?: number | null;
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "distance-tiers".
+ */
+export interface DistanceTier {
+  id: string;
+  restaurantId: string | Restaurant;
+  minDistanceKm: number;
+  maxDistanceKm: number;
+  price: number;
+  estimatedMinutes: number;
+  freeAfterAmount?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-quotes".
+ */
+export interface ShippingQuote {
+  id: string;
+  quoteId: string;
+  providerId: string;
+  providerName: string;
+  providerType?: ('distance' | 'manual' | 'external') | null;
+  price: number;
+  estimatedMinutes?: number | null;
+  validUntil: string;
+  restaurantId: string;
+  customerId: string;
+  request?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  metadata?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-bookings".
+ */
+export interface ShippingBooking {
+  id: string;
+  bookingId: string;
+  quoteId: string;
+  orderId: string | Order;
+  providerId: string;
+  status: 'pending' | 'confirmed' | 'in_progress' | 'delivered' | 'cancelled';
+  trackingUrl?: string | null;
+  externalBookingId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -319,6 +475,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'FeedbackAndCooperations';
         value: string | FeedbackAndCooperation;
+      } | null)
+    | ({
+        relationTo: 'delivery-origins';
+        value: string | DeliveryOrigin;
+      } | null)
+    | ({
+        relationTo: 'distance-tiers';
+        value: string | DistanceTier;
+      } | null)
+    | ({
+        relationTo: 'shipping-providers';
+        value: string | ShippingProvider;
+      } | null)
+    | ({
+        relationTo: 'shipping-quotes';
+        value: string | ShippingQuote;
+      } | null)
+    | ({
+        relationTo: 'shipping-bookings';
+        value: string | ShippingBooking;
       } | null);
   globalSlug?: string | null;
   user:
@@ -383,6 +559,7 @@ export interface RestaurantsSelect<T extends boolean = true> {
   deliveryTime?: T;
   deliveryPrice?: T;
   freeAfterAmount?: T;
+  enabledShippingProviders?: T;
   workingHours?:
     | T
     | {
@@ -411,10 +588,19 @@ export interface OrdersSelect<T extends boolean = true> {
   apartment?: T;
   houseNumber?: T;
   entrance?: T;
+  latitude?: T;
+  longitude?: T;
+  fullAddress?: T;
   phoneNumber?: T;
   orderStatus?: T;
   totalAmount?: T;
   deliveryPrice?: T;
+  shippingQuoteId?: T;
+  shippingProvider?: T;
+  shippingBookingId?: T;
+  shippingStatus?: T;
+  scheduledDeliveryTime?: T;
+  deliveryOriginId?: T;
   restaurantName?: T;
   commentToCourier?: T;
   commentToRestaurant?: T;
@@ -472,6 +658,16 @@ export interface UsersSelect<T extends boolean = true> {
         apartment?: T;
         houseNumber?: T;
         entrance?: T;
+        alias?: T;
+        isDefault?: T;
+        fullAddress?: T;
+        roadAddress?: T;
+        jibunAddress?: T;
+        zonecode?: T;
+        latitude?: T;
+        longitude?: T;
+        buildingName?: T;
+        addressDetail?: T;
         id?: T;
       };
   roles?: T;
@@ -543,6 +739,91 @@ export interface FeedbackAndCooperationsSelect<T extends boolean = true> {
   phoneNumber?: T;
   description?: T;
   type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "delivery-origins_select".
+ */
+export interface DeliveryOriginsSelect<T extends boolean = true> {
+  restaurantId?: T;
+  name?: T;
+  address?: T;
+  latitude?: T;
+  longitude?: T;
+  operatingHours?:
+    | T
+    | {
+        day?: T;
+        open?: T;
+        close?: T;
+        id?: T;
+      };
+  maxCapacity?: T;
+  currentLoad?: T;
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "distance-tiers_select".
+ */
+export interface DistanceTiersSelect<T extends boolean = true> {
+  restaurantId?: T;
+  minDistanceKm?: T;
+  maxDistanceKm?: T;
+  price?: T;
+  estimatedMinutes?: T;
+  freeAfterAmount?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-providers_select".
+ */
+export interface ShippingProvidersSelect<T extends boolean = true> {
+  restaurantId?: T;
+  providerType?: T;
+  isEnabled?: T;
+  priority?: T;
+  config?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-quotes_select".
+ */
+export interface ShippingQuotesSelect<T extends boolean = true> {
+  quoteId?: T;
+  providerId?: T;
+  providerName?: T;
+  providerType?: T;
+  price?: T;
+  estimatedMinutes?: T;
+  validUntil?: T;
+  restaurantId?: T;
+  customerId?: T;
+  request?: T;
+  metadata?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "shipping-bookings_select".
+ */
+export interface ShippingBookingsSelect<T extends boolean = true> {
+  bookingId?: T;
+  quoteId?: T;
+  orderId?: T;
+  providerId?: T;
+  status?: T;
+  trackingUrl?: T;
+  externalBookingId?: T;
   updatedAt?: T;
   createdAt?: T;
 }

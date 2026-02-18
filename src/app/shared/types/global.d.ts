@@ -30,10 +30,30 @@ interface RestaurantWithDishesInfo {
 }
 
 type AddressData = {
+  // User-facing
+  alias?: string;
+  isDefault?: boolean;
+
+  // Korean address standards
+  fullAddress?: string;
+  roadAddress?: string;
+  jibunAddress?: string;
+  zonecode?: string;
+
+  // Coordinates
+  latitude?: number;
+  longitude?: number;
+
+  // Building details
+  buildingName?: string;
+  addressDetail?: string;
+
+  // Legacy (for backward compatibility)
+  city?: string;
   district: string;
   houseNumber: string;
   apartment: string;
-  city?: string;
+  entrance?: string;
 };
 
 type City = { id: string; title: string };

@@ -1,4 +1,4 @@
-import { bucketFormScheme, loginScheme, profileFormScheme, registerScheme, addressFormScheme } from "../shared/lib/zod";
+import { bucketFormScheme, loginScheme, profileFormScheme, registerScheme, addressFormScheme, kakaoAddressScheme } from "../shared/lib/zod";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -86,4 +86,22 @@ export const useCreateAddressFormScheme = () => {
   });
 
   return { form };
+};
+
+export const useKakaoAddressFormScheme = () => {
+  const t = useTranslations();
+  const formSchema = kakaoAddressScheme(t);
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      alias: "",
+      isDefault: false,
+      fullAddress: "",
+      addressDetail: "",
+      latitude: 0,
+      longitude: 0,
+    },
+  });
+
+  return { form, kakaoAddressScheme: formSchema };
 };

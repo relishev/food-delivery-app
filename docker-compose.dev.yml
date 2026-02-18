@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      target: dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Hot-swap: mount source code for live edits without rebuild
+      - ./src:/app/src:cached
+      - ./locales:/app/locales:cached
+      - ./public:/app/public:cached
+      # Mount config files that might change
+      - ./next.config.mjs:/app/next.config.mjs:cached
+      - ./tailwind.config.ts:/app/tailwind.config.ts:cached
+      - ./tsconfig.json:/app/tsconfig.json:cached
+      # Persist node_modules in named volume (faster than bind mount on Windows/WSL)
+      - node_modules:/app/node_modules
+      # Persist .next cache for faster restarts
+      - next_cache:/app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
+      # Enable polling for Windows/WSL file watching
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      # Payload CMS config
+      - DATABASE_URI=mongodb://mongo:27017/food-delivery
+      - PAYLOAD_SECRET=dev-secret-change-in-production
+      # Kakao Maps (optional - set in .env.local or here)
+      - NEXT_PUBLIC_KAKAO_JS_KEY=${NEXT_PUBLIC_KAKAO_JS_KEY:-}
+    depends_on:
+      mongo:
+        condition: service_started
+    # Healthcheck for the app
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    command: --storageEngine=wiredTiger
+    # Suppress verbose MongoDB logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  node_modules:
+    name: food-delivery-node-modules
+  next_cache:
+    name: food-delivery-next-cache
+  mongo_data:
+    name: food-delivery-mongo-data

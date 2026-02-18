@@ -188,6 +188,8 @@
   "Actions": {
     "logoutUser": "Üstünlikli çykyş",
     "maxAvailableAmount": "Elýeterli önümiň iň köp mukdaryny goşduňyz.",
+    "maxAddressesReached": "Iň köp 4 salgy goşup bolýar. Ilki bar bolan salgyňyzy pozuň.",
+    "errorOccurred": "Ýalňyşlyk boldy. Täzeden synanyşyň.",
     "noDeliveryAvailable": "Häzirki wagtda bu restoranda dostawka ýok.",
     "loginToAddAddresses": "Öz salgylaryňyzy görmek ücin profiliňize girmegiňizi haýyş edýäris.",
     "loginToOrder": "Sargyt etmek üçin sistema girmegiňizi haýyş edýäris.",

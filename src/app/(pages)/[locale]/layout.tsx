@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
 import { routing } from "@/i18n/routing";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 
 //widgets
 import TailwindIndicator from "@/app/components/tailwind-indicator/tailwind-indicator";
@@ -44,6 +45,14 @@ export default async function RootLayout({ children, params }: Props) {
 
   return (
     <html lang={locale || "en"}>
+      <head>
+        {process.env.NEXT_PUBLIC_KAKAO_JS_KEY && (
+          <Script
+            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_JS_KEY}&libraries=services&autoload=false`}
+            strategy="beforeInteractive"
+          />
+        )}
+      </head>
       <body className={`${inter.className} antialiased`}>
         <JotaiProvider>
           <NextIntlClientProvider messages={messages}>
@@ -51,7 +60,7 @@ export default async function RootLayout({ children, params }: Props) {
               <Header />
               <Sidebar />
               <NextTopLoader
-                color="#FBDB65"
+                color="#f5821f"
                 showSpinner={false}
                 speed={300}
                 zIndex={3000}

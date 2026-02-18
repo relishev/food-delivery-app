@@ -1,4 +1,6 @@
 import type { CollectionConfig } from "payload";
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 import { admins } from "../utils/access/admins";
 import { checkRole } from "../utils/access/checkRole";
@@ -90,6 +92,32 @@ const Orders: CollectionConfig = {
       },
     },
     {
+      name: "latitude",
+      label: "Latitude",
+      type: "number",
+      admin: {
+        readOnly: true,
+        position: "sidebar",
+      },
+    },
+    {
+      name: "longitude",
+      label: "Longitude",
+      type: "number",
+      admin: {
+        readOnly: true,
+        position: "sidebar",
+      },
+    },
+    {
+      name: "fullAddress",
+      label: "Full address",
+      type: "text",
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
       name: "phoneNumber",
       label: "Phone number",
       required: true,
@@ -157,6 +185,62 @@ const Orders: CollectionConfig = {
       admin: {
         position: "sidebar",
         readOnly: true,
+      },
+    },
+    // Shipping integration fields
+    {
+      name: "shippingQuoteId",
+      type: "text",
+      admin: {
+        description: "Selected shipping quote ID",
+      },
+    },
+    {
+      name: "shippingProvider",
+      type: "text",
+      admin: {
+        description: "Provider type (distance, manual, external)",
+      },
+    },
+    {
+      name: "shippingBookingId",
+      type: "text",
+      admin: {
+        description: "Booking ID for external providers",
+      },
+    },
+    {
+      name: "shippingStatus",
+      type: "select",
+      defaultValue: "pending",
+      options: [
+        { label: "Pending", value: "pending" },
+        { label: "Quote Selected", value: "quoted" },
+        { label: "Pending Manual Price", value: "pending_manual" },
+        { label: "Awaiting Customer Response", value: "awaiting_customer_response" },
+        { label: "Confirmed", value: "confirmed" },
+        { label: "Cancelled (Timeout)", value: "cancelled_timeout" },
+        { label: "Cancelled by Customer", value: "cancelled_by_customer" },
+        { label: "In Progress", value: "in_progress" },
+        { label: "Delivered", value: "delivered" },
+      ],
+      admin: {
+        description: "Shipping lifecycle status",
+      },
+    },
+    {
+      name: "scheduledDeliveryTime",
+      type: "date",
+      admin: {
+        date: { pickerAppearance: "dayAndTime" },
+        description: "Scheduled delivery time (if not ASAP)",
+      },
+    },
+    {
+      name: "deliveryOriginId",
+      type: "text",
+      admin: {
+        description: "Which delivery origin fulfilled this order",
       },
     },
     {
@@ -309,12 +393,54 @@ const Orders: CollectionConfig = {
           return { dish: dish.id, quantity };
         });
 
-        const deliveryPrice = totalAmount > (restaurant.freeAfterAmount || 0) ? 0 : restaurant.deliveryPrice;
+        // Default delivery price calculation (backward compatibility)
+        const defaultDeliveryPrice = totalAmount > (restaurant.freeAfterAmount || 0) ? 0 : restaurant.deliveryPrice;
 
         data.dishes = findAndCountDishes;
         data.totalAmount = totalAmount;
-        data.deliveryPrice = deliveryPrice;
         data.restaurantName = restaurant.title || "Restaurant name not found...";
+
+        // If shippingQuoteId is provided, validate and use quote price
+        if (data.shippingQuoteId) {
+          const payload = await getPayload({ config });
+          const quote = await payload.find({
+            collection: "shipping-quotes",
+            where: { quoteId: { equals: data.shippingQuoteId } },
+            limit: 1,
+          });
+
+          if (quote.docs.length > 0) {
+            const quoteData = quote.docs[0];
+
+            // Check quote not expired
+            if (new Date(quoteData.validUntil) < new Date()) {
+              throw new Error("Shipping quote has expired");
+            }
+
+            // Use quote price (unless it's manual pending with -1)
+            if (quoteData.price >= 0) {
+              data.deliveryPrice = quoteData.price;
+            } else {
+              // Manual pending - keep default or set to null
+              data.deliveryPrice = null;
+            }
+
+            // Set shipping status based on provider type
+            if (quoteData.providerId === "manual" || quoteData.providerType === "manual") {
+              data.shippingStatus = quoteData.price === -1 ? "pending_manual" : "quoted";
+            } else {
+              data.shippingStatus = "quoted";
+            }
+
+            data.shippingProvider = quoteData.providerId;
+          } else {
+            // Quote not found - use default pricing
+            data.deliveryPrice = defaultDeliveryPrice;
+          }
+        } else {
+          // No shipping quote - use default pricing (backward compatibility)
+          data.deliveryPrice = defaultDeliveryPrice;
+        }
       },
     ],
   },

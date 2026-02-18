@@ -16,7 +16,7 @@ const PopoverContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & { isCover?: boolean }
 >(({ className, align = "center", sideOffset = 4, isCover = false, ...props }, ref) => (
   <PopoverPrimitive.Portal>
-    <>
+    <React.Fragment>
       <PopoverPrimitive.Content
         ref={ref}
         align={align}
@@ -28,8 +28,8 @@ const PopoverContent = React.forwardRef<
         {...props}
       />
 
-      {isCover && <div className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-bg-cover"></div>}
-    </>
+      {isCover ? <div className="fixed bottom-0 left-0 right-0 top-0 z-50 bg-bg-cover"></div> : null}
+    </React.Fragment>
   </PopoverPrimitive.Portal>
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;

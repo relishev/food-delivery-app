@@ -16,6 +16,7 @@ export const useGetRestaurantsQuery = (
     queryKey: ["restaurants", { sortBy, query, tag }],
 
     queryFn: async ({ pageParam = 1 }) => {
+      console.log('[DEBUG] Fetching restaurants...', { pageParam, sortBy, query });
       const { data } = await axios({
         data: {
           query: RESTAURANTS,
@@ -23,6 +24,7 @@ export const useGetRestaurantsQuery = (
           variables: { limit: DEFAULT_LIMIT, pageParam, sortBy, query },
         },
       });
+      console.log('[DEBUG] Restaurants response:', data.data.Restaurants.docs?.length, 'items');
       return await data.data.Restaurants.docs;
     },
     initialData: initialData ? { pageParams: [], pages: [initialData] } : undefined,

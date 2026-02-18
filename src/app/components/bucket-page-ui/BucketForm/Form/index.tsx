@@ -14,11 +14,14 @@ interface Props {
 
 const Index: FC<Props> = ({ form, t }) => {
   const handleAddress = (address: AddressData) => {
-    const { district, houseNumber, apartment } = address;
+    const { district, houseNumber, apartment, latitude, longitude, fullAddress } = address;
 
     form.setValue("district", district);
     form.setValue("houseNumber", houseNumber);
     form.setValue("apartment", apartment);
+    if (latitude !== undefined) form.setValue("latitude", latitude);
+    if (longitude !== undefined) form.setValue("longitude", longitude);
+    if (fullAddress) form.setValue("fullAddress", fullAddress);
   };
 
   return (

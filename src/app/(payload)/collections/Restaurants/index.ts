@@ -96,6 +96,15 @@ const Restaurants: CollectionConfig = {
       required: false,
       type: "number",
     },
+    {
+      name: "enabledShippingProviders",
+      type: "relationship",
+      relationTo: "shipping-providers",
+      hasMany: true,
+      admin: {
+        description: "Enabled shipping providers for this restaurant",
+      },
+    },
     //open times close times
     {
       name: "workingHours",

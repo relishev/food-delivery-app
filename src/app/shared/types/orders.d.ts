@@ -15,6 +15,9 @@ interface OrderData {
   commentToRestaurant?: string;
   entrance?: string;
   city?: string;
+  latitude?: number;
+  longitude?: number;
+  fullAddress?: string;
 }
 
 interface OrderResponse {
@@ -56,4 +59,7 @@ interface OrderForm {
   entrance?: string;
   commentToCourier?: string;
   commentToRestaurant?: string;
+  latitude?: number;
+  longitude?: number;
+  fullAddress?: string;
 }

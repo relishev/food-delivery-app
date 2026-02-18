@@ -166,6 +166,22 @@
     "dinner": "Dinner"
   },
 
+  "KakaoAddress": {
+    "searchAddress": "Search address",
+    "confirmLocation": "Confirm location",
+    "adjustMarker": "Drag the marker to adjust location",
+    "enterDetail": "Enter detail address",
+    "alias": "Address name (optional)",
+    "aliasPlaceholder": "Home, Office, etc.",
+    "detailPlaceholder": "Floor, unit number, etc.",
+    "setDefault": "Set as default address",
+    "saveForFuture": "Save this address for future orders",
+    "save": "Save address",
+    "back": "Back",
+    "confirm": "Confirm",
+    "step": "Step"
+  },
+
   "Zod": {
     "invalidEmail": "Please enter a valid email.",
     "invalidPassLength": "Password must be at least 8 characters long.",
@@ -173,6 +189,7 @@
     "invalidUsername": "Name must be at least 4 characters.",
     "invalidPhone": "Last 8 characters of the phone number",
 
+    "invalidKakaoAddress": "Please select a valid address",
     "invalidAddress": "Select your delivery city",
     "invalidDistrict": "Enter your delivery district",
     "invalidHome": "Enter your house number",
@@ -188,6 +205,8 @@
   "Actions": {
     "logoutUser": "Successfully logged out",
     "maxAvailableAmount": "You've added the maximum available amount.",
+    "maxAddressesReached": "Maximum of 4 addresses allowed. Please delete an existing address first.",
+    "errorOccurred": "An error occurred. Please try again.",
     "noDeliveryAvailable": "Currently, this restaurant does not provide delivery.",
     "loginToAddAddresses": "Please log in to select your delivery addresses.",
     "loginToOrder": "Authorization is required to place an order.",

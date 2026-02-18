@@ -1,0 +1,39 @@
+# Dependencies - use named volume instead
+node_modules
+
+# Build output - use named volume for cache
+.next
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files (use docker-compose environment instead)
+.env
+.env.local
+.env*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test and documentation
+*.md
+!README.MD
+coverage
+.nyc_output
+
+# Husky (git hooks not needed in container)
+.husky
