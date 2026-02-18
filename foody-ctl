@@ -1,15 +1,13 @@
 #!/bin/bash
 # Script: foody-ctl
 # Created: 2026-02-18
-# Purpose: Management CLI for food-delivery-app Docker dev environment
-# Keywords: docker, dev, food-delivery, next.js, rebuild, cache
+# Purpose: Management CLI for food-delivery-app (dev + production foody7.com)
+# Keywords: docker, dev, food-delivery, next.js, rebuild, cache, deploy
 # Status: active
-# See-Also: docker-compose.dev.yml, Dockerfile.dev
-
-set -e
+# See-Also: docker-compose.dev.yml, docker-compose.prod.yml, Dockerfile
 
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-COMPOSE_FILE="$APP_DIR/docker-compose.dev.yml"
+COMPOSE_DEV="$APP_DIR/docker-compose.dev.yml"
 COMPOSE_PROD="$APP_DIR/docker-compose.prod.yml"
 APP_NAME="food-delivery-app"
 NEXT_CACHE_VOL="food-delivery-next-cache"
@@ -19,10 +17,14 @@ PROD_DIR="/opt/foody7"
 
 cd "$APP_DIR"
 
+# ─────────────────────────────────────────────
+# DEV COMMANDS
+# ─────────────────────────────────────────────
+
 _status() {
   echo ""
-  echo "=== $APP_NAME Status ==="
-  docker compose -f "$COMPOSE_FILE" ps 2>/dev/null
+  echo "=== $APP_NAME Dev Status ==="
+  docker compose -f "$COMPOSE_DEV" ps 2>/dev/null
   echo ""
 }
 
@@ -33,75 +35,57 @@ _logs() {
 
 _start() {
   echo "Starting $APP_NAME (dev)..."
-  DOCKER_BUILDKIT=1 docker compose -f "$COMPOSE_FILE" up -d
+  DOCKER_BUILDKIT=1 docker compose -f "$COMPOSE_DEV" up -d
   echo "Done. App: http://localhost:3000"
 }
 
 _stop() {
   echo "Stopping $APP_NAME..."
-  docker compose -f "$COMPOSE_FILE" stop
+  docker compose -f "$COMPOSE_DEV" stop
 }
 
 _restart() {
   echo "Restarting app container (no rebuild)..."
-  docker compose -f "$COMPOSE_FILE" restart app
+  docker compose -f "$COMPOSE_DEV" restart app
   echo "Done."
 }
 
 _rebuild() {
-  echo "Rebuilding $APP_NAME (full rebuild with BuildKit cache)..."
-  echo "  → Stopping containers..."
-  docker compose -f "$COMPOSE_FILE" stop app 2>/dev/null || true
+  echo "Rebuilding $APP_NAME (BuildKit cache, preserves node_modules)..."
+  docker compose -f "$COMPOSE_DEV" stop app 2>/dev/null || true
   docker rm "${APP_NAME}-app-1" 2>/dev/null || true
-
-  echo "  → Clearing Next.js cache volume..."
   docker volume rm "$NEXT_CACHE_VOL" 2>/dev/null || true
-
-  echo "  → Building image (BuildKit enabled, npm cache preserved)..."
-  DOCKER_BUILDKIT=1 docker compose -f "$COMPOSE_FILE" build \
-    --build-arg BUILDKIT_INLINE_CACHE=1 \
-    app
-
-  echo "  → Starting..."
-  docker compose -f "$COMPOSE_FILE" up -d
-
-  echo ""
+  DOCKER_BUILDKIT=1 docker compose -f "$COMPOSE_DEV" build \
+    --build-arg BUILDKIT_INLINE_CACHE=1 app
+  docker compose -f "$COMPOSE_DEV" up -d
   echo "Rebuild complete. App: http://localhost:3000"
-  echo "Watch logs: foody-ctl logs"
 }
 
 _hard_rebuild() {
   echo "HARD REBUILD: clearing ALL caches (node_modules + Next.js)..."
-  docker compose -f "$COMPOSE_FILE" stop 2>/dev/null || true
+  docker compose -f "$COMPOSE_DEV" stop 2>/dev/null || true
   docker rm "${APP_NAME}-app-1" 2>/dev/null || true
-
-  echo "  → Removing cache volumes..."
   docker volume rm "$NEXT_CACHE_VOL" 2>/dev/null && echo "  ✓ Next.js cache cleared" || true
   docker volume rm "$NODE_MODULES_VOL" 2>/dev/null && echo "  ✓ node_modules cleared" || true
-
-  echo "  → Rebuilding image from scratch (BuildKit, no cache)..."
-  DOCKER_BUILDKIT=1 docker compose -f "$COMPOSE_FILE" build --no-cache app
-
-  echo "  → Starting..."
-  docker compose -f "$COMPOSE_FILE" up -d
-
-  echo ""
+  DOCKER_BUILDKIT=1 docker compose -f "$COMPOSE_DEV" build --no-cache app
+  docker compose -f "$COMPOSE_DEV" up -d
   echo "Hard rebuild complete. App: http://localhost:3000"
 }
 
 _clear_next() {
   echo "Clearing Next.js cache only (fast)..."
-  docker compose -f "$COMPOSE_FILE" stop app 2>/dev/null || true
+  docker compose -f "$COMPOSE_DEV" stop app 2>/dev/null || true
   docker rm "${APP_NAME}-app-1" 2>/dev/null || true
-  docker volume rm "$NEXT_CACHE_VOL" 2>/dev/null && echo "✓ Next.js cache cleared" || echo "Volume not found (already clean)"
-  docker compose -f "$COMPOSE_FILE" up -d
-  echo "Done. Waiting for startup..."
+  docker volume rm "$NEXT_CACHE_VOL" 2>/dev/null \
+    && echo "✓ Next.js cache cleared" \
+    || echo "Volume not found (already clean)"
+  docker compose -f "$COMPOSE_DEV" up -d
+  echo "Done. Watching startup..."
 }
 
 _seed() {
   echo "Seeding database..."
   DATABASE_URI="mongodb://127.0.0.1:27017/food-delivery" npx tsx scripts/seed-shipping-data.ts
-  # Seed cities
   docker exec "${APP_NAME}-mongo-1" mongosh food-delivery --eval "
     db.cities.deleteMany({});
     db.cities.insertMany([
@@ -113,44 +97,123 @@ _seed() {
   echo "Done."
 }
 
-_deploy() {
-  echo "=== Deploying to foody7.com (kiberos.ai) ==="
-  cd "$APP_DIR"
+# ─────────────────────────────────────────────
+# GIT HELPERS
+# ─────────────────────────────────────────────
 
-  echo "  → Pushing to GitHub..."
+_git_push() {
+  local msg="${1:-foody7: update $(date +%Y-%m-%d)}"
   git add -A
-  git diff --cached --quiet && echo "  (no changes to commit)" || git commit -m "deploy: foody7 production update $(date +%Y-%m-%d)"
-  git push origin main
 
-  echo "  → Building and restarting on server..."
+  # Commit only if there are staged changes
+  if ! git diff --cached --quiet; then
+    git commit -m "$msg"
+    echo "  ✓ Committed"
+  else
+    echo "  (nothing to commit — already up to date)"
+  fi
+
+  # Push (no error if already up to date)
+  git push origin main && echo "  ✓ Pushed to GitHub" || true
+}
+
+# ─────────────────────────────────────────────
+# PRODUCTION COMMANDS
+# ─────────────────────────────────────────────
+
+_deploy() {
+  # Full deploy: commit + push → server pull → full rebuild → restart
+  echo "=== Deploy to foody7.com ==="
+  echo ""
+
+  echo "[1/3] Git push..."
+  _git_push "${2:-foody7: deploy $(date +%Y-%m-%d_%H:%M)}"
+
+  echo ""
+  echo "[2/3] Building on server (BuildKit cache)..."
   ssh "$PROD_SERVER" "
     set -e
     cd $PROD_DIR
     git pull origin main
-    echo '  → Building Docker image (this takes a few minutes)...'
-    DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml build --build-arg BUILDKIT_INLINE_CACHE=1
-    echo '  → Restarting containers...'
-    docker compose -f docker-compose.prod.yml up -d
-    echo '  → Status:'
-    docker compose -f docker-compose.prod.yml ps
+    DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml build \
+      --build-arg BUILDKIT_INLINE_CACHE=1
   "
+
   echo ""
-  echo "Deploy complete! https://foody7.com"
+  echo "[3/3] Restarting containers (zero downtime)..."
+  ssh "$PROD_SERVER" "
+    cd $PROD_DIR
+    docker compose -f docker-compose.prod.yml up -d
+  "
+
+  echo ""
+  echo "============================"
+  echo "Deploy complete: https://foody7.com"
+  echo ""
+  _prod_status
+}
+
+_prod_rebuild() {
+  # Force full rebuild on server (clears BuildKit cache)
+  echo "=== Production FULL REBUILD (no cache) ==="
+  _git_push "foody7: deploy $(date +%Y-%m-%d_%H:%M)"
+  ssh "$PROD_SERVER" "
+    set -e
+    cd $PROD_DIR
+    git pull origin main
+    docker compose -f docker-compose.prod.yml stop foody7-app || true
+    DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml build --no-cache
+    docker compose -f docker-compose.prod.yml up -d
+  "
+  echo "Full rebuild complete: https://foody7.com"
 }
 
 _prod_status() {
-  ssh "$PROD_SERVER" "docker compose -f $PROD_DIR/docker-compose.prod.yml ps" 2>&1
+  echo "=== foody7.com Production Status ==="
+  ssh "$PROD_SERVER" "
+    docker compose -f $PROD_DIR/docker-compose.prod.yml ps
+    echo ''
+    echo 'Volumes:'
+    docker volume inspect foody7-mongo-data --format '  mongo-data: {{.Mountpoint}} ({{.Driver}})' 2>/dev/null || true
+  "
 }
 
 _prod_logs() {
   local lines="${1:-50}"
-  ssh "$PROD_SERVER" "docker logs foody7-app --tail=$lines -f" 2>&1
+  ssh "$PROD_SERVER" "docker logs foody7-app --tail=$lines -f"
 }
 
 _prod_restart() {
-  echo "Restarting production containers (no rebuild)..."
-  ssh "$PROD_SERVER" "docker compose -f $PROD_DIR/docker-compose.prod.yml restart foody7-app"
-  echo "Done."
+  echo "Restarting foody7-app (no rebuild)..."
+  ssh "$PROD_SERVER" "
+    docker compose -f $PROD_DIR/docker-compose.prod.yml restart foody7-app
+    sleep 3
+    docker compose -f $PROD_DIR/docker-compose.prod.yml ps foody7-app
+  "
+}
+
+_prod_seed() {
+  echo "Seeding production database..."
+  ssh "$PROD_SERVER" "
+    docker exec foody7-mongo mongosh food-delivery --eval \"
+      db.cities.deleteMany({});
+      db.cities.insertMany([
+        {title: 'Seoul'}, {title: 'Busan'}, {title: 'Incheon'},
+        {title: 'Daegu'}, {title: 'Daejeon'}
+      ]);
+      print('Cities seeded: ' + db.cities.countDocuments());
+    \"
+  "
+}
+
+_prod_db_backup() {
+  local timestamp
+  timestamp=$(date +%Y%m%d_%H%M%S)
+  local backup_file="/tmp/foody7-backup-$timestamp.gz"
+  echo "Backing up production MongoDB to $backup_file ..."
+  ssh "$PROD_SERVER" "docker exec foody7-mongo mongodump --db=food-delivery --archive --gzip" \
+    > "$backup_file"
+  echo "  ✓ Backup saved: $backup_file ($(du -sh "$backup_file" | cut -f1))"
 }
 
 _help() {
@@ -160,27 +223,35 @@ _help() {
   echo "Dev commands:"
   echo "  start        Start dev containers"
   echo "  stop         Stop containers"
-  echo "  restart      Restart app container (no rebuild)"
-  echo "  rebuild      Rebuild image + clear Next.js cache (preserves node_modules)"
-  echo "  hard-rebuild Rebuild everything from scratch (clears node_modules too)"
-  echo "  clear-next   Clear Next.js cache only, restart"
-  echo "  seed         Seed database (shipping data + Korean cities)"
-  echo "  logs [N]     Tail app logs (default: 50 lines)"
-  echo "  status       Show container status"
+  echo "  restart      Restart app (no rebuild)"
+  echo "  rebuild      Rebuild image + clear Next.js cache (BuildKit, keeps node_modules)"
+  echo "  hard-rebuild Rebuild everything from scratch"
+  echo "  clear-next   Clear Next.js cache only, fast restart"
+  echo "  seed         Seed dev database"
+  echo "  logs [N]     Tail dev logs (default: 50)"
+  echo "  status       Show dev container status"
   echo ""
-  echo "Production commands:"
-  echo "  deploy       Push to GitHub + build + restart on foody7.com"
-  echo "  prod-status  Show production container status"
-  echo "  prod-logs    Tail production app logs"
-  echo "  prod-restart Restart production app (no rebuild)"
+  echo "Production commands (foody7.com):"
+  echo "  deploy [msg]  git push + server pull + BuildKit rebuild + restart"
+  echo "  prod-rebuild  Full rebuild (no BuildKit cache, for dependency changes)"
+  echo "  prod-restart  Restart app container only (no rebuild)"
+  echo "  prod-status   Show production container + volume status"
+  echo "  prod-logs [N] Tail production logs (default: 50)"
+  echo "  prod-seed     Seed production database (cities)"
+  echo "  prod-backup   Backup production MongoDB to /tmp/"
   echo ""
   echo "Examples:"
-  echo "  foody-ctl deploy            # Deploy to foody7.com"
-  echo "  foody-ctl prod-logs 100     # Watch prod logs"
-  echo "  foody-ctl rebuild           # After Tailwind/config changes (dev)"
-  echo "  foody-ctl clear-next        # After CSS/styling issues (dev)"
+  echo "  ./foody-ctl deploy                   # Standard deploy"
+  echo "  ./foody-ctl deploy 'fix: logo size'  # Deploy with custom commit message"
+  echo "  ./foody-ctl prod-rebuild             # After npm package changes"
+  echo "  ./foody-ctl prod-logs 200            # Watch prod logs"
+  echo "  ./foody-ctl prod-backup              # Backup MongoDB before big change"
   echo ""
 }
+
+# ─────────────────────────────────────────────
+# DISPATCH
+# ─────────────────────────────────────────────
 
 CMD="${1:-help}"
 shift 2>/dev/null || true
@@ -195,10 +266,13 @@ case "$CMD" in
   seed)         _seed ;;
   logs)         _logs "${1:-50}" ;;
   status)       _status ;;
-  deploy)       _deploy ;;
+  deploy)       _deploy "" "$1" ;;
+  prod-rebuild) _prod_rebuild ;;
+  prod-restart) _prod_restart ;;
   prod-status)  _prod_status ;;
   prod-logs)    _prod_logs "${1:-50}" ;;
-  prod-restart) _prod_restart ;;
+  prod-seed)    _prod_seed ;;
+  prod-backup)  _prod_db_backup ;;
   help|--help|-h) _help ;;
   *)
     echo "Unknown command: $CMD"
