@@ -26,7 +26,7 @@ export default async function (req: any) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/public|_next/image|favicon\\.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js)$).*)",
+    "/((?!api|_next/static|_next/public|_next/image|favicon\\.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|json|webmanifest)$).*)",
     "/(tk|ru|en)/:path*",
   ],
 };
