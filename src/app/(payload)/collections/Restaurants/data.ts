@@ -66,6 +66,54 @@ export const OPEN_HOURS = [
     label: "12:00",
     value: "1200",
   },
+  {
+    label: "12:30",
+    value: "1230",
+  },
+  {
+    label: "13:00",
+    value: "1300",
+  },
+  {
+    label: "13:30",
+    value: "1330",
+  },
+  {
+    label: "14:00",
+    value: "1400",
+  },
+  {
+    label: "14:30",
+    value: "1430",
+  },
+  {
+    label: "15:00",
+    value: "1500",
+  },
+  {
+    label: "15:30",
+    value: "1530",
+  },
+  {
+    label: "16:00",
+    value: "1600",
+  },
+  {
+    label: "16:30",
+    value: "1630",
+  },
+  {
+    label: "17:00",
+    value: "1700",
+  },
+  {
+    label: "17:30",
+    value: "1730",
+  },
+  {
+    label: "18:00",
+    value: "1800",
+  },
 ];
 
 export const CLOSE_HOURS = [

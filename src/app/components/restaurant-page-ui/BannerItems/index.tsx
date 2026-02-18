@@ -13,14 +13,15 @@ interface Props {
 const Index: FC<Props> = ({ bannerInfo, t }) => {
   const { title, deliveryTime, address, workingHours } = bannerInfo;
 
-  const convertTimeFormat = (timeString: string) => {
+  const convertTimeFormat = (timeString: string | null | undefined) => {
+    if (!timeString) return "--:--";
     return timeString.slice(1, 3) + ":" + timeString.slice(3);
   };
 
   const items = [
     {
       icon: <ClockIcon className="md:h-5 md:w-5" />,
-      title: `${deliveryTime.slice(1)} ${t("Index.min")}`,
+      title: `${deliveryTime?.slice(1) ?? "?"} ${t("Index.min")}`,
       subtitle: t("Index.delivery"),
     },
     {
