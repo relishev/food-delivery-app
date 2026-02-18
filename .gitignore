@@ -38,3 +38,8 @@ next-env.d.ts
 .env
 
 /media
+
+# Android signing (NEVER commit these)
+keystore.properties
+*.keystore
+*.jks
