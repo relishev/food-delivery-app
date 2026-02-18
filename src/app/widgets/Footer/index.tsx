@@ -56,7 +56,7 @@ const Index: FC<Props> = () => {
   return (
     <footer className="z-[2000] w-full bg-gray-3 shadow-2xl">
       {/* Desktop layout */}
-      <div className="hidden md:block px-40 py-10 2xl:px-20 xl:px-10 lg:px-6">
+      <div className="md:hidden px-40 py-10 2xl:px-20 xl:px-10 lg:px-6">
         <div className="mx-auto max-w-[1440px]">
           {/* Top: contacts */}
           <div className="flex justify-between gap-6 lg:gap-4">
@@ -94,7 +94,7 @@ const Index: FC<Props> = () => {
       </div>
 
       {/* Mobile layout — ultra-compact */}
-      <div className="md:hidden px-4 py-2">
+      <div className="hidden md:block px-4 py-2">
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
           <ul className="flex flex-wrap gap-x-3 gap-y-1">
             {links.map(({ title, fn }) => (

@@ -33,7 +33,7 @@ export const LogoIcon: FC<LogoIconProps> = ({ className, width = 130, ...props }
 
       {/* Thin vertical divider — hidden on mobile */}
       <span
-        className="hidden md:block"
+        className="md:hidden"
         style={{
           width: "1.5px",
           height: `${Math.round(textH * 0.75)}px`,
@@ -50,7 +50,7 @@ export const LogoIcon: FC<LogoIconProps> = ({ className, width = 130, ...props }
         width={width}
         height={textH}
         priority
-        className="hidden md:block"
+        className="md:hidden"
         style={{ flexShrink: 0 }}
       />
     </div>
