@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 //components
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTrigger } from "@/app/components/shared-ui/Drawer";
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTitle, DrawerTrigger } from "@/app/components/shared-ui/Drawer";
 import EmptyBucket from "@/app/components/shared-ui/EmptyBucket";
 import MiniDishesCount from "../TotalDishesCount";
 import MiniItem from "../MiniBucket/MiniItem";
@@ -29,10 +29,11 @@ const Index: FC<Props> = ({ t }) => {
       <DrawerContent>
         <div>
           <div className="mb-4 flex justify-between px-4">
-            <h5 className="text-2xl font-medium">{t("Index.bucket")}</h5>
+            <DrawerTitle className="text-2xl font-medium">{t("Index.bucket")}</DrawerTitle>
             <button
               onClick={clearItems}
               type="button"
+              autoFocus
               className="font-base h-7 border-b border-[transparent] font-medium text-text-4 hover:border-text-4"
             >
               {t("Index.clear")}
