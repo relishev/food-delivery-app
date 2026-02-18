@@ -9,6 +9,7 @@ import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
 interface Props {
   item: MainPageRestaurant;
   isDeliveryFree: boolean;
+  isOpen: boolean;
   t: any;
 }
 
@@ -29,9 +30,9 @@ const computedPriceNumber = (budgetCategory: string) => {
   }
 };
 
-const Index: FC<Props> = ({ item, isDeliveryFree, t }) => {
+const Index: FC<Props> = ({ item, isDeliveryFree, isOpen, t }) => {
   return (
-    <div className="relative inline-block px-4 pb-5 xl:px-2">
+    <div className={`relative inline-block px-4 pb-5 xl:px-2 ${!isOpen ? "opacity-60 grayscale" : ""}`}>
       <Link href={`/restaurant/${item.id}`} className="group focus:outline-none">
         <figure className="relative mb-2 h-full max-h-52 min-h-52 w-full cursor-pointer overflow-hidden rounded-[14px] outline-none ring-text-2 ring-offset-2 group-focus-visible:ring-2">
           <img
@@ -39,7 +40,19 @@ const Index: FC<Props> = ({ item, isDeliveryFree, t }) => {
             src={item.bannerImage?.url || DEFAULT_IMAGE_PATH}
             alt={item.bannerImage?.alt || "image"}
           />
-          {isDeliveryFree && (
+          {item.is24h && (
+            <div className="absolute left-2 top-2 z-10 flex items-center rounded-full bg-primary px-2 py-[3px]">
+              <p className="text-xs font-semibold tracking-wide text-white">24/7</p>
+            </div>
+          )}
+          {!isOpen && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center">
+              <span className="rounded-full bg-black/70 px-3 py-1 text-sm font-semibold text-white">
+                {t("Index.closed")}
+              </span>
+            </div>
+          )}
+          {isDeliveryFree && isOpen && (
             <div className="absolute left-2 top-2 z-10 flex items-center space-x-1 rounded-full bg-white/80 px-1 py-[3px] pr-1.5 text-black">
               <MotocycleIcon className="box-content h-4 w-4 rounded-full bg-[#5AC31A] p-1 text-white" />
               <p className="text-xs font-medium tracking-normal text-text-1">{t("Index.freeDelivery")}</p>

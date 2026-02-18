@@ -30,8 +30,10 @@ export const RESTAURANTS = `
           alt
         }
         workingHours {
+          openTime
           closeTime
         }
+        is24h
         deliveryPrice
       }
     }

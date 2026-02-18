@@ -9,6 +9,7 @@ import atoms from "@/app/(pages)/_providers/jotai";
 //services
 import { useGetCategories } from "@/app/services/useCategories";
 import { useGetRestaurantsQuery } from "@/app/services/useRestaurants";
+import { isRestaurantOpen } from "@/app/hooks/getTimesTillMidnight";
 
 import { defaultFilters } from "@/app/data";
 import { USER_TOKEN } from "@/app/shared/constants";
@@ -48,7 +49,13 @@ export default function Home() {
           <div className="manual_grid_300 -mx-4 mt-8 xl:-mx-2 xl:mt-5">
             {filteredRestaurants?.map((rests) =>
               rests?.map((item) => (
-                <RestaurantItem item={item} isDeliveryFree={item.deliveryPrice === 0} key={item.id} t={t} />
+                <RestaurantItem
+                  item={item}
+                  isDeliveryFree={item.deliveryPrice === 0}
+                  isOpen={item.is24h || isRestaurantOpen(item.workingHours?.openTime, item.workingHours?.closeTime)}
+                  key={item.id}
+                  t={t}
+                />
               )),
             )}
             {(isFetchingNextPage || isLoading) && <RestaurantItemSkeleton length={8} />}

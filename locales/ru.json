@@ -37,6 +37,7 @@
     "quantity": "Количество",
     "dishes": "Блюда",
     "freeDelivery": "Бесплатная доставка",
+    "closed": "Закрыто",
     "availableLater": "Будет позже",
     "deliveryPrice": "Стоимость доставки",
     "clearFilters": "Очистить фильтры"

@@ -128,6 +128,17 @@ const Restaurants: CollectionConfig = {
       type: "group",
     },
     {
+      name: "is24h",
+      defaultValue: false,
+      label: "Open 24/7?",
+      required: false,
+      type: "checkbox",
+      admin: {
+        position: "sidebar",
+        description: "If enabled, restaurant is shown as open at all times",
+      },
+    },
+    {
       name: "isClosed",
       defaultValue: false,
       label: "Is closed?",

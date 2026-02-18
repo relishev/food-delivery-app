@@ -37,6 +37,7 @@
     "quantity": "Quantity",
     "dishes": "Dishes",
     "freeDelivery": "Free delivery",
+    "closed": "Closed",
     "availableLater": "Available later",
     "deliveryPrice": "Delivery cost",
     "clearFilters": "Clear filters"

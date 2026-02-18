@@ -9,8 +9,10 @@ interface MainPageRestaurant {
   //_1 - cheap, _2 - average, _3 - expensive
   budgetCategory: "_1" | "_2" | "_3";
   workingHours: {
+    openTime: string;
     closeTime: string;
   };
+  is24h: boolean;
   deliveryPrice: number;
   deliveryTime: string;
   bannerImage: {
