@@ -87,7 +87,7 @@ export default function PostcodeStep({ onComplete }: PostcodeStepProps) {
     <div className="w-full">
       <DaumPostcodeEmbed
         onComplete={handleComplete}
-        style={{ height: 450 }}
+        style={{ height: 'min(450px, calc(100dvh - 220px))' }}
         autoClose={false}
       />
     </div>

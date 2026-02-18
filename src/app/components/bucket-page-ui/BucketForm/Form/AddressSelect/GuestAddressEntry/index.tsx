@@ -61,7 +61,7 @@ export default function GuestAddressEntry({ onAddressSelect, t }: Props) {
         <p>{t("BucketForm.addNewAddress")}</p>
         <PlusIcon />
       </DialogTrigger>
-      <DialogContent className="max-w-2xl rounded-md bg-bg-1 md:max-w-[92%]">
+      <DialogContent className="max-w-2xl max-h-[90dvh] overflow-y-auto rounded-md bg-bg-1 md:max-w-[92%]">
         <DialogTitle>
           <p className="mb-3 ml-2 mr-6 text-xl font-semibold">{t("BucketForm.addNewAddress")}</p>
         </DialogTitle>

@@ -44,7 +44,7 @@ export default function MapStep({ position, address, onConfirm, onBack }: MapSte
         <p className="mt-1 text-xs text-gray-500">{t('dragMarkerHint')}</p>
       </div>
 
-      <div className="h-[350px] w-full overflow-hidden rounded-lg border border-gray-200">
+      <div className="h-[350px] sm:h-[220px] w-full overflow-hidden rounded-lg border border-gray-200">
         <Map
           center={markerPosition}
           style={{ width: '100%', height: '100%' }}
