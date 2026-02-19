@@ -3,7 +3,7 @@ type LoginResponse = { exp: number; token: string; user: any };
 
 type I18N = "ru" | "tk" | "en";
 
-type UserData = { id: string; phone: string; addresses: AddressData[] };
+type UserData = { id: string; name: string; email: string; phone: string; addresses: AddressData[] };
 
 interface BannerInfo {
   title: string;

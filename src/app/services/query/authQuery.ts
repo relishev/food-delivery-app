@@ -1,11 +1,24 @@
 const USER_INFO = `
   id
   name
+  email
   phone
   addresses {
+    alias
+    isDefault
+    fullAddress
+    roadAddress
+    jibunAddress
+    zonecode
+    latitude
+    longitude
+    buildingName
+    addressDetail
     district
     houseNumber
     apartment
+    entrance
+    city
   }
 `;
 

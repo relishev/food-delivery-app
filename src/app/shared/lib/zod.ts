@@ -75,7 +75,7 @@ export const profileFormScheme = (t: (arg: string) => string) =>
         message: t("Zod.invalidPhone"),
       })
       .length(8, { message: "Zod.invalidPhone" }),
-    address: z.string().min(8, { message: t("Zod.invalidDistrict") }),
+    address: z.string().optional(),
   });
 
 export const addressFormScheme = (t: (arg: string) => string) =>

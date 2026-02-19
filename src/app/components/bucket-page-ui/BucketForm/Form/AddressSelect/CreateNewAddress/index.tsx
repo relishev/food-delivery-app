@@ -69,7 +69,7 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
         }
       });
 
-      setUserProfile(updatedUser);
+      setUserProfile({ ...userProfile, addresses: updatedUser.addresses });
       setIsDialogOpen(false);
       toast("Actions.successAddress", "success", { duration: 3000 });
     } catch (error) {
