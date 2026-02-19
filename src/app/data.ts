@@ -1,7 +1,9 @@
 export const LANGUAGES = [
   { title: "English", value: "en" },
   { title: "Русский", value: "ru" },
-  { title: "Turkmen", value: "tk" },
+  { title: "한국어", value: "ko" },
+  { title: "中文", value: "zh" },
+  { title: "日本語", value: "ja" },
 ];
 
 export const CURRENCIES: { code: CurrencyCode; symbol: string; title: string }[] = [

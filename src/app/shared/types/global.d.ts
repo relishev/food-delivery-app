@@ -1,7 +1,7 @@
 type LoginCredentials = { email: string; password: string };
 type LoginResponse = { exp: number; token: string; user: any };
 
-type I18N = "ru" | "tk" | "en";
+type I18N = "ru" | "ko" | "zh" | "ja" | "en";
 
 type CurrencyCode = "USD" | "EUR" | "KRW" | "RUB" | "TRY" | "CNY";
 

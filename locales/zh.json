@@ -1,0 +1,242 @@
+{
+  "Index": {
+    "search": "搜索",
+    "searchPlaceholder": "搜索餐厅...",
+    "chooseCity": "选择您的城市",
+    "city": "城市",
+    "back": "返回",
+    "delivery": "外卖",
+    "deliveryDetailed": "配送时间",
+    "selfCare": "自取",
+    "selfCareTitle": "自取地点",
+    "pickupAt": "自取地址",
+    "selfCareDetailed": "准备时间",
+    "orderType": "取餐方式",
+    "gr": "克",
+    "clear": "清除",
+    "bucket": "购物车",
+    "toBucket": "去购物车",
+    "noItems": "您还没有添加任何内容",
+    "emptyBucket": "购物车是空的",
+    "add": "添加",
+    "phoneNumber": "电话号码",
+    "min": "分钟",
+    "now": "立即",
+    "show": "显示",
+    "account": "账户",
+    "profile": "个人资料",
+    "logout": "退出登录",
+    "language": "语言",
+    "home": "首页",
+    "categories": "分类",
+    "save": "保存",
+    "delete": "删除",
+    "cancel": "取消",
+    "continue": "继续",
+    "noReview": "评论较少",
+    "description": "描述",
+    "quantity": "数量",
+    "dishes": "菜品",
+    "freeDelivery": "免费配送",
+    "freePickup": "免费自取",
+    "closed": "已关闭",
+    "availableLater": "稍后可用",
+    "deliveryPrice": "配送费",
+    "clearFilters": "清除筛选"
+  },
+
+  "Login": {
+    "login": "登录",
+    "rules": "继续即表示您同意我们的条款",
+    "noAccount": "没有账户？",
+    "haveAccount": "已有账户？",
+    "register": "注册",
+    "resetPassword": "重置密码",
+    "loginViaEmail": "使用您的邮箱登录",
+    "registerAccount": "使用邮箱创建免费账户"
+  },
+
+  "MainPage": {
+    "heading": "热门餐厅",
+
+    "sortBy": "排序方式",
+    "whichShow": "优先显示哪些？",
+    "trustOne": "推荐",
+    "ratingOne": "评分最高",
+    "fastOne": "最快",
+    "budgetOne": "实惠",
+    "expensiveOne": "高端",
+    "average": "平均",
+
+    "phone": "电话",
+    "email": "邮箱",
+    "address": "地址",
+    "workingHours": "营业时间",
+    "about": "关于我们",
+    "advertisement": "广告",
+    "collab": "合作",
+    "feedback": "提交反馈",
+    "rights": "版权所有"
+  },
+
+  "RestaurantPage": {
+    "menu": "菜单",
+    "currentRestaurant": "当前餐厅",
+    "changeRestaurant1": "来自餐厅的所有已添加菜品",
+    "changeRestaurant2": "将从购物车中移除。",
+    "freeDeliveryAfter": "订单满 {price} $ 免费配送"
+  },
+
+  "BucketForm": {
+    "fillForm": "填写表格",
+    "district": "区 *",
+    "houseNumber": "门牌号 *",
+    "kw": "公寓/办公室 *",
+    "phoneNumber": "电话号码 *",
+    "entrance": "单元",
+    "leaveComment": "给快递员的留言（街道名称等）",
+    "deliveryTime": "配送时间",
+    "chooseAddress": "选择地址",
+    "addNewAddress": "添加新地址",
+    "createNewAddress": "创建新地址"
+  },
+
+  "BucketPage": {
+    "orders": "您的订单",
+    "tools": "餐具",
+    "summary": "合计",
+    "price": "商品费用",
+    "totalPrice": "总费用",
+    "submit": "确认下单",
+    "menuReturn": "返回餐厅列表",
+    "clearTrash": "清空购物车",
+    "yesClear": "清空",
+    "noClear": "否，保留",
+    "restaurantComment": "给餐厅的备注",
+    "restaurantCommentPlaceholder": "您可以在此添加订单备注..."
+  },
+
+  "ProfilePage": {
+    "yourProfile": "您的个人资料",
+    "yourName": "您的姓名",
+    "phoneNumber": "电话号码",
+    "deliveryAddress": "配送地址",
+    "yourEmail": "您的邮箱",
+    "chooseAddress": "选择配送地址",
+    "history": "订单历史",
+    "info": "在您的个人资料中，您可以查看订单历史和当前活动请求的状态。状态可在"状态"列中跟踪。信息实时更新。",
+    "emptyHistory": "您还没有下过任何订单",
+    "restaurantName": "餐厅名称",
+    "dishesName": "菜品名称",
+    "price": "价格",
+    "deliveryType": "订单类型",
+    "orderTime": "下单时间",
+    "status": "状态",
+    "noAddresses": "暂无保存的地址",
+    "changeAddressSettings": "更改地址设置",
+    "city": "城市",
+    "houseNumber": "门牌号 *",
+    "appartmentOffice": "公寓/办公室 *",
+
+    "dishTitle": "菜品名称"
+  },
+
+  "Status": {
+    "pending": "待处理",
+    "recieved": "已接收",
+    "sended": "已发出",
+    "delivered": "已送达",
+    "rejected": "已拒绝"
+  },
+
+  "Placeholder": {
+    "email": "输入您的邮箱",
+    "password": "密码",
+    "name": "输入您的姓名",
+    "phone": "输入电话号码",
+    "enterDistrict": "输入您的区",
+    "enterCity": "输入您的城市",
+    "enterHouseNumber": "输入您的门牌号",
+    "enterAppartmentOffice": "输入公寓/办公室号"
+  },
+
+  "Categories": {
+    "all": "全部",
+    "burgers": "汉堡",
+    "sushi": "寿司",
+    "pasta": "意大利面",
+    "breakfasts": "早餐",
+    "lunches": "午餐",
+    "dinner": "晚餐"
+  },
+
+  "KakaoAddress": {
+    "searchAddress": "搜索地址",
+    "confirmLocation": "确认位置",
+    "adjustMarker": "拖动标记以调整位置",
+    "enterDetail": "输入详细地址",
+    "alias": "地址名称（可选）",
+    "aliasPlaceholder": "家、办公室等",
+    "detailPlaceholder": "楼层、单元号等",
+    "setDefault": "设为默认地址",
+    "saveForFuture": "保存此地址以备将来使用",
+    "save": "保存地址",
+    "back": "返回",
+    "confirm": "确认",
+    "step": "步骤"
+  },
+
+  "Zod": {
+    "invalidEmail": "请输入有效的邮箱地址。",
+    "invalidPassLength": "密码至少需要8个字符。",
+
+    "invalidUsername": "姓名至少需要4个字符。",
+    "invalidPhone": "电话号码的最后8位数字",
+
+    "invalidKakaoAddress": "请选择有效地址",
+    "invalidAddress": "请选择您的配送城市",
+    "invalidDistrict": "请输入您的配送区",
+    "invalidHome": "请输入您的门牌号",
+    "invalidApartment": "请输入您的公寓号",
+    "invalidEntrance": "请输入单元（如适用）",
+    "invalidComment": "请为快递员留言以帮助定位"
+  },
+
+  "Errors": {
+    "somethingWentWrong": "出了些问题..."
+  },
+
+  "Actions": {
+    "logoutUser": "成功退出",
+    "maxAvailableAmount": "您已添加最大可用数量。",
+    "maxAddressesReached": "最多允许4个地址。请先删除现有地址。",
+    "errorOccurred": "发生错误。请重试。",
+    "noDeliveryAvailable": "目前，该餐厅不提供外卖服务。",
+    "loginToAddAddresses": "请登录以选择您的配送地址。",
+    "loginToOrder": "下单需要授权。",
+    "chooseRestaurant": "请选择一家餐厅",
+    "successOrder": "订单成功下单。管理员可能会联系您进行确认",
+    "successAddress": "新地址已成功添加",
+    "successUpdate": "个人资料更新成功",
+    "cooperation": "感谢您，我们将尽快联系您",
+    "feedback": "感谢您的反馈。",
+    "closedRestaurant": "该餐厅已关闭，请选择其他餐厅。",
+    "notFound": "未找到任何结果",
+    "restaurantNotFound": "出了些问题，也许这家餐厅已关闭。",
+    "returnToMain": "返回主页"
+  },
+
+  "Footer": {
+    "coopHeading": "合作",
+    "coopSubHead": "想扩大您的业务并吸引新客户？提交申请，我们将尽快联系您。",
+    "coopTellAbout": "简短介绍您的餐厅并提供地址 *",
+    "coopRestriction": "注意：目前，我们的平台仅在特定城市提供服务。",
+    "coopSend": "发送申请",
+
+    "feedbackHeading": "提交服务反馈",
+    "feedbackSubHeading": "我们重视您对我们服务的关注，感谢您愿意帮助我们改进！",
+    "feedbackSend": "发送申请",
+    "feedbackTitle": "描述问题",
+    "feedbackPlaceholder": "告诉我们您提交反馈的原因"
+  }
+}

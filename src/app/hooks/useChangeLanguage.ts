@@ -23,12 +23,14 @@ const useChangeLanguage = () => {
 
   const languageTitle = (() => {
     switch (selectedLanguage) {
-      case "tk": {
-        return "Turkmen";
-      }
-      case "en": {
+      case "en":
         return "English";
-      }
+      case "ko":
+        return "한국어";
+      case "zh":
+        return "中文";
+      case "ja":
+        return "日本語";
       default:
         return "Русский";
     }

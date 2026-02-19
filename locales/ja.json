@@ -1,0 +1,242 @@
+{
+  "Index": {
+    "search": "検索",
+    "searchPlaceholder": "レストランを検索...",
+    "chooseCity": "都市を選択",
+    "city": "都市",
+    "back": "戻る",
+    "delivery": "デリバリー",
+    "deliveryDetailed": "配達時間",
+    "selfCare": "持ち帰り",
+    "selfCareTitle": "受け取り場所",
+    "pickupAt": "受け取り先",
+    "selfCareDetailed": "準備時間",
+    "orderType": "受け取り方法",
+    "gr": "g",
+    "clear": "クリア",
+    "bucket": "カート",
+    "toBucket": "カートへ",
+    "noItems": "まだ何も追加されていません",
+    "emptyBucket": "カートは空です",
+    "add": "追加",
+    "phoneNumber": "電話番号",
+    "min": "分",
+    "now": "今すぐ",
+    "show": "表示",
+    "account": "アカウント",
+    "profile": "プロフィール",
+    "logout": "ログアウト",
+    "language": "言語",
+    "home": "ホーム",
+    "categories": "カテゴリー",
+    "save": "保存",
+    "delete": "削除",
+    "cancel": "キャンセル",
+    "continue": "続ける",
+    "noReview": "レビューが少ない",
+    "description": "説明",
+    "quantity": "数量",
+    "dishes": "料理",
+    "freeDelivery": "無料配達",
+    "freePickup": "無料持ち帰り",
+    "closed": "閉店",
+    "availableLater": "後で利用可能",
+    "deliveryPrice": "配達料",
+    "clearFilters": "フィルターをクリア"
+  },
+
+  "Login": {
+    "login": "ログイン",
+    "rules": "続けることで、利用規約に同意したことになります",
+    "noAccount": "アカウントをお持ちでないですか？",
+    "haveAccount": "すでにアカウントをお持ちですか？",
+    "register": "登録",
+    "resetPassword": "パスワードをリセット",
+    "loginViaEmail": "メールでログイン",
+    "registerAccount": "メールで無料アカウントを作成"
+  },
+
+  "MainPage": {
+    "heading": "人気のレストラン",
+
+    "sortBy": "並び替え",
+    "whichShow": "最初にどれを表示しますか？",
+    "trustOne": "おすすめ",
+    "ratingOne": "高評価",
+    "fastOne": "速い",
+    "budgetOne": "お手頃",
+    "expensiveOne": "高級",
+    "average": "平均",
+
+    "phone": "電話",
+    "email": "メール",
+    "address": "住所",
+    "workingHours": "営業時間",
+    "about": "私たちについて",
+    "advertisement": "広告",
+    "collab": "コラボレーション",
+    "feedback": "フィードバックを送る",
+    "rights": "無断転載禁止"
+  },
+
+  "RestaurantPage": {
+    "menu": "メニュー",
+    "currentRestaurant": "現在のレストラン",
+    "changeRestaurant1": "レストランから追加されたすべての料理は",
+    "changeRestaurant2": "カートから削除されます。",
+    "freeDeliveryAfter": "{price} $ 以上の注文で無料配達"
+  },
+
+  "BucketForm": {
+    "fillForm": "フォームに記入",
+    "district": "区 *",
+    "houseNumber": "番地 *",
+    "kw": "部屋/オフィス *",
+    "phoneNumber": "電話番号 *",
+    "entrance": "入口",
+    "leaveComment": "配達員へのコメント（住所など）",
+    "deliveryTime": "配達時間",
+    "chooseAddress": "住所を選択",
+    "addNewAddress": "新しい住所を追加",
+    "createNewAddress": "新しい住所を作成"
+  },
+
+  "BucketPage": {
+    "orders": "ご注文",
+    "tools": "カトラリー",
+    "summary": "合計",
+    "price": "商品代金",
+    "totalPrice": "合計金額",
+    "submit": "注文を確定する",
+    "menuReturn": "レストラン一覧に戻る",
+    "clearTrash": "カートをクリア",
+    "yesClear": "クリア",
+    "noClear": "いいえ、保持する",
+    "restaurantComment": "レストランへのコメント",
+    "restaurantCommentPlaceholder": "注文へのリクエストを追加できます..."
+  },
+
+  "ProfilePage": {
+    "yourProfile": "プロフィール",
+    "yourName": "お名前",
+    "phoneNumber": "電話番号",
+    "deliveryAddress": "配達住所",
+    "yourEmail": "メールアドレス",
+    "chooseAddress": "配達住所を選択",
+    "history": "注文履歴",
+    "info": "プロフィールでは注文履歴とアクティブなリクエストの現在のステータスを確認できます。ステータスは「ステータス」列で追跡できます。情報はリアルタイムで更新されます。",
+    "emptyHistory": "まだ何も注文していません",
+    "restaurantName": "レストラン名",
+    "dishesName": "料理名",
+    "price": "価格",
+    "deliveryType": "注文タイプ",
+    "orderTime": "注文時間",
+    "status": "ステータス",
+    "noAddresses": "保存済みの住所がありません",
+    "changeAddressSettings": "住所設定を変更",
+    "city": "都市",
+    "houseNumber": "番地 *",
+    "appartmentOffice": "部屋/オフィス *",
+
+    "dishTitle": "料理名"
+  },
+
+  "Status": {
+    "pending": "保留中",
+    "recieved": "受注済み",
+    "sended": "発送済み",
+    "delivered": "配達済み",
+    "rejected": "拒否済み"
+  },
+
+  "Placeholder": {
+    "email": "メールアドレスを入力",
+    "password": "パスワード",
+    "name": "名前を入力",
+    "phone": "電話番号を入力",
+    "enterDistrict": "区を入力",
+    "enterCity": "都市を入力",
+    "enterHouseNumber": "番地を入力",
+    "enterAppartmentOffice": "部屋/オフィス番号を入力"
+  },
+
+  "Categories": {
+    "all": "すべて",
+    "burgers": "バーガー",
+    "sushi": "寿司",
+    "pasta": "パスタ",
+    "breakfasts": "朝食",
+    "lunches": "昼食",
+    "dinner": "夕食"
+  },
+
+  "KakaoAddress": {
+    "searchAddress": "住所を検索",
+    "confirmLocation": "場所を確認",
+    "adjustMarker": "マーカーをドラッグして場所を調整",
+    "enterDetail": "詳細住所を入力",
+    "alias": "住所名（任意）",
+    "aliasPlaceholder": "自宅、オフィスなど",
+    "detailPlaceholder": "階、部屋番号など",
+    "setDefault": "デフォルトの住所として設定",
+    "saveForFuture": "今後の注文のためにこの住所を保存",
+    "save": "住所を保存",
+    "back": "戻る",
+    "confirm": "確認",
+    "step": "ステップ"
+  },
+
+  "Zod": {
+    "invalidEmail": "有効なメールアドレスを入力してください。",
+    "invalidPassLength": "パスワードは8文字以上必要です。",
+
+    "invalidUsername": "名前は4文字以上必要です。",
+    "invalidPhone": "電話番号の下8桁",
+
+    "invalidKakaoAddress": "有効な住所を選択してください",
+    "invalidAddress": "配達都市を選択してください",
+    "invalidDistrict": "配達区を入力してください",
+    "invalidHome": "番地を入力してください",
+    "invalidApartment": "部屋番号を入力してください",
+    "invalidEntrance": "入口を入力してください（該当する場合）",
+    "invalidComment": "配達員が場所を見つけるためのコメントを残してください"
+  },
+
+  "Errors": {
+    "somethingWentWrong": "何か問題が発生しました..."
+  },
+
+  "Actions": {
+    "logoutUser": "正常にログアウトしました",
+    "maxAvailableAmount": "利用可能な最大量を追加しました。",
+    "maxAddressesReached": "最大4つの住所が許可されています。既存の住所を削除してください。",
+    "errorOccurred": "エラーが発生しました。もう一度お試しください。",
+    "noDeliveryAvailable": "現在、このレストランはデリバリーを提供していません。",
+    "loginToAddAddresses": "配達住所を選択するにはログインしてください。",
+    "loginToOrder": "注文するには認証が必要です。",
+    "chooseRestaurant": "レストランを選択してください",
+    "successOrder": "注文が正常に完了しました。確認のためにマネージャーからご連絡が来る場合があります",
+    "successAddress": "新しい住所が正常に追加されました",
+    "successUpdate": "プロフィールが正常に更新されました",
+    "cooperation": "ありがとうございます。近日中にご連絡いたします",
+    "feedback": "フィードバックをありがとうございます。",
+    "closedRestaurant": "このレストランは閉店しています。別のレストランを選択してください。",
+    "notFound": "何も見つかりませんでした",
+    "restaurantNotFound": "問題が発生しました。このレストランが閉店した可能性があります。",
+    "returnToMain": "メインページに戻る"
+  },
+
+  "Footer": {
+    "coopHeading": "コラボレーション",
+    "coopSubHead": "お客様の施設を拡大し、新しいお客様を呼び込みたいですか？申請を送ると、すぐにご連絡いたします。",
+    "coopTellAbout": "お店について簡単に教えて、住所を提供してください *",
+    "coopRestriction": "注意：現在、私たちのプラットフォームは特定の都市でのみ利用できます。",
+    "coopSend": "申請を送信",
+
+    "feedbackHeading": "サービスへのフィードバックを送る",
+    "feedbackSubHeading": "私たちのサービスへのご関心と改善のためにお力をお貸しいただきありがとうございます！",
+    "feedbackSend": "申請を送信",
+    "feedbackTitle": "問題を説明",
+    "feedbackPlaceholder": "フィードバックを送ろうと思った理由を教えてください"
+  }
+}
