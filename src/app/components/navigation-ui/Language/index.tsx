@@ -5,6 +5,7 @@ import { FC } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 import { CheckIcon, EarthIcon } from "@/app/icons";
 import { LANGUAGES } from "@/app/data";
+import FitText from "@/app/components/shared-ui/FitText";
 
 interface Props {
   languageTitle: string;
@@ -17,7 +18,7 @@ const Index: FC<Props> = ({ languageTitle, handleChange }) => {
       <PopoverTrigger asChild>
         <button className="flex min-w-14 cursor-pointer flex-col items-center space-y-1 rounded-md text-sm text-text-2 md:hidden">
           <EarthIcon width={20} height={20} />
-          <p>{languageTitle}</p>
+          <FitText className="w-full text-center">{languageTitle}</FitText>
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-36 px-6 shadow-xl ">

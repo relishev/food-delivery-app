@@ -5,6 +5,7 @@ import Overlap from "./Overlap";
 //components
 import { CloseIcon, LogoIcon } from "@/app/icons";
 import useSidebar from "@/app/hooks/useSidebar";
+import FitText from "@/app/components/shared-ui/FitText";
 
 const Index = () => {
   const {
@@ -38,7 +39,7 @@ const Index = () => {
           {sidebarList.map(({ title, icon, onClick, miniDishesCount }, index) => (
             <li key={index} className="flex items-center space-x-4 hover:bg-gray-2" onClick={onClick}>
               {icon}
-              <span>{title}</span>
+              <FitText className="min-w-0 flex-1">{title}</FitText>
               {miniDishesCount}
             </li>
           ))}

@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared
 import { RadioGroup, RadioGroupItem } from "@/app/components/shared-ui/RadioGroup";
 import { CloseIcon, SortIcon } from "@/app/icons";
 import { PopoverClose } from "@radix-ui/react-popover";
+import FitText from "@/app/components/shared-ui/FitText";
 
 import { SORT_LIST_ITEMS } from "@/app/data";
 
@@ -24,7 +25,7 @@ const Index: FC<Props> = ({ handleFilters, t }) => {
       <PopoverTrigger asChild>
         <button className="flex space-x-1 rounded-xl px-[18px] py-3 2xl:px-3 2xl:py-2 xl:px-2 xl:py-1">
           <SortIcon />
-          <h6 className="font-normal 2xl:text-sm 2xl:leading-6 md:hidden">{t("MainPage.sortBy")}</h6>
+          <FitText as="h6" className="font-normal 2xl:text-sm 2xl:leading-6 md:hidden">{t("MainPage.sortBy")}</FitText>
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-[360px] overflow-hidden rounded-[14px] p-0 shadow-xl 2xl:mr-8 xl:mr-5 md:mr-4 md:w-[265px]">
