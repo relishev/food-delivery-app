@@ -118,17 +118,47 @@ export interface Restaurant {
   freeAfterAmount?: number | null;
   enabledShippingProviders?: (string | ShippingProvider)[] | null;
   workingHours: {
-    openTime: '0700' | '0730' | '0800' | '0830' | '0900' | '0930' | '1000' | '1030' | '1100' | '1130' | '1200';
+    openTime:
+      | '0700'
+      | '0730'
+      | '0800'
+      | '0830'
+      | '0900'
+      | '0930'
+      | '1000'
+      | '1030'
+      | '1100'
+      | '1130'
+      | '1200'
+      | '1230'
+      | '1300'
+      | '1330'
+      | '1400'
+      | '1430'
+      | '1500'
+      | '1530'
+      | '1600'
+      | '1630'
+      | '1700'
+      | '1730'
+      | '1800';
     closeTime: '1900' | '1930' | '2000' | '2030' | '2100' | '2130' | '2200' | '2230' | '2300' | '2330' | '2400';
   };
+  is24h?: boolean | null;
   isClosed?: boolean | null;
   isDelivery: boolean;
+  selfPickupEnabled?: boolean | null;
+  slug?: string | null;
+  brandColor?: string | null;
+  logoImage?: (string | null) | Media;
+  appIcon?: (string | null) | Media;
+  brandedEnabled?: boolean | null;
   bannerImage?: (string | null) | Media;
   categories?: (string | Category)[] | null;
   dishes?: (string | Dish)[] | null;
   budgetCategory?: ('1' | '2' | '3') | null;
   isBlocked?: boolean | null;
-  relatedToUser: string | Customer;
+  relatedToUser?: (string | null) | Customer;
   cities?: (string | City)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -193,6 +223,8 @@ export interface Customer {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  _verified?: boolean | null;
+  _verificationToken?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
@@ -566,8 +598,15 @@ export interface RestaurantsSelect<T extends boolean = true> {
         openTime?: T;
         closeTime?: T;
       };
+  is24h?: T;
   isClosed?: T;
   isDelivery?: T;
+  selfPickupEnabled?: T;
+  slug?: T;
+  brandColor?: T;
+  logoImage?: T;
+  appIcon?: T;
+  brandedEnabled?: T;
   bannerImage?: T;
   categories?: T;
   dishes?: T;
@@ -698,6 +737,8 @@ export interface CustomersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  _verified?: T;
+  _verificationToken?: T;
   loginAttempts?: T;
   lockUntil?: T;
 }

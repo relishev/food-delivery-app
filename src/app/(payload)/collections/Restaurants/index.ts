@@ -160,6 +160,60 @@ const Restaurants: CollectionConfig = {
       type: "checkbox",
     },
     {
+      name: "slug",
+      label: "Branded URL slug (e.g. ramen-house)",
+      type: "text",
+      unique: true,
+      index: true,
+      admin: {
+        position: "sidebar",
+        description: "Used for /r/{slug} branded focus page. Lowercase, hyphens only.",
+      },
+      validate: (value: any) => {
+        if (value && !/^[a-z0-9-]+$/.test(value)) {
+          return "Only lowercase letters, numbers, and hyphens allowed";
+        }
+        return true;
+      },
+    },
+    {
+      name: "brandColor",
+      label: "Brand color (hex, e.g. #ff6b00)",
+      type: "text",
+      admin: {
+        position: "sidebar",
+        description: "PWA theme color. Defaults to foody7 orange #f5821f if empty.",
+      },
+      validate: (value: any) => {
+        if (value && !/^#[0-9a-fA-F]{6}$/.test(value)) {
+          return "Must be valid hex color: #rrggbb";
+        }
+        return true;
+      },
+    },
+    {
+      name: "logoImage",
+      label: "Branded logo (shown in branded page header)",
+      type: "upload",
+      relationTo: "media",
+    },
+    {
+      name: "appIcon",
+      label: "App icon (512×512, for PWA home screen)",
+      type: "upload",
+      relationTo: "media",
+    },
+    {
+      name: "brandedEnabled",
+      label: "Enable branded page?",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        position: "sidebar",
+        description: "Enables /r/{slug} branded page and PWA install.",
+      },
+    },
+    {
       name: "bannerImage",
       label: "Main image (banner)",
       relationTo: "media",

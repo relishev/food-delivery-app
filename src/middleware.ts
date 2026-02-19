@@ -1,5 +1,5 @@
 import createMiddleware from "next-intl/middleware";
-import { routing } from "@/i18n/routing";
+import { routing, locales } from "@/i18n/routing";
 import { NextResponse } from "next/server";
 
 import { USER_TOKEN } from "@/app/shared/constants";
@@ -19,6 +19,34 @@ export default async function (req: any) {
       const redirectUrl = new URL("/", req.url);
       return NextResponse.redirect(redirectUrl);
     }
+  }
+
+  // Handle branded restaurant routes — locale is at the END: /r/[slug]/[locale]
+  // Must intercept BEFORE next-intl middleware to prevent locale-prefix injection
+  if (pathname.startsWith("/r/")) {
+    const segments = pathname.split("/"); // ["", "r", "slug", "locale?", ...]
+    const slug = segments[2];
+    const localeSegment = segments[3] as string | undefined;
+
+    if (!slug) return NextResponse.next();
+
+    // If locale segment is present and valid → serve the page directly (no redirect)
+    if (localeSegment && (locales as readonly string[]).includes(localeSegment)) {
+      return NextResponse.next();
+    }
+
+    // AC-05-2: cookie → Accept-Language → "en"
+    const cookieLocale = req.cookies.get("NEXT_LOCALE")?.value ?? "";
+    let detectedLocale: string;
+    if ((locales as readonly string[]).includes(cookieLocale)) {
+      detectedLocale = cookieLocale;
+    } else {
+      // Parse first token from Accept-Language header (e.g. "ko-KR,ko;q=0.9,en;q=0.8" → "ko")
+      const acceptLang = req.headers.get("accept-language") ?? "";
+      const preferredLang = acceptLang.split(",")[0]?.split(";")[0]?.trim().slice(0, 2) ?? "";
+      detectedLocale = (locales as readonly string[]).includes(preferredLang) ? preferredLang : "en";
+    }
+    return NextResponse.redirect(new URL(`/r/${slug}/${detectedLocale}`, req.url));
   }
 
   return middleware(req);

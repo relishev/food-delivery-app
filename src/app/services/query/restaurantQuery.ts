@@ -111,7 +111,7 @@ export const RESTAURANT_BUCKET = `
 export const CATEGORIES = `
 query Categories($type: Category_type_Input!, $limit: Int!) {
   Categories(
-    where: { type: { equals: $type }}, 
+    where: { type: { equals: $type }},
     limit: $limit,
     sort: "order"
       ) {
@@ -119,6 +119,44 @@ query Categories($type: Category_type_Input!, $limit: Int!) {
         id
         category
         value
+      }
+    }
+  }
+`;
+
+export const RESTAURANT_BY_SLUG = `
+  query Restaurants($slug: String!) {
+    Restaurants(where: { slug: { equals: $slug } }, limit: 1) {
+      docs {
+        id
+        title
+        description
+        address
+        deliveryTime
+        deliveryPrice
+        freeAfterAmount
+        slug
+        brandColor
+        brandedEnabled
+        logoImage { url alt }
+        appIcon { url alt }
+        workingHours { openTime closeTime }
+        isClosed
+        is24h
+        isDelivery
+        bannerImage { id url alt }
+        dishes {
+          id
+          title
+          description
+          price
+          gram
+          availableAmount
+          cookTime
+          restaurant { id title isDelivery }
+          image { url alt }
+          categories { category }
+        }
       }
     }
   }
