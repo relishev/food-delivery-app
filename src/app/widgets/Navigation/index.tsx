@@ -114,7 +114,7 @@ const Index: FC<Props> = ({}) => {
       {isBucketPage && (
         <button className="flex items-center space-x-2 text-text-3 md:hidden" onClick={back}>
           <BackIcon fill="text-text-3" />
-          <p>{t("Index.back")}</p>
+          <p className="whitespace-nowrap">{t("Index.back")}</p>
         </button>
       )}
       <div className="flex items-center justify-center space-x-3 xl:space-x-2 md:w-full md:justify-start">

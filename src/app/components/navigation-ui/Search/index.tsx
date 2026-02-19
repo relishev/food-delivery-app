@@ -44,7 +44,7 @@ const Index: FC<Props> = ({ handleQuery, searchTitle, searchPlaceholder, disable
         <span className="hidden md:block">
           <SearchIcon className={`sm:h-5 sm:w-5 ${disabled && "fill-black/30"}`} />
         </span>
-        <span className="md:hidden">{searchTitle}</span>
+        <span className="whitespace-nowrap md:hidden">{searchTitle}</span>
       </button>
     </form>
   );
