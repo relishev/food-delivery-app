@@ -360,7 +360,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
           <div className="px-3 py-3">
             <button
               type="button"
-              onClick={() => router.push("/bucket")}
+              onClick={() => router.push(`/${locale}/bucket`)}
               className="flex w-full items-center justify-between rounded-[14px] bg-primary px-5 py-3.5 text-white transition hover:bg-primary/90 active:scale-[0.98]"
             >
               <span className="flex items-center gap-2.5">
