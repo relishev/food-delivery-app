@@ -47,6 +47,14 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
   const { addItem, clearItems, handleUnavailableWarning } = useProductItem(isRestaurantAvailable);
 
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("");
+
+  // Set first category as active once data loads
+  useEffect(() => {
+    if (withCategories?.length && !activeCategory) {
+      setActiveCategory(withCategories[0].category);
+    }
+  }, [withCategories]);
   const closeModal = () => {
     setIsClearModal(false);
   };
@@ -87,6 +95,29 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
               />
 
               <div className="basis-[80%] md:basis-full">
+                {/* Mobile category pill bar — sticky below header, hidden on desktop */}
+                {withCategories && withCategories.length > 1 && (
+                  <div className="sticky top-16 z-10 hidden md:flex overflow-x-auto gap-2 bg-bg-2 px-2 pb-2 pt-1.5 [&::-webkit-scrollbar]:hidden">
+                    {withCategories.map(({ category }: any) => (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={() => {
+                          setActiveCategory(category);
+                          document.getElementById(`cat-${category}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }}
+                        className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+                          activeCategory === category
+                            ? "bg-primary text-white"
+                            : "bg-bg-1 text-text-2"
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
                 <Banner
                   bannerImageUrl={restaurantInfo?.bannerImage?.url}
                   t={t}
@@ -107,7 +138,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                   {withCategories?.map(({ dishes, category }: any) => {
                     const { title, deliveryPrice } = restaurantInfo;
                     return (
-                      <div key={category} className="mt-5">
+                      <div key={category} id={`cat-${category}`} className="mt-5 scroll-mt-20 md:scroll-mt-28">
                         <p className="ml-1 text-2xl font-semibold capitalize">{category}</p>
                         <div className="manual_grid_220 mt-2 2xl:mt-4 md:w-full">
                           {dishes?.map((d: Dish) => {
