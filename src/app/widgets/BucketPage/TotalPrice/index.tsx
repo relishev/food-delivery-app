@@ -5,6 +5,7 @@ import { FC, useState } from "react";
 import { cn } from "@/app/shared/lib/utils";
 import { ShippingOptionsSelector } from "@/app/components/shipping";
 import type { ShippingQuote } from "@/app/shipping/types";
+import useCurrency from "@/app/hooks/useCurrency";
 
 interface Props {
   totalPrice: string;
@@ -32,6 +33,7 @@ const Index: FC<Props> = ({
   onShippingQuoteSelect,
 }) => {
   const [selectedQuote, setSelectedQuote] = useState<ShippingQuote | null>(null);
+  const { fmt } = useCurrency();
 
   const handleQuoteSelect = (quote: ShippingQuote) => {
     setSelectedQuote(quote);
@@ -80,7 +82,7 @@ const Index: FC<Props> = ({
       <ul className="mb-3 space-y-3">
         <li className="flex justify-between sm:text-sm">
           {t("BucketPage.price")}
-          <span>{totalPrice}$</span>
+          <span>{fmt(Number(totalPrice))}</span>
         </li>
         <li className="flex justify-between sm:text-sm">
           {t("Index.delivery")}
@@ -92,7 +94,7 @@ const Index: FC<Props> = ({
               ? t("BucketPage.pricePending") || "Price Pending"
               : deliveryDisplayPrice === 0
                 ? t("Index.freeDelivery")
-                : `${deliveryDisplayPrice}$`}
+                : fmt(deliveryDisplayPrice!)}
           </span>
         </li>
 
@@ -100,8 +102,8 @@ const Index: FC<Props> = ({
           {t("BucketPage.totalPrice")}
           <span className="rounded-[14px] border border-primary bg-onHover px-2.5 py-1 leading-4 sm:text-sm">
             {selectedQuote?.price === -1
-              ? `${totalPrice}$ + ?`
-              : `${finalTotal} $`}
+              ? `${fmt(Number(totalPrice))} + ?`
+              : fmt(finalTotal)}
           </span>
         </li>
       </ul>

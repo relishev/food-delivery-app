@@ -51,6 +51,7 @@ interface RestaurantId {
   freeAfterAmount: number;
   workingHours: WorkingHours;
   isClosed: boolean;
+  is24h: boolean;
   isDelivery: boolean;
   bannerImage: {
     id: string;

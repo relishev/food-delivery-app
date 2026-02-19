@@ -3,7 +3,7 @@ import { atomWithStorage } from "jotai/utils";
 
 import { DEFAULT_RESTAURANT_INFO } from "@/app/data";
 
-import { DISHES, LANGUAGE, USER_PROFILE, CITY } from "@/app/shared/constants";
+import { DISHES, LANGUAGE, USER_PROFILE, CITY, CURRENCY } from "@/app/shared/constants";
 
 const isClearBucketModal = atom(false);
 const isSidebarOpen = atom(false);
@@ -12,6 +12,8 @@ const query = atom("");
 
 const selectedLanguage = atomWithStorage(LANGUAGE, "en");
 const selectedCity = atomWithStorage(CITY, "Seoul");
+const selectedCurrency = atomWithStorage<CurrencyCode>(CURRENCY, "USD");
+const exchangeRates = atom<Record<string, number>>({ USD: 1, EUR: 0.92, KRW: 1340, RUB: 90, TRY: 32, CNY: 7.2 });
 const selectedItems = atomWithStorage<RestaurantWithDishesInfo>(DISHES, DEFAULT_RESTAURANT_INFO, {
   getItem(key, initialValue) {
     const storedVal = localStorage.getItem(key);
@@ -45,6 +47,8 @@ const atoms = {
   selectedCity,
   isClearBucketModal,
   userProfile,
+  selectedCurrency,
+  exchangeRates,
 };
 
 export default atoms;

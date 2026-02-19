@@ -55,6 +55,7 @@ export const RESTAURANT = `
         closeTime
       }
       isClosed
+      is24h
       isDelivery
       bannerImage{
         id

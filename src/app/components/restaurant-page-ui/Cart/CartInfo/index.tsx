@@ -1,9 +1,11 @@
+"use client";
 import { FC } from "react";
 
 //components
 import DeliveryItem from "@/app/components/shared-ui/DeliveryItem";
 import { InfoIcon } from "@/app/icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
+import useCurrency from "@/app/hooks/useCurrency";
 
 interface Props {
   selfCareTime: number;
@@ -14,13 +16,14 @@ interface Props {
 
 const Index: FC<Props> = ({ isDelivery, t, restaurantInfo, selfCareTime }) => {
   const { address, deliveryTime, deliveryPrice } = restaurantInfo;
+  const { fmt } = useCurrency();
   return (
     <div className="mb-2.5 flex items-center gap-2.5 bg-bg-1">
       {isDelivery ? (
         <DeliveryItem
           t={t}
           isDelivery={isDelivery}
-          deliveryPrice={deliveryPrice + " $"}
+          deliveryPrice={fmt(deliveryPrice)}
           deliveryTitle={t("Index.delivery")}
         />
       ) : (

@@ -1,8 +1,10 @@
+"use client";
 import { FC } from "react";
 
 import { PlusIcon } from "@/app/icons";
 
 import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
+import useCurrency from "@/app/hooks/useCurrency";
 
 interface Props {
   dish: Dish;
@@ -13,6 +15,7 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ dish, isDishDisabled, addItem, btnTitle, handleDish }) => {
+  const { fmt } = useCurrency();
   return (
     <div className="relative m-1 flex max-w-full flex-col overflow-hidden rounded-[14px] bg-bg-1 p-3 md:p-2">
       <div className=" relative mb-2.5 h-44 w-full overflow-hidden rounded-[14px] " onClick={handleDish}>
@@ -24,7 +27,7 @@ const Index: FC<Props> = ({ dish, isDishDisabled, addItem, btnTitle, handleDish 
       </div>
       <div className="mb-2.5 h-fit font-medium">
         <h4 className="text-xl xl:text-lg md:text-base">
-          {dish.title} - {dish.price}$
+          {dish.title} - {fmt(dish.price)}
         </h4>
         <p className="line-clamp-2 text-base font-normal xl:text-sm md:text-xs">{dish.description}</p>
       </div>

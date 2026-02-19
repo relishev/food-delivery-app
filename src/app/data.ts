@@ -4,6 +4,15 @@ export const LANGUAGES = [
   { title: "Turkmen", value: "tk" },
 ];
 
+export const CURRENCIES: { code: CurrencyCode; symbol: string; title: string }[] = [
+  { code: "USD", symbol: "$", title: "USD" },
+  { code: "EUR", symbol: "€", title: "EUR" },
+  { code: "KRW", symbol: "₩", title: "KRW" },
+  { code: "RUB", symbol: "₽", title: "RUB" },
+  { code: "TRY", symbol: "₺", title: "TRY" },
+  { code: "CNY", symbol: "¥", title: "CNY" },
+];
+
 export const BUCKET_INPUTS = [
   {
     name: "district",

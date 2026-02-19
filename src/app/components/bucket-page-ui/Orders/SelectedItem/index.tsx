@@ -4,6 +4,7 @@ import { FC } from "react";
 import IncreaseDecrease from "@/app/components/shared-ui/IncreaseDecrease";
 
 import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
+import useCurrency from "@/app/hooks/useCurrency";
 
 interface Props {
   item: any;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ item, decrease, increase }) => {
+  const { fmt } = useCurrency();
   return (
     <div className="py-2.5">
       <div className="flex flex-wrap space-x-2">
@@ -33,7 +35,7 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
                 decrease={decrease}
                 className="w-20 space-x-3 xl:w-24 md:w-[68px] md:space-x-1"
               />
-              <p className="min-w-16 text-base font-medium md:text-sm">{item.price}$</p>
+              <p className="min-w-16 text-base font-medium md:text-sm">{fmt(item.price)}</p>
             </div>
           </div>
         </div>

@@ -36,10 +36,9 @@ export default function RestaurantId({ params }: any) {
 
   const { restaurantInfo, withCategories, getRestaurant, isLoading } = useGetRestaurantById();
 
-  const isRestaurantAvailable = isRestaurantOpen(
-    restaurantInfo?.workingHours?.openTime,
-    restaurantInfo?.workingHours?.closeTime,
-  );
+  const isRestaurantAvailable =
+    restaurantInfo?.is24h ||
+    isRestaurantOpen(restaurantInfo?.workingHours?.openTime, restaurantInfo?.workingHours?.closeTime);
 
   const { addItem, clearItems, handleUnavailableWarning } = useProductItem(isRestaurantAvailable);
 

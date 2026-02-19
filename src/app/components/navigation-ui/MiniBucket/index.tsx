@@ -1,3 +1,4 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 
@@ -9,6 +10,7 @@ import { BucketIcon, EmptyBucketIcon } from "@/app/icons";
 import { PopoverClose } from "@radix-ui/react-popover";
 import MiniItem from "./MiniItem";
 import MiniDishesCount from "../TotalDishesCount";
+import useCurrency from "@/app/hooks/useCurrency";
 
 interface Props {
   t: any;
@@ -16,6 +18,7 @@ interface Props {
 
 const Index: FC<Props> = ({ t }) => {
   const { selectedItems, totalDishes, increaseItem, decreaseItem, clearItems, totalPrice } = useProductItem();
+  const { fmt } = useCurrency();
 
   const router = useRouter();
 
@@ -29,7 +32,7 @@ const Index: FC<Props> = ({ t }) => {
       <PopoverTrigger asChild className="right-50 md:hidden">
         <button className="relative flex h-12 items-center space-x-1.5 rounded-[16px] bg-primary px-4 py-2.5 md:h-10 md:px-3">
           <BucketIcon />
-          <p className="font-medium xl:hidden">{totalPrice}$</p>
+          <p className="font-medium xl:hidden">{fmt(totalPrice)}</p>
           <MiniDishesCount count={totalDishes} className="absolute -right-2 -top-2 " />
         </button>
       </PopoverTrigger>
@@ -72,7 +75,7 @@ const Index: FC<Props> = ({ t }) => {
             className="mt-6 flex w-full justify-between rounded-[14px] bg-primary px-[18px] py-2.5 text-xl hover:bg-accent disabled:bg-black/10 disabled:text-black/50"
           >
             <p className="">{t("Index.toBucket")}</p>
-            <p className="font-medium">{totalPrice}$</p>
+            <p className="font-medium">{fmt(totalPrice)}</p>
           </PopoverClose>
         </div>
       </PopoverContent>

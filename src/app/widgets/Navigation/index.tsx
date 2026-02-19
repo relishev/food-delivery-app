@@ -16,6 +16,7 @@ import { cn } from "@/app/shared/lib/utils";
 import { MenuIcon } from "lucide-react";
 import Authorization from "@/app/components/authorization-ui/Authorization";
 import Regions from "@/app/components/navigation-ui/Cities";
+import Currency from "@/app/components/navigation-ui/Currency";
 import Language from "@/app/components/navigation-ui/Language";
 import MiniBucket from "@/app/components/navigation-ui/MiniBucket";
 import MiniBucketMobile from "@/app/components/navigation-ui/MiniBucketMobile";
@@ -27,6 +28,7 @@ import { BackIcon, LogoIcon } from "@/app/icons";
 //jotai
 import { useAtom, useSetAtom } from "jotai";
 import atoms from "@/app/(pages)/_providers/jotai";
+import { EXCHANGE_RATES } from "@/app/shared/constants";
 
 interface Props {}
 
@@ -42,6 +44,7 @@ const Index: FC<Props> = ({}) => {
   const setUserProfile = useSetAtom(atoms.userProfile);
   const handleQuery = useSetAtom(atoms.query);
   const [selectedCity, setSelectedCity] = useAtom(atoms.selectedCity);
+  const setRates = useSetAtom(atoms.exchangeRates);
 
   const { currentUser } = useLoginMe();
 
@@ -84,6 +87,27 @@ const Index: FC<Props> = ({}) => {
     );
   }, [cities]);
 
+  useEffect(() => {
+    try {
+      const cachedStr = localStorage.getItem(EXCHANGE_RATES);
+      const cached = cachedStr ? JSON.parse(cachedStr) : null;
+      const isStale = !cached || Date.now() - cached.fetchedAt > 6 * 3600 * 1000;
+      if (isStale) {
+        fetch("https://open.er-api.com/v6/latest/USD")
+          .then((r) => r.json())
+          .then((d) => {
+            setRates(d.rates);
+            localStorage.setItem(EXCHANGE_RATES, JSON.stringify({ rates: d.rates, fetchedAt: Date.now() }));
+          })
+          .catch(() => {});
+      } else {
+        setRates(cached.rates);
+      }
+    } catch {
+      // localStorage unavailable — keep fallback rates
+    }
+  }, []);
+
   const isBucketPage = pathName.includes("bucket");
   return (
     <header style={{ paddingTop: "env(safe-area-inset-top)" }} className="fixed top-0 z-20 flex h-20 w-screen items-center justify-between space-x-6 bg-bg-1 py-4 pl-3 pr-6 shadow-md xl:space-x-6 xl:pl-2 xl:pr-4 lg:space-x-4 md:h-16 md:space-x-2 md:px-3 md:py-2">
@@ -117,6 +141,7 @@ const Index: FC<Props> = ({}) => {
       </div>
       <div className="flex items-center space-x-4 md:space-x-3">
         <Language languageTitle={languageTitle} handleChange={handleChange} />
+        <Currency />
         <MiniBucket t={t} />
 
         <MiniBucketMobile t={t} />

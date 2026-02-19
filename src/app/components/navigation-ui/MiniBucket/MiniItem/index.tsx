@@ -1,8 +1,10 @@
+"use client";
 import { FC } from "react";
 
 import IncreaseDecrease from "@/app/components/shared-ui/IncreaseDecrease";
 
 import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
+import useCurrency from "@/app/hooks/useCurrency";
 interface Props {
   item: any;
   increase: () => void;
@@ -10,6 +12,7 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ item, increase, decrease }) => {
+  const { fmt } = useCurrency();
   return (
     <div key={item.id} className="flex items-center space-x-3">
       <div className="relative -mb-[1px] h-16 w-16 overflow-hidden rounded-xl">
@@ -22,7 +25,7 @@ const Index: FC<Props> = ({ item, increase, decrease }) => {
           </p>
           <div>
             <p className="text-sm font-medium text-text-2">
-              {item.price}$ • <span className="text-text-4">{item.gram}gr</span>
+              {fmt(item.price)} • <span className="text-text-4">{item.gram}gr</span>
             </p>
           </div>
         </div>

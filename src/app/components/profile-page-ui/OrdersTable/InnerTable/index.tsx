@@ -1,6 +1,8 @@
+"use client";
 import { FC } from "react";
 
 import { PROFILE_INNER_HEAD } from "@/app/data";
+import useCurrency from "@/app/hooks/useCurrency";
 
 interface Props {
   deliveryPrice: string | number;
@@ -10,6 +12,7 @@ interface Props {
 
 const Index: FC<Props> = ({ deliveryPrice, dishes, t }) => {
   const totalPrice = dishes?.reduce((acc, { dish: { price }, quantity }) => acc + price * quantity, 0);
+  const { fmt } = useCurrency();
 
   return (
     <div className=" px-8 last:pb-6">
@@ -28,7 +31,7 @@ const Index: FC<Props> = ({ deliveryPrice, dishes, t }) => {
             className="flex w-[40%] items-center border-b border-black/20 text-sm xl:w-[60%] xl:text-sm md:text-xs [&>*]:px-4 [&>*]:py-2 xl:[&>*]:px-3"
           >
             <li className="w-[40%]">{title}</li>
-            <li className="w-[30%]">{price} $</li>
+            <li className="w-[30%]">{fmt(price)}</li>
             <li className="w-[30%]">{quantity}</li>
           </ul>
         ))}
@@ -36,13 +39,13 @@ const Index: FC<Props> = ({ deliveryPrice, dishes, t }) => {
       <p className="mt-2 flex w-[40%] justify-between border-b border-black/20 px-4 py-2 text-sm font-medium xl:w-[60%] xl:px-3">
         {Boolean(+deliveryPrice) ? (
           <span className="font-medium opacity-80">
-            {t("Index.deliveryPrice")} : {deliveryPrice} $
+            {t("Index.deliveryPrice")} : {fmt(+deliveryPrice)}
           </span>
         ) : (
           <span className="text-success">{t("Index.freeDelivery")}</span>
         )}
         <span className="font-medium text-info ">
-          {t("BucketPage.totalPrice")}: {totalPrice + +deliveryPrice}
+          {t("BucketPage.totalPrice")}: {fmt(totalPrice + +deliveryPrice)}
         </span>
       </p>
     </div>
