@@ -64,7 +64,7 @@ const useSidebar = () => {
       title: t("home"),
       icon: <HomeIcon className="h-5 w-5" />,
       onClick: handleHome,
-      authRequired: true,
+      authRequired: false,
     },
     {
       title: t("profile"),
