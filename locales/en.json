@@ -71,6 +71,7 @@
     "phone": "Phone",
     "email": "Email",
     "address": "Address",
+    "telegram": "Telegram",
     "workingHours": "Working hours",
     "about": "About us",
     "advertisement": "Advertisement",
@@ -237,6 +238,8 @@
     "feedbackSubHeading": "We value your attention to our service and appreciate your willingness to help us improve!",
     "feedbackSend": "Send request",
     "feedbackTitle": "Describe the issue",
-    "feedbackPlaceholder": "Tell us why you decided to submit feedback"
+    "feedbackPlaceholder": "Tell us why you decided to submit feedback",
+
+    "earlyAccess": "🚧 Early Access — some features are still in development."
   }
 }

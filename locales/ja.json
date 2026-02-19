@@ -71,6 +71,7 @@
     "phone": "電話",
     "email": "メール",
     "address": "住所",
+    "telegram": "テレグラム",
     "workingHours": "営業時間",
     "about": "私たちについて",
     "advertisement": "広告",
@@ -237,6 +238,8 @@
     "feedbackSubHeading": "私たちのサービスへのご関心と改善のためにお力をお貸しいただきありがとうございます！",
     "feedbackSend": "申請を送信",
     "feedbackTitle": "問題を説明",
-    "feedbackPlaceholder": "フィードバックを送ろうと思った理由を教えてください"
+    "feedbackPlaceholder": "フィードバックを送ろうと思った理由を教えてください",
+
+    "earlyAccess": "🚧 早期アクセス — 一部の機能はまだ開発中です。"
   }
 }

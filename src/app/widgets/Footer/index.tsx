@@ -17,6 +17,12 @@ const FeedbackModal = dynamic(() => import("@/app/components/footer-ui/FeedbackM
   loading: () => <Spinner />,
 });
 
+const TelegramIcon = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+  </svg>
+);
+
 interface Props {}
 
 const contacts = [
@@ -24,16 +30,25 @@ const contacts = [
     icon: <PhoneIcon className="h-6 w-6 text-primary" />,
     title: "MainPage.phone",
     subtitle: "+82 2-1234-5678",
+    href: null,
   },
   {
     icon: <MessageIcon className="h-6 w-6 text-primary" />,
     title: "MainPage.email",
     subtitle: "support@foody7.com",
+    href: "mailto:support@foody7.com",
   },
   {
     icon: <LocationIcon className="h-6 w-6 text-primary" />,
     title: "MainPage.address",
     subtitle: "Seoul, South Korea",
+    href: null,
+  },
+  {
+    icon: <TelegramIcon className="h-6 w-6 text-primary" />,
+    title: "MainPage.telegram",
+    subtitle: "@relishev",
+    href: "https://t.me/relishev",
   },
 ];
 
@@ -55,20 +70,43 @@ const Index: FC<Props> = () => {
 
   return (
     <footer className="z-[2000] w-full bg-gray-3 shadow-2xl">
+      {/* Under-construction notice — full width, both layouts */}
+      <div className="w-full bg-amber-50 border-b border-amber-200 px-4 py-2 flex items-center justify-center gap-2">
+        <span className="text-amber-500 text-base leading-none">🚧</span>
+        <p className="text-xs text-amber-700 text-center">{t("Footer.earlyAccess")}</p>
+      </div>
+
       {/* Desktop layout */}
       <div className="md:hidden px-40 py-10 2xl:px-20 xl:px-10 lg:px-6">
         <div className="mx-auto max-w-[1440px]">
           {/* Top: contacts */}
           <div className="flex justify-between gap-6 lg:gap-4">
-            {contacts.map(({ icon, title, subtitle }) => (
-              <div key={title} className="flex items-center gap-3 rounded-xl bg-white/60 px-5 py-4 flex-1 shadow-sm">
-                <span className="shrink-0">{icon}</span>
-                <div>
-                  <p className="text-xs font-medium text-text-4 uppercase tracking-wide">{t(title as any)}</p>
-                  <p className="mt-0.5 text-sm font-semibold">{subtitle}</p>
+            {contacts.map(({ icon, title, subtitle, href }) => {
+              const inner = (
+                <>
+                  <span className="shrink-0">{icon}</span>
+                  <div>
+                    <p className="text-xs font-medium text-text-4 uppercase tracking-wide">{t(title as any)}</p>
+                    <p className="mt-0.5 text-sm font-semibold">{subtitle}</p>
+                  </div>
+                </>
+              );
+              return href ? (
+                <a
+                  key={title}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="flex items-center gap-3 rounded-xl bg-white/60 px-5 py-4 flex-1 shadow-sm transition hover:bg-white"
+                >
+                  {inner}
+                </a>
+              ) : (
+                <div key={title} className="flex items-center gap-3 rounded-xl bg-white/60 px-5 py-4 flex-1 shadow-sm">
+                  {inner}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Divider */}
@@ -117,6 +155,19 @@ const Index: FC<Props> = () => {
             </li>
           ))}
         </ul>
+
+        {/* Telegram contact */}
+        <div className="flex justify-center mb-3">
+          <a
+            href="https://t.me/relishev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-xs text-text-4 hover:text-primary transition"
+          >
+            <TelegramIcon className="h-4 w-4" />
+            <span>@relishev</span>
+          </a>
+        </div>
 
         {/* Copyright */}
         <div className="border-t border-gray-2 pt-3">
