@@ -218,7 +218,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                   {searchQuery.length >= 2 && (
                     <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-gray-2 bg-bg-1 shadow-xl">
                       {searchResults.length === 0 ? (
-                        <p className="px-4 py-3 text-sm text-text-4">No dishes found for "{searchQuery}"</p>
+                        <p className="px-4 py-3 text-sm text-text-4">No dishes found for &ldquo;{searchQuery}&rdquo;</p>
                       ) : (
                         <ul>
                           {searchResults.map((dish) => {
