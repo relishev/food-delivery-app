@@ -6,6 +6,7 @@ import { Provider as JotaiProvider } from "jotai";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
+import Image from "next/image";
 import { routing } from "@/i18n/routing";
 
 import TanstackQueryProvider from "@/app/(pages)/_providers/tanstack-query";
@@ -71,8 +72,9 @@ export default async function BrandedLayout({ children, params }: Props) {
                 {children}
               </div>
               {/* AC-01-4: "Powered by Foody7" attribution */}
-              <footer className="py-4 text-center text-xs text-text-4">
-                Powered by{" "}
+              <footer className="flex items-center justify-center gap-1.5 py-3 text-xs text-text-4">
+                Powered by
+                <Image src="/foody7-icon.png" alt="Foody7" width={14} height={14} className="inline-block" />
                 <span className="font-medium text-primary">Foody7</span>
               </footer>
             </TanstackQueryProvider>

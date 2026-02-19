@@ -60,9 +60,10 @@ function editDistance(a: string, b: string): number {
 function fuzzyMatch(query: string, title: string, description: string): boolean {
   const q = query.toLowerCase().trim();
   const text = (title + " " + description).toLowerCase();
-  if (!q || q.length < 2) return false;
+  if (!q || q.length < 1) return false;
   if (text.includes(q)) return true;
   const qWords = q.split(/\s+/).filter((w) => w.length >= 2);
+  if (qWords.length === 0) return title.toLowerCase().startsWith(q);
   const tWords = text.split(/[\s,.()\-/]+/);
   return qWords.every((qw) => {
     if (text.includes(qw)) return true;
@@ -70,6 +71,13 @@ function fuzzyMatch(query: string, title: string, description: string): boolean 
     return tWords.some((tw) => Math.abs(tw.length - qw.length) <= maxDist && editDistance(qw, tw) <= maxDist);
   });
 }
+
+// ─── Search icon SVG ─────────────────────────────────────────────────────────
+const SearchIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+  </svg>
+);
 
 // ─── Component ────────────────────────────────────────────────────────────────
 interface BrandedRestaurantContentProps {
@@ -84,12 +92,12 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
   const selectedItems = useAtomValue(atoms.selectedItems);
 
-  const { restaurantInfo, withCategories, getRestaurant, isLoading } = useGetRestaurantById();
+  const { restaurantInfo, withCategories, getRestaurant } = useGetRestaurantById();
   const isRestaurantAvailable =
     restaurantInfo?.is24h ||
     isRestaurantOpen(restaurantInfo?.workingHours?.openTime, restaurantInfo?.workingHours?.closeTime);
 
-  const { addItem, clearItems, handleUnavailableWarning } = useProductItem(isRestaurantAvailable);
+  const { addItem, clearItems, handleUnavailableWarning, totalPrice } = useProductItem(isRestaurantAvailable);
 
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -98,7 +106,6 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Dish[]>([]);
-  const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const closeModal = () => setIsClearModal(false);
@@ -114,47 +121,104 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
     }
   }, [withCategories]);
 
-  // Search logic
   const runSearch = useCallback(
     (q: string) => {
-      if (!q.trim() || !withCategories) { setSearchResults([]); return; }
+      if (!q.trim() || !withCategories?.length) { setSearchResults([]); return; }
       const allDishes: Dish[] = withCategories.flatMap((c: any) => c.dishes ?? []);
-      setSearchResults(allDishes.filter((d) => fuzzyMatch(q, d.title, (d as any).description ?? "")).slice(0, 8));
+      setSearchResults(allDishes.filter((d) => fuzzyMatch(q, d.title, (d as any).description ?? "")).slice(0, 10));
     },
     [withCategories],
   );
 
   useEffect(() => { runSearch(searchQuery); }, [searchQuery, runSearch]);
 
-  // Close search on outside click
-  useEffect(() => {
-    if (!searchOpen) return;
-    const handler = (e: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setSearchOpen(false);
-        setSearchQuery("");
-        setSearchResults([]);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [searchOpen]);
-
   const openSearch = () => {
     setSearchOpen(true);
     setTimeout(() => inputRef.current?.focus(), 50);
   };
 
-  const selectDishResult = (dish: Dish) => {
+  const closeSearch = () => {
     setSearchOpen(false);
     setSearchQuery("");
     setSearchResults([]);
-    const el = document.getElementById(`dish-${dish.id}`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const selectDishResult = (dish: Dish) => {
+    closeSearch();
+    setTimeout(() => {
+      const el = document.getElementById(`dish-${dish.id}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
+
+  const cartCount = selectedItems?.dishes?.length ?? 0;
 
   return (
     <main className="box-content bg-bg-2">
+      {/* ── Full-screen search overlay ──────────────────────────────────── */}
+      {searchOpen && (
+        <div
+          className="fixed inset-0 z-[60] flex flex-col bg-bg-1"
+          style={{ paddingTop: "env(safe-area-inset-top)" }}
+        >
+          {/* Search input row */}
+          <div className="flex items-center gap-2 border-b border-gray-2 px-3 py-3">
+            <SearchIcon className="h-4 w-4 shrink-0 text-primary" />
+            <input
+              ref={inputRef}
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search dishes…"
+              autoComplete="off"
+              className="flex-1 bg-transparent text-sm text-text-1 outline-none placeholder:text-text-4"
+            />
+            {searchQuery ? (
+              <button type="button" onClick={() => setSearchQuery("")} className="shrink-0 text-text-4 hover:text-text-2">
+                ✕
+              </button>
+            ) : (
+              <button type="button" onClick={closeSearch} className="shrink-0 text-sm text-text-4 hover:text-text-2">
+                Cancel
+              </button>
+            )}
+          </div>
+
+          {/* Results list */}
+          <div className="flex-1 overflow-y-auto">
+            {searchQuery.length === 0 ? (
+              <p className="px-4 py-6 text-center text-sm text-text-4">Start typing to search dishes…</p>
+            ) : searchResults.length === 0 ? (
+              <p className="px-4 py-6 text-center text-sm text-text-4">
+                No dishes found for &ldquo;{searchQuery}&rdquo;
+              </p>
+            ) : (
+              <ul>
+                {searchResults.map((dish) => {
+                  const cat = withCategories?.find((c: any) => c.dishes?.some((d: Dish) => d.id === dish.id));
+                  return (
+                    <li key={dish.id} className="border-b border-gray-2/50 last:border-0">
+                      <button
+                        type="button"
+                        onClick={() => selectDishResult(dish)}
+                        className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition hover:bg-bg-2"
+                      >
+                        <span className="text-2xl leading-none">{getCategoryIcon(cat?.category ?? "")}</span>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-text-1">{dish.title}</p>
+                          {cat && <p className="text-xs text-text-4 capitalize">{cat.category}</p>}
+                        </div>
+                        <span className="shrink-0 text-sm font-semibold text-primary">{(dish as any).price} $</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="mx-auto max-w-[1440px]">
         {restaurantInfo === null && (
           <div className="flex h-[calc(100vh-315px)] flex-col items-center justify-center px-10 py-40 text-center text-2xl font-medium md:text-xl sm:text-lg">
@@ -171,89 +235,16 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
 
         {restaurantInfo && (
           <>
-            {/* ── Sticky search bar (below fixed header) ──────────────────── */}
-            <div
-              ref={searchRef}
-              className="sticky top-16 z-10 bg-bg-1 px-3 py-2 shadow-sm"
-            >
-              {!searchOpen ? (
-                /* Collapsed: compact search trigger */
-                <button
-                  type="button"
-                  onClick={openSearch}
-                  className="flex w-full items-center gap-2 rounded-xl border border-gray-2 bg-bg-2 px-3 py-2 text-sm text-text-4 transition hover:border-gray-300 hover:bg-bg-1"
-                >
-                  <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                  </svg>
-                  <span>Search dishes…</span>
-                </button>
-              ) : (
-                /* Expanded: real input */
-                <div className="relative">
-                  <div className="flex items-center gap-2 rounded-xl border-2 border-primary bg-bg-1 px-3 py-2 shadow-sm">
-                    <svg className="h-4 w-4 shrink-0 text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-                    </svg>
-                    <input
-                      ref={inputRef}
-                      type="search"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="Search dishes…"
-                      className="flex-1 bg-transparent text-sm text-text-1 outline-none placeholder:text-text-4"
-                    />
-                    {searchQuery && (
-                      <button
-                        type="button"
-                        onClick={() => setSearchQuery("")}
-                        className="shrink-0 text-text-4 hover:text-text-2"
-                      >
-                        ✕
-                      </button>
-                    )}
-                  </div>
-
-                  {/* Search results dropdown */}
-                  {searchQuery.length >= 2 && (
-                    <div className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-gray-2 bg-bg-1 shadow-xl">
-                      {searchResults.length === 0 ? (
-                        <p className="px-4 py-3 text-sm text-text-4">No dishes found for &ldquo;{searchQuery}&rdquo;</p>
-                      ) : (
-                        <ul>
-                          {searchResults.map((dish) => {
-                            const cat = withCategories?.find((c: any) =>
-                              c.dishes?.some((d: Dish) => d.id === dish.id),
-                            );
-                            return (
-                              <li key={dish.id}>
-                                <button
-                                  type="button"
-                                  onClick={() => selectDishResult(dish)}
-                                  className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-bg-2"
-                                >
-                                  <span className="text-xl leading-none">
-                                    {getCategoryIcon(cat?.category ?? "")}
-                                  </span>
-                                  <div className="min-w-0">
-                                    <p className="truncate text-sm font-medium text-text-1">{dish.title}</p>
-                                    {cat && (
-                                      <p className="text-xs text-text-4 capitalize">{cat.category}</p>
-                                    )}
-                                  </div>
-                                  <span className="ml-auto shrink-0 text-sm font-medium text-primary">
-                                    {(dish as any).price} $
-                                  </span>
-                                </button>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
+            {/* ── Sticky search trigger (collapsed bar) ───────────────────── */}
+            <div className="sticky top-16 z-10 bg-bg-1 px-3 py-2 shadow-sm">
+              <button
+                type="button"
+                onClick={openSearch}
+                className="flex w-full items-center gap-2 rounded-xl border border-gray-2 bg-bg-2 px-3 py-2 text-sm text-text-4 transition hover:border-gray-300 hover:bg-bg-1"
+              >
+                <SearchIcon className="h-4 w-4 shrink-0" />
+                <span>Search dishes…</span>
+              </button>
             </div>
 
             <div className="flex justify-between px-4 py-8 2xl:py-6 lg:px-2.5 lg:py-4 md:px-2 md:py-2.5">
@@ -266,7 +257,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                 />
 
                 <div className="basis-[80%] md:basis-full">
-                  {/* Mobile category pill bar — sticky below search bar */}
+                  {/* Mobile category pill bar */}
                   {withCategories && withCategories.length > 1 && (
                     <div className="sticky top-[6.75rem] z-10 -mx-2 hidden md:flex overflow-x-auto gap-2 bg-bg-2 px-2 pb-2 pt-1.5 [&::-webkit-scrollbar]:hidden">
                       {withCategories.map(({ category }: any) => (
@@ -278,9 +269,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                             document.getElementById(`cat-${category}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
                           }}
                           className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
-                            activeCategory === category
-                              ? "bg-primary text-white"
-                              : "bg-bg-1 text-text-2"
+                            activeCategory === category ? "bg-primary text-white" : "bg-bg-1 text-text-2"
                           }`}
                         >
                           <span className="text-base leading-none">{getCategoryIcon(category)}</span>
@@ -301,7 +290,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                     }}
                   />
 
-                  <div className="w-full">
+                  <div className="w-full pb-4 md:pb-28">
                     {restaurantInfo.freeAfterAmount > 0 && restaurantInfo.deliveryPrice !== 0 && (
                       <div className="mt-5 flex items-center space-x-2.5 rounded-2xl bg-[#FFD166]/10 px-4 py-3 text-text-4 md:px-3 md:py-2.5 md:text-xs">
                         <CakeIcon className="h-10 w-10 fill-primary md:h-8 md:w-8" />
@@ -312,11 +301,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                     {withCategories?.map(({ dishes, category }: any) => {
                       const { title, deliveryPrice } = restaurantInfo;
                       return (
-                        <div
-                          key={category}
-                          id={`cat-${category}`}
-                          className="mt-5 scroll-mt-28 md:scroll-mt-40"
-                        >
+                        <div key={category} id={`cat-${category}`} className="mt-5 scroll-mt-28 md:scroll-mt-40">
                           <p className="ml-1 flex items-center gap-2 text-2xl font-semibold capitalize">
                             <span className="text-2xl leading-none">{getCategoryIcon(category)}</span>
                             {category}
@@ -365,6 +350,30 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
         {!restaurantInfo && restaurantInfo !== null && <RestaurantPageSkeleton />}
         {selectedDish && <AboutProduct dish={selectedDish} handleClose={() => setSelectedDish(null)} t={t} />}
       </div>
+
+      {/* ── Mobile sticky cart bar ─────────────────────────────────────────── */}
+      {cartCount > 0 && restaurantInfo && (
+        <div
+          className="fixed bottom-0 left-0 right-0 z-30 hidden md:block bg-bg-1 border-t border-gray-2 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]"
+          style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+        >
+          <div className="px-3 py-3">
+            <button
+              type="button"
+              onClick={() => router.push("/bucket")}
+              className="flex w-full items-center justify-between rounded-[14px] bg-primary px-5 py-3.5 text-white transition hover:bg-primary/90 active:scale-[0.98]"
+            >
+              <span className="flex items-center gap-2.5">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/25 text-xs font-bold">
+                  {cartCount}
+                </span>
+                <span className="font-medium">{t("Index.toBucket")}</span>
+              </span>
+              <span className="font-semibold">{totalPrice} $</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {!isRestaurantAvailable && restaurantInfo && (
         <button
