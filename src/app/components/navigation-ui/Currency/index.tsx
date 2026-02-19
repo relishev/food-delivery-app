@@ -13,7 +13,7 @@ const Index: FC = () => {
       <PopoverTrigger asChild>
         <button className="flex min-w-14 cursor-pointer flex-col items-center space-y-1 rounded-md text-sm text-text-2 md:hidden">
           <UsdIcon width={20} height={20} />
-          <p>{currency.code}</p>
+          <p className="whitespace-nowrap">{currency.code}</p>
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-36 px-6 shadow-xl">

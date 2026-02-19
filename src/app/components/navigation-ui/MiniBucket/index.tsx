@@ -32,7 +32,7 @@ const Index: FC<Props> = ({ t }) => {
       <PopoverTrigger asChild className="right-50 md:hidden">
         <button className="relative flex h-12 items-center space-x-1.5 rounded-[16px] bg-primary px-4 py-2.5 md:h-10 md:px-3">
           <BucketIcon />
-          <p className="font-medium xl:hidden">{fmt(totalPrice)}</p>
+          <p className="whitespace-nowrap font-medium xl:hidden">{fmt(totalPrice)}</p>
           <MiniDishesCount count={totalDishes} className="absolute -right-2 -top-2 " />
         </button>
       </PopoverTrigger>

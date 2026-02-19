@@ -22,7 +22,7 @@ const Index: FC<Props> = ({ t }) => {
   return (
     <Dialog>
       <DialogTrigger asChild className="h-10 rounded-xl bg-gray-1 px-4 font-medium text-text-2">
-        <button type="button">{t("Login.login")}</button>
+        <button type="button" className="whitespace-nowrap">{t("Login.login")}</button>
       </DialogTrigger>
 
       <DialogContent className="mx-auto gap-0 rounded-md p-0 text-center md:max-w-[90%]">
