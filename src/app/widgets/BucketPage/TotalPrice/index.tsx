@@ -89,13 +89,13 @@ const Index: FC<Props> = ({
           <span>{fmt(Number(totalPrice))}</span>
         </li>
         <li className="flex justify-between sm:text-sm">
-          {t("Index.delivery")}
+          {isSelfPickup ? t("Index.selfCare") : t("Index.delivery")}
           <span className={cn(
             (deliveryDisplayPrice === 0 || isSelfPickup) && "text-success",
             !isSelfPickup && selectedQuote?.price === -1 && "text-warning"
           )}>
             {isSelfPickup
-              ? t("Index.freeDelivery")
+              ? t("Index.freePickup")
               : selectedQuote?.price === -1
                 ? t("BucketPage.pricePending") || "Price Pending"
                 : deliveryDisplayPrice === 0
