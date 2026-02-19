@@ -56,8 +56,7 @@ export default function FitText({ children, minSize = 8, className, as: Tag = "s
 
   return (
     <Tag
-      // @ts-expect-error — ref type is narrowed at runtime
-      ref={outerRef}
+      ref={outerRef as never}
       className={cn("overflow-hidden", Tag === "span" && "block", className)}
     >
       <span ref={innerRef} className="whitespace-nowrap" suppressHydrationWarning>
