@@ -82,7 +82,7 @@ const useProductItem = (isRestaurantAvailable: boolean = true) => {
         setSelectedItems((prev) => ({
           dishes: [...prev.dishes, { ...itemToAdd, count: 1 }],
           //6 hours
-          timestamp: new Date().getTime() + 6 * 360 * 1000,
+          timestamp: new Date().getTime() + 6 * 3600 * 1000,
         }));
       }
     },

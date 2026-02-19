@@ -44,9 +44,14 @@ export default function Bucket() {
   const { restId, selectedItems, totalPrice, clearItems, handleUnavailableWarning } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
   const { handleOrder } = useOrderSubmit();
+  const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [selectedShippingQuote, setSelectedShippingQuote] = useState<ShippingQuote | null>(null);
   const [deliveryMode, setDeliveryMode] = useState<DeliveryMode>("delivery");
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Available delivery modes based on restaurant config
   const availableModes: DeliveryMode[] = [];
@@ -155,11 +160,12 @@ export default function Bucket() {
   };
 
   useEffect(() => {
+    if (!isMounted) return;
     if (!selectedItems?.dishes.length) {
       router.replace("/");
       toast("Index.emptyBucket", "info");
     }
-  }, [selectedItems?.dishes]);
+  }, [isMounted, selectedItems?.dishes]);
 
   useEffect(() => {
     if (restId && !restaurantInfo) {

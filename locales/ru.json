@@ -9,6 +9,7 @@
     "deliveryDetailed": "Время доставки",
     "selfCare": "Самовывоз",
     "selfCareTitle": "Место получения",
+    "pickupAt": "Самовывоз из",
     "selfCareDetailed": "Время приготовления",
     "orderType": "Способ получения",
     "gr": "гр",
