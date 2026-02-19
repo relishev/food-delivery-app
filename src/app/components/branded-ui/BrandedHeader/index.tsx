@@ -2,7 +2,6 @@
 import { FC, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import type { BrandedRestaurant } from "@/app/lib/getRestaurantBySlug";
 
@@ -56,7 +55,6 @@ const CATEGORY_ICONS: Record<string, string> = {
   sandwiches: "🥪", wraps: "🌯", others: "🍽️",
 };
 
-const CURRENCIES = ["USD", "KRW", "EUR", "JPY", "CNY"];
 
 
 function getCategoryIcon(cat: string) {
@@ -64,14 +62,12 @@ function getCategoryIcon(cat: string) {
 }
 
 const BrandedHeader: FC<Props> = ({ restaurant, restaurantId, slug, locale }) => {
-  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currency, setCurrency] = useState("USD");
 
   const handleLocaleChange = (newLocale: string) => {
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
-    router.push(`/r/${slug}/${newLocale}`);
     setMenuOpen(false);
+    window.location.href = `/r/${slug}/${newLocale}`;
   };
 
   const scrollToCategory = (category: string) => {
@@ -268,28 +264,6 @@ const BrandedHeader: FC<Props> = ({ restaurant, restaurantId, slug, locale }) =>
               </div>
             </section>
 
-            {/* ── Currency ── */}
-            <section className="border-b border-gray-2 px-4 py-3">
-              <p className="pb-2 pt-1.5 text-[10px] font-semibold uppercase tracking-wider text-text-4">
-                Currency
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {CURRENCIES.map((cur) => (
-                  <button
-                    key={cur}
-                    type="button"
-                    onClick={() => setCurrency(cur)}
-                    className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
-                      cur === currency
-                        ? "bg-primary text-white"
-                        : "bg-bg-2 text-text-3 hover:bg-gray-2"
-                    }`}
-                  >
-                    {cur}
-                  </button>
-                ))}
-              </div>
-            </section>
 
             {/* ── Footer ── */}
             <div className="mt-auto px-4 py-4">
