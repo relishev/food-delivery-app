@@ -12,6 +12,7 @@ interface Props {
   deliveryPrice: number;
   restaurantTitle: string;
   restaurantId: string;
+  isSelfPickup?: boolean;
   disabled: boolean;
   t: any;
   customerAddress?: {
@@ -27,6 +28,7 @@ const Index: FC<Props> = ({
   deliveryPrice,
   restaurantTitle,
   restaurantId,
+  isSelfPickup = false,
   disabled,
   t,
   customerAddress,
@@ -40,10 +42,12 @@ const Index: FC<Props> = ({
     onShippingQuoteSelect?.(quote);
   };
 
-  // Use selected quote price if available, otherwise fallback to restaurant default
-  const deliveryDisplayPrice = selectedQuote
-    ? (selectedQuote.price === -1 ? null : selectedQuote.price)
-    : deliveryPrice;
+  // Self-pickup: delivery is always free, no quotes needed
+  const deliveryDisplayPrice = isSelfPickup
+    ? 0
+    : selectedQuote
+      ? (selectedQuote.price === -1 ? null : selectedQuote.price)
+      : deliveryPrice;
 
   // Calculate final total
   const finalDeliveryPrice = deliveryDisplayPrice ?? 0;
@@ -63,8 +67,8 @@ const Index: FC<Props> = ({
         {restaurantTitle}
       </Link>
 
-      {/* Show shipping options if customer address is available */}
-      {customerAddress && customerAddress.lat && customerAddress.lng && (
+      {/* Show shipping options only for delivery mode with a known address */}
+      {!isSelfPickup && customerAddress && customerAddress.lat && customerAddress.lng && (
         <div className="my-4">
           <ShippingOptionsSelector
             restaurantId={restaurantId}
@@ -87,21 +91,23 @@ const Index: FC<Props> = ({
         <li className="flex justify-between sm:text-sm">
           {t("Index.delivery")}
           <span className={cn(
-            deliveryDisplayPrice === 0 && "text-success",
-            selectedQuote?.price === -1 && "text-warning"
+            (deliveryDisplayPrice === 0 || isSelfPickup) && "text-success",
+            !isSelfPickup && selectedQuote?.price === -1 && "text-warning"
           )}>
-            {selectedQuote?.price === -1
-              ? t("BucketPage.pricePending") || "Price Pending"
-              : deliveryDisplayPrice === 0
-                ? t("Index.freeDelivery")
-                : fmt(deliveryDisplayPrice!)}
+            {isSelfPickup
+              ? t("Index.freeDelivery")
+              : selectedQuote?.price === -1
+                ? t("BucketPage.pricePending") || "Price Pending"
+                : deliveryDisplayPrice === 0
+                  ? t("Index.freeDelivery")
+                  : fmt(deliveryDisplayPrice!)}
           </span>
         </li>
 
         <li className="flex justify-between py-2.5 font-medium">
           {t("BucketPage.totalPrice")}
           <span className="rounded-[14px] border border-primary bg-onHover px-2.5 py-1 leading-4 sm:text-sm">
-            {selectedQuote?.price === -1
+            {!isSelfPickup && selectedQuote?.price === -1
               ? `${fmt(Number(totalPrice))} + ?`
               : fmt(finalTotal)}
           </span>
@@ -110,7 +116,7 @@ const Index: FC<Props> = ({
 
       <button
         type="submit"
-        disabled={disabled || (selectedQuote?.price === -1)}
+        disabled={disabled || (!isSelfPickup && selectedQuote?.price === -1)}
         className="h-12 w-full rounded-[14px] bg-primary px-3 text-center font-medium leading-[48px] hover:bg-accent disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/50 sm:h-10 sm:leading-[40px]"
       >
         {t("BucketPage.submit")}

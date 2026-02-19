@@ -97,7 +97,9 @@ export const RESTAURANT_BUCKET = `
       deliveryTime
       deliveryPrice
       isDelivery
+      selfPickupEnabled
       freeAfterAmount
+      is24h
       workingHours {
         openTime
         closeTime

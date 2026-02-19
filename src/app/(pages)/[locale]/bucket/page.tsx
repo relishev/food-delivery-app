@@ -30,6 +30,8 @@ import useToast from "@/app/hooks/useToast";
 //types
 import type { ShippingQuote } from "@/app/shipping/types";
 
+type DeliveryMode = "delivery" | "selfPickup";
+
 export default function Bucket() {
   const t = useTranslations();
   const queryClient = useQueryClient();
@@ -44,21 +46,41 @@ export default function Bucket() {
   const { handleOrder } = useOrderSubmit();
   const [isLoading, setLoading] = useState(false);
   const [selectedShippingQuote, setSelectedShippingQuote] = useState<ShippingQuote | null>(null);
+  const [deliveryMode, setDeliveryMode] = useState<DeliveryMode>("delivery");
 
-  // Watch form values for customer address
+  // Available delivery modes based on restaurant config
+  const availableModes: DeliveryMode[] = [];
+  if (restaurantInfo?.isDelivery) availableModes.push("delivery");
+  if (restaurantInfo?.selfPickupEnabled) availableModes.push("selfPickup");
+
+  // If only one mode available, auto-select it
+  useEffect(() => {
+    if (!restaurantInfo) return;
+    if (!restaurantInfo.isDelivery && restaurantInfo.selfPickupEnabled) {
+      setDeliveryMode("selfPickup");
+    } else if (restaurantInfo.isDelivery && !restaurantInfo.selfPickupEnabled) {
+      setDeliveryMode("delivery");
+    }
+  }, [restaurantInfo]);
+
+  // Reset shipping quote when mode changes
+  useEffect(() => {
+    setSelectedShippingQuote(null);
+  }, [deliveryMode]);
+
+  // Watch form values for customer address (only relevant for delivery mode)
   const watchedLatitude = form.watch("latitude");
   const watchedLongitude = form.watch("longitude");
   const watchedFullAddress = form.watch("fullAddress");
 
-  // Build customer address object for shipping selector
-  const customerAddress = watchedLatitude && watchedLongitude
-    ? { lat: watchedLatitude, lng: watchedLongitude, fullAddress: watchedFullAddress }
-    : undefined;
+  const customerAddress =
+    deliveryMode === "delivery" && watchedLatitude && watchedLongitude
+      ? { lat: watchedLatitude, lng: watchedLongitude, fullAddress: watchedFullAddress }
+      : undefined;
 
-  const isRestaurantAvailable = isRestaurantOpen(
-    restaurantInfo?.workingHours?.openTime,
-    restaurantInfo?.workingHours?.closeTime,
-  );
+  const isRestaurantAvailable =
+    restaurantInfo?.is24h ||
+    isRestaurantOpen(restaurantInfo?.workingHours?.openTime, restaurantInfo?.workingHours?.closeTime);
 
   const clearLocalStorage = () => {
     clearItems();
@@ -70,6 +92,23 @@ export default function Bucket() {
       handleUnavailableWarning();
       return;
     }
+
+    // Delivery mode: validate address fields
+    if (deliveryMode === "delivery") {
+      if (!values.district || values.district.length < 4) {
+        form.setError("district", { message: t("Zod.invalidDistrict") });
+        return;
+      }
+      if (!values.houseNumber || values.houseNumber.length < 2) {
+        form.setError("houseNumber", { message: t("Zod.invalidHome") });
+        return;
+      }
+      if (!values.apartment || values.apartment.length < 1) {
+        form.setError("apartment", { message: t("Zod.invalidApartment") });
+        return;
+      }
+    }
+
     if (restaurantInfo?.id && userProfile?.id && selectedItems?.dishes.length) {
       const { apartment, commentToCourier, district, entrance, houseNumber, phoneNumber, commentToRestaurant, latitude, longitude, fullAddress } = values;
       try {
@@ -81,7 +120,7 @@ export default function Bucket() {
           restaurantID: restaurantInfo.id,
           houseNumber,
           phoneNumber: +phoneNumber,
-          isDelivery: true,
+          isDelivery: deliveryMode === "delivery",
           city: "Seoul",
           commentToCourier,
           commentToRestaurant,
@@ -93,10 +132,8 @@ export default function Bucket() {
             id,
             quantity: Math.min(count, availableAmount),
           })),
-          // Include shipping quote if selected
-          ...(selectedShippingQuote && { shippingQuoteId: selectedShippingQuote.quoteId }),
+          ...(deliveryMode === "delivery" && selectedShippingQuote && { shippingQuoteId: selectedShippingQuote.quoteId }),
         });
-        //order response
         if (res?.id) {
           router.replace("/profile");
           toast("Actions.successOrder", "success", { duration: 15000, closeButton: true });
@@ -126,11 +163,18 @@ export default function Bucket() {
 
   useEffect(() => {
     if (restId && !restaurantInfo) {
-      //fetch restaurant data and user profile again
       getRestaurant(restId);
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     }
   }, [restId]);
+
+  const isSelfPickup = deliveryMode === "selfPickup";
+
+  const deliveryPriceForTotal = isSelfPickup
+    ? 0
+    : totalPrice >= (restaurantInfo?.freeAfterAmount ?? Infinity)
+      ? 0
+      : (restaurantInfo?.deliveryPrice ?? 0);
 
   return (
     <main className="min-h-[calc(100vh-313px)] w-full bg-bg-2 px-10 py-12 xl:p-8 md:px-4 md:py-6 sm:px-3 sm:py-4">
@@ -145,7 +189,11 @@ export default function Bucket() {
                 <BucketForm
                   form={form}
                   t={t}
-                  isDelivery={true}
+                  isDelivery={deliveryMode === "delivery"}
+                  deliveryMode={deliveryMode}
+                  setDeliveryMode={setDeliveryMode}
+                  availableModes={availableModes}
+                  restaurantAddress={restaurantInfo?.address}
                   deliveryTime={restaurantInfo?.deliveryTime.slice(1) || 0}
                   clearLocalStorage={clearLocalStorage}
                 />
@@ -161,7 +209,8 @@ export default function Bucket() {
                   restaurantId={restaurantInfo?.id}
                   restaurantTitle={restaurantInfo?.title}
                   totalPrice={totalPrice}
-                  deliveryPrice={totalPrice >= restaurantInfo?.freeAfterAmount ? 0 : restaurantInfo?.deliveryPrice}
+                  deliveryPrice={deliveryPriceForTotal}
+                  isSelfPickup={isSelfPickup}
                   disabled={isLoading}
                   t={t}
                   customerAddress={customerAddress}

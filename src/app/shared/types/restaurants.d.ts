@@ -53,6 +53,7 @@ interface RestaurantId {
   isClosed: boolean;
   is24h: boolean;
   isDelivery: boolean;
+  selfPickupEnabled: boolean;
   bannerImage: {
     id: string;
     url: string;

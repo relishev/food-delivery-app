@@ -34,18 +34,10 @@ export const registerScheme = (t: (arg: string) => string) =>
 // Bucket form scheme (OrderForm type)
 export const bucketFormScheme = (t: (arg: string) => string) =>
   z.object({
-    district: z.string().min(4, {
-      message: t("Zod.invalidDistrict"),
-    }),
-    houseNumber: z.string().min(2, {
-      message: t("Zod.invalidHome"),
-    }),
-    apartment: z.string().min(1, {
-      message: t("Zod.invalidApartment"),
-    }),
-    entrance: z.string().min(0, {
-      message: t("Zod.invalidEntrance"),
-    }),
+    district: z.string(),
+    houseNumber: z.string(),
+    apartment: z.string(),
+    entrance: z.string(),
     phoneNumber: z
       .string()
       .max(8)

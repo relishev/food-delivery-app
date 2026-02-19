@@ -153,6 +153,13 @@ const Restaurants: CollectionConfig = {
       type: "checkbox",
     },
     {
+      name: "selfPickupEnabled",
+      defaultValue: false,
+      label: "Is self-pickup available?",
+      required: false,
+      type: "checkbox",
+    },
+    {
       name: "bannerImage",
       label: "Main image (banner)",
       relationTo: "media",
