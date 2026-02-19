@@ -14,35 +14,33 @@ interface Props {
 }
 
 const LOCALE_LABELS: Record<string, string> = {
-  en: "English",
-  ru: "Русский",
-  ko: "한국어",
-  zh: "中文",
-  ja: "日本語",
+  en: "EN 🇺🇸",
+  ru: "RU 🇷🇺",
+  ko: "KO 🇰🇷",
+  zh: "ZH 🇨🇳",
+  ja: "JA 🇯🇵",
 };
 
 const BrandedHeader: FC<Props> = ({ restaurant, restaurantId, slug, locale }) => {
   const router = useRouter();
-  const [langOpen, setLangOpen] = useState(false);
-  const langRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const handleLocaleChange = (newLocale: string) => {
-    // AC-03-4: write NEXT_LOCALE cookie so next PWA launch uses same locale
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
     router.push(`/r/${slug}/${newLocale}`);
   };
 
-  // Close dropdown on outside click
   useEffect(() => {
-    if (!langOpen) return;
+    if (!menuOpen) return;
     const handler = (e: MouseEvent) => {
-      if (langRef.current && !langRef.current.contains(e.target as Node)) {
-        setLangOpen(false);
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, [langOpen]);
+  }, [menuOpen]);
 
   return (
     <header
@@ -50,69 +48,69 @@ const BrandedHeader: FC<Props> = ({ restaurant, restaurantId, slug, locale }) =>
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       {/* Restaurant branding */}
-      <div className="flex items-center space-x-3">
+      <div className="flex min-w-0 items-center space-x-2.5">
         {restaurant.logoImage?.url ? (
           <Image
             src={restaurant.logoImage.url}
             alt={restaurant.logoImage.alt ?? restaurant.title}
-            width={40}
-            height={40}
-            className="rounded-lg object-cover"
+            width={36}
+            height={36}
+            className="shrink-0 rounded-lg object-cover"
           />
         ) : null}
-        <span className="text-lg font-semibold">{restaurant.title}</span>
+        <span className="truncate text-base font-semibold">{restaurant.title}</span>
       </div>
 
-      {/* Right side: back-link + language switcher */}
-      <div className="flex items-center space-x-3">
-        {/* Back-link to canonical aggregator page (REQ-05) */}
-        <Link
-          href={`/${locale}/restaurant/${restaurantId}`}
-          className="text-xs text-text-4 hover:text-text-2"
-          aria-label="View on Foody7"
+      {/* Hamburger menu */}
+      <div ref={menuRef} className="relative ml-2 shrink-0">
+        <button
+          type="button"
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Menu"
+          aria-expanded={menuOpen}
+          className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-2 bg-bg-1 text-lg text-text-2 transition hover:bg-bg-2"
         >
-          Foody7 ↗
-        </Link>
+          {menuOpen ? "✕" : "☰"}
+        </button>
 
-        {/* Language switcher — custom dropdown, always opens downward-left (AC-03-1, CR-05) */}
-        <div ref={langRef} className="relative">
-          <button
-            type="button"
-            onClick={() => setLangOpen((o) => !o)}
-            className="flex cursor-pointer items-center gap-1 rounded-lg border border-gray-2 bg-bg-1 px-2 py-1 text-sm text-text-2"
-            aria-label="Language"
-            aria-expanded={langOpen}
-          >
-            {LOCALE_LABELS[locale] ?? locale}
-            <span
-              className={`text-xs leading-none transition-transform duration-150 ${langOpen ? "rotate-180" : ""}`}
-              aria-hidden
-            >
-              ▾
-            </span>
-          </button>
+        {menuOpen && (
+          <div className="absolute right-0 top-full z-50 mt-1 w-44 overflow-hidden rounded-xl border border-gray-2 bg-bg-1 shadow-xl">
+            {/* Language section */}
+            <p className="px-3 pt-2.5 pb-1 text-[10px] font-semibold uppercase tracking-wider text-text-4">
+              Language
+            </p>
+            {(routing.locales as readonly string[]).map((loc) => (
+              <button
+                key={loc}
+                type="button"
+                onClick={() => {
+                  handleLocaleChange(loc);
+                  setMenuOpen(false);
+                }}
+                className={`flex w-full items-center px-3 py-2 text-sm transition hover:bg-bg-2 ${
+                  loc === locale ? "font-semibold text-primary" : "text-text-2"
+                }`}
+              >
+                {LOCALE_LABELS[loc] ?? loc}
+                {loc === locale && (
+                  <span className="ml-auto text-primary">✓</span>
+                )}
+              </button>
+            ))}
 
-          {langOpen && (
-            <ul className="absolute right-0 top-full z-50 mt-1 min-w-[120px] overflow-hidden rounded-lg border border-gray-2 bg-bg-1 shadow-lg">
-              {(routing.locales as readonly string[]).map((loc) => (
-                <li key={loc}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleLocaleChange(loc);
-                      setLangOpen(false);
-                    }}
-                    className={`w-full px-3 py-2 text-left text-sm hover:bg-bg-2 ${
-                      loc === locale ? "font-semibold text-primary" : "text-text-2"
-                    }`}
-                  >
-                    {LOCALE_LABELS[loc] ?? loc}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+            {/* Foody7 link inside menu */}
+            <div className="border-t border-gray-2 px-3 py-2.5">
+              <Link
+                href={`/${locale}/restaurant/${restaurantId}`}
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-1.5 text-xs text-text-4 hover:text-text-2"
+              >
+                <span>View on Foody7</span>
+                <span className="text-[10px]">↗</span>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
