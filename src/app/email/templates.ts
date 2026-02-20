@@ -75,6 +75,62 @@ export function welcomeEmail(userName?: string): { subject: string; html: string
   };
 }
 
+export function joinApplicationEmail(data: {
+  name: string;
+  phone: string;
+  description: string;
+}): { subject: string; html: string; text: string } {
+  // Parse structured description fields like [restaurant: X]\n[email: Y]
+  const parse = (key: string) =>
+    data.description.match(new RegExp(`\\[${key}: ([^\\]]+)\\]`))?.[1] ?? "—";
+
+  const restaurant = parse("restaurant");
+  const email      = parse("email");
+  const city       = parse("city");
+  const cuisine    = parse("cuisine");
+  const orders     = parse("monthly_orders");
+  const tier       = parse("tier");
+  const message    = parse("message");
+
+  const row = (label: string, value: string) =>
+    value === "—" ? "" : `
+      <tr>
+        <td style="padding:8px 0; color:#6b7280; font-size:14px; width:140px; vertical-align:top;">${label}</td>
+        <td style="padding:8px 0; color:#111827; font-size:14px; font-weight:500;">${value}</td>
+      </tr>`;
+
+  const html = layout(`
+    <h1 style="margin:0 0 6px; font-size:22px; color:#111827;">New restaurant application 🍽️</h1>
+    <p style="margin:0 0 24px; color:#6b7280; font-size:14px;">Submitted via foody7.com/join</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #eee;">
+      ${row("Restaurant", restaurant)}
+      ${row("Owner", data.name)}
+      ${row("Phone", data.phone)}
+      ${row("Email", email)}
+      ${row("City", city)}
+      ${row("Cuisine", cuisine)}
+      ${row("Monthly orders", orders)}
+      ${row("Interested tier", tier)}
+      ${row("Message", message)}
+    </table>
+    <table cellpadding="0" cellspacing="0" style="margin: 24px 0;">
+      <tr>
+        <td>
+          <a href="https://foody7.com/admin/collections/FeedbackAndCooperations" style="display:inline-block; background:${ORANGE}; color:#ffffff; font-weight:700; font-size:14px; padding:12px 24px; border-radius:8px; text-decoration:none;">
+            View in Admin →
+          </a>
+        </td>
+      </tr>
+    </table>
+  `);
+
+  return {
+    subject: `New join application — ${restaurant}`,
+    html,
+    text: `New join application from ${restaurant}\nOwner: ${data.name} | Phone: ${data.phone} | Email: ${email}\nCity: ${city} | Tier: ${tier}\n\nhttps://foody7.com/admin/collections/FeedbackAndCooperations`,
+  };
+}
+
 export function passwordResetEmail(resetUrl: string): { subject: string; html: string; text: string } {
   const html = layout(`
     <h1 style="margin:0 0 16px; font-size:24px; color:#111827;">Reset your password</h1>
