@@ -1,9 +1,9 @@
-import { FC } from "react";
+"use client";
+import { FC, useState, useRef, useEffect } from "react";
 
 //components
 import { ClockIcon, StarIcon, InfoIcon } from "@/app/icons";
 import InfoItem from "./InfoItem";
-import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 
 interface Props {
   bannerInfo: BannerInfo;
@@ -12,11 +12,24 @@ interface Props {
 
 const Index: FC<Props> = ({ bannerInfo, t }) => {
   const { title, deliveryTime, address, workingHours } = bannerInfo;
+  const [infoOpen, setInfoOpen] = useState(false);
+  const infoRef = useRef<HTMLDivElement>(null);
 
   const convertTimeFormat = (timeString: string | null | undefined) => {
     if (!timeString) return "--:--";
     return timeString.slice(1, 3) + ":" + timeString.slice(3);
   };
+
+  useEffect(() => {
+    if (!infoOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (infoRef.current && !infoRef.current.contains(e.target as Node)) {
+        setInfoOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [infoOpen]);
 
   const items = [
     {
@@ -42,22 +55,29 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
         {items.map((item) => (
           <InfoItem key={item.title} item={item} />
         ))}
-        <Popover>
-          <PopoverTrigger type="button" aria-label="button" className="rounded-[14px] bg-bg-1/85 px-3 py-3">
+        <div ref={infoRef} className="relative">
+          <button
+            type="button"
+            aria-label="Info"
+            onClick={() => setInfoOpen((o) => !o)}
+            className="rounded-[14px] bg-bg-1/85 px-3 py-3"
+          >
             <InfoIcon />
-          </PopoverTrigger>
-          <PopoverContent className="font-base px-5 py-3 text-sm font-medium tracking-wide">
-            <div>
-              {t("MainPage.workingHours")}:{" "}
-              <span className="font-normal">
-                {convertTimeFormat(workingHours.openTime)} - {convertTimeFormat(workingHours.closeTime)}
-              </span>
+          </button>
+          {infoOpen && (
+            <div className="absolute bottom-full left-1/2 z-50 mb-2 w-72 -translate-x-1/2 rounded-md bg-bg-1 px-5 py-3 text-sm font-medium tracking-wide text-text-1 shadow-md">
+              <div>
+                {t("MainPage.workingHours")}:{" "}
+                <span className="font-normal">
+                  {convertTimeFormat(workingHours?.openTime)} - {convertTimeFormat(workingHours?.closeTime)}
+                </span>
+              </div>
+              <div className="line-clamp-[10]">
+                {t("MainPage.address")}: <span className="font-normal">{address}</span>
+              </div>
             </div>
-            <div className="line-clamp-[10]">
-              {t("MainPage.address")}: <span className="font-normal">{address}</span>
-            </div>
-          </PopoverContent>
-        </Popover>
+          )}
+        </div>
       </div>
     </div>
   );
