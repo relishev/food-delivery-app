@@ -65,7 +65,7 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
             <InfoIcon />
           </button>
           {infoOpen && (
-            <div className="absolute bottom-full left-1/2 z-50 mb-2 w-72 -translate-x-1/2 rounded-md bg-bg-1 px-5 py-3 text-sm font-medium tracking-wide text-text-1 shadow-md">
+            <div className="absolute bottom-full right-0 z-50 mb-2 w-72 max-w-[calc(100vw-1rem)] rounded-md bg-bg-1 px-5 py-3 text-sm font-medium tracking-wide text-text-1 shadow-md">
               <div>
                 {t("MainPage.workingHours")}:{" "}
                 <span className="font-normal">
