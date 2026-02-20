@@ -130,13 +130,12 @@ _deploy() {
   _git_push "${2:-foody7: deploy $(date +%Y-%m-%d_%H:%M)}"
 
   echo ""
-  echo "[2/3] Building on server (BuildKit cache)..."
+  echo "[2/3] Building on server (no cache)..."
   ssh "$PROD_SERVER" "
     set -e
     cd $PROD_DIR
     git pull origin main
-    DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml build \
-      --build-arg BUILDKIT_INLINE_CACHE=1
+    DOCKER_BUILDKIT=1 docker compose -f docker-compose.prod.yml build --no-cache
   "
 
   echo ""
