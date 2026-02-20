@@ -259,7 +259,7 @@
     "valueProp1Desc": "7% 단일 요율 — 숨겨진 수수료, 강제 광고, 예상치 못한 비용 없음.",
     "valueProp2Title": "당신의 고객, 당신의 데이터",
     "valueProp2Desc": "플랫폼 종속 없음. 단골 고객은 당신의 것입니다.",
-    "valueProp3Title": "나만의 앱 — 무료",
+    "valueProp3Title": "Your own app — ₩299,000 setup",
     "valueProp3Desc": "foody7.com/r/your-restaurant에 설치 가능한 브랜드 앱 제공. 개발 비용 $50,000 불필요.",
     "valueProp4Title": "실질적인 지원",
     "valueProp4Desc": "전담 온보딩. 일주일 이내에 오픈.",
@@ -303,7 +303,7 @@
     "pricingEffectiveNote": "* 실효 요율 = 월 요금 ÷ (주문 수 × 평균 주문액). 물량이 늘수록 낮아집니다.",
     "pricingOverflowHeading": "한도를 초과하면 어떻게 되나요?",
     "pricingOverflowText": "주문은 절대 멈추지 않습니다. 월 한도에 도달하면 추가 주문은 표준 7% 수수료로 청구됩니다. 한도의 80%에 도달하면 알림을 받게 됩니다 — 저희가 아닌 여러분의 조건으로 업그레이드하세요.",
-    "pwaHeading": "모든 요금제에 포함된 나만의 앱",
+    "pwaHeading": "Your Own App — ₩299,000 One-Time Setup",
     "pwaSubheading": "Foody7의 모든 레스토랑은 foody7.com/r/your-restaurant에 설치 가능한 브랜드 앱을 받습니다.",
     "pwaBrandingNote": "모든 요금제에는 은은한 \"Powered by Foody7\" 푸터가 포함됩니다. 전체 화이트레이블은 엔터프라이즈 고객에게 요청 시 제공됩니다.",
     "pwaMarketValue": "네이티브 iOS + Android 앱 개발 비용은 $30,000~100,000입니다. 여러분의 앱은 포함되어 있습니다.",
@@ -353,7 +353,7 @@
 
   "PartnerStrip": {
     "heading": "레스토랑을 운영하고 계신가요?",
-    "subheading": "대한민국에서 가장 공정한 배달 플랫폼에 입점하세요. 주문당 최소 ₩877. 브랜드 앱 무료 제공.",
+    "subheading": "대한민국에서 가장 공정한 배달 플랫폼에 입점하세요. 주문당 최소 ₩877. 브랜드 앱 ₩299,000부터.",
     "cta": "자세히 알아보기 →"
   }
 }

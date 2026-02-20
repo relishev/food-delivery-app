@@ -259,8 +259,8 @@
     "valueProp1Desc": "7% flat — no hidden fees, no mandatory promotions, no surprises.",
     "valueProp2Title": "Your customers, your data",
     "valueProp2Desc": "No aggregator lock-in. Your repeat customers belong to you.",
-    "valueProp3Title": "Your own app — free",
-    "valueProp3Desc": "Branded installable app at foody7.com/r/your-restaurant. No $50,000 development cost.",
+    "valueProp3Title": "Your own app — ₩299,000 setup",
+    "valueProp3Desc": "Branded installable app at foody7.com/r/your-restaurant. One-time setup fee. No $50,000 development cost.",
     "valueProp4Title": "Real support",
     "valueProp4Desc": "Dedicated onboarding. Go live in under a week.",
     "howItWorksHeading": "How It Works",
@@ -303,10 +303,10 @@
     "pricingEffectiveNote": "* Effective rate = monthly price ÷ (orders × avg order). Lower as volume grows.",
     "pricingOverflowHeading": "What happens when you reach the cap?",
     "pricingOverflowText": "Orders never stop. Once you hit your monthly cap, additional orders are billed at the standard 7% commission. You'll get a notification at 80% of your cap — upgrade on your terms, not ours.",
-    "pwaHeading": "Your Own App — Included With Every Plan",
-    "pwaSubheading": "Every restaurant on Foody7 gets a branded installable app at foody7.com/r/your-restaurant.",
+    "pwaHeading": "Your Own App — ₩299,000 One-Time Setup",
+    "pwaSubheading": "Every restaurant on Foody7 gets a branded installable app at foody7.com/r/your-restaurant. One-time setup fee of ₩299,000 (~$199).",
     "pwaBrandingNote": "All plans include a subtle \"Powered by Foody7\" footer. Full white-label is available for Enterprise clients on request.",
-    "pwaMarketValue": "Building a native iOS + Android app costs $30,000–100,000. Yours is included.",
+    "pwaMarketValue": "Building a native iOS + Android app costs $30,000–100,000. Yours starts at ₩299,000.",
     "pwaF70Feature": "Custom colors & full logo branding",
     "pwaF170Feature": "Push notifications to installed customers",
     "pwaF350Feature": "Custom domain — yourrestaurant.com",
@@ -353,7 +353,7 @@
 
   "PartnerStrip": {
     "heading": "Own a restaurant?",
-    "subheading": "Join Korea's fairest delivery platform. As low as ₩877/order. Your branded app. Free.",
+    "subheading": "Join Korea's fairest delivery platform. As low as ₩877/order. Your branded app from ₩299,000.",
     "cta": "Learn more →"
   }
 }
