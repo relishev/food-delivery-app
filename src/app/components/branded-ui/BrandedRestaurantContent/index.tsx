@@ -201,9 +201,15 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                       <button
                         type="button"
                         onClick={() => selectDishResult(dish)}
-                        className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition hover:bg-bg-2"
+                        className="flex w-full items-center gap-3 px-3 py-3 text-left transition hover:bg-bg-2"
                       >
-                        <span className="text-2xl leading-none">{getCategoryIcon(cat?.category ?? "")}</span>
+                        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gray-2">
+                          <img
+                            src={(dish as any).image?.url || "/api/media/file/empty_food.webp"}
+                            alt={dish.title}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
                         <div className="min-w-0 flex-1">
                           <p className="truncate text-sm font-medium text-text-1">{dish.title}</p>
                           {cat && <p className="text-xs text-text-4 capitalize">{cat.category}</p>}
