@@ -254,6 +254,7 @@ export default function BrandedRestaurantContent({ restaurantId, slug, locale }:
                   backTitle={t("Index.back")}
                   classes="md:hidden"
                   withCategories={withCategories || []}
+                  hideBack
                 />
 
                 <div className="basis-[80%] md:basis-full">
