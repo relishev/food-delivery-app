@@ -140,6 +140,15 @@ const Index: FC<Props> = ({}) => {
         )}
       </div>
       <div className="flex items-center space-x-4 md:space-x-3">
+        {/* For Restaurants — desktop only, external */}
+        <a
+          href="https://join.foody7.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="whitespace-nowrap text-xs font-medium text-text-3 transition hover:text-primary md:hidden"
+        >
+          {t("Index.forRestaurants")}
+        </a>
         <Language languageTitle={languageTitle} handleChange={handleChange} />
         <Currency />
         <MiniBucket t={t} />

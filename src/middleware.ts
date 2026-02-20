@@ -10,6 +10,19 @@ const middleware = createMiddleware(routing);
 export default async function (req: any) {
   const { pathname } = req.nextUrl;
 
+  // Handle join.foody7.com subdomain → rewrite to /join/* internal routes
+  const host = req.headers.get('host') ?? '';
+  if (host.startsWith('join.')) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/join${url.pathname === '/' ? '' : url.pathname}`;
+    return NextResponse.rewrite(url);
+  }
+
+  // Pass through /join/* paths — served by join/ route, locale already in segment
+  if (pathname.startsWith("/join/")) {
+    return NextResponse.next();
+  }
+
   if (pathname.includes("/admin")) {
     return NextResponse.next();
   }

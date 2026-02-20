@@ -18,6 +18,7 @@ import { USER_TOKEN } from "@/app/shared/constants";
 import RestaurantItemSkeleton from "@/app/widgets/RestaurantItem/Skeleton";
 import RestaurantItem from "@/app/widgets/RestaurantItem";
 import CategoriesBar from "@/app/widgets/CategoriesBar";
+import PartnerStrip from "@/app/components/main-page-ui/PartnerStrip";
 
 export default function Home() {
   const t = useTranslations();
@@ -70,6 +71,7 @@ export default function Home() {
           )}
         </div>
       </div>
+      <PartnerStrip t={t} />
     </main>
   );
 }

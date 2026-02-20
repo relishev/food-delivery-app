@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { FC, useState } from "react";
 
 import { LocationIcon, MessageIcon, PhoneIcon } from "@/app/icons";
@@ -56,6 +56,7 @@ const defaultStates = { cooperationModal: false, feedbackModal: false };
 
 const Index: FC<Props> = () => {
   const t = useTranslations();
+  const locale = useLocale();
 
   const [modals, setModals] = useState(defaultStates);
 
@@ -64,7 +65,7 @@ const Index: FC<Props> = () => {
   const links = [
     { title: "MainPage.about" },
     { title: "MainPage.advertisement" },
-    { title: "MainPage.collab", fn: () => setModals((prev) => ({ ...prev, cooperationModal: true })) },
+    { title: "MainPage.collab", fn: () => { window.location.href = `https://join.foody7.com/${locale}`; } },
     { title: "MainPage.feedback", fn: () => setModals((prev) => ({ ...prev, feedbackModal: true })) },
   ];
 
