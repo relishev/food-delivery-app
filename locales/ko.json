@@ -45,7 +45,6 @@
     "clearFilters": "필터 초기화",
     "forRestaurants": "레스토랑 파트너"
   },
-
   "Login": {
     "login": "로그인",
     "rules": "계속하시면 이용약관에 동의하게 됩니다",
@@ -56,10 +55,8 @@
     "loginViaEmail": "이메일로 로그인",
     "registerAccount": "이메일로 무료 계정 만들기"
   },
-
   "MainPage": {
     "heading": "인기 레스토랑",
-
     "sortBy": "정렬 기준",
     "whichShow": "먼저 보여줄 것은?",
     "trustOne": "추천순",
@@ -68,7 +65,6 @@
     "budgetOne": "저렴한순",
     "expensiveOne": "비싼순",
     "average": "평균",
-
     "phone": "전화",
     "email": "이메일",
     "address": "주소",
@@ -80,7 +76,6 @@
     "feedback": "피드백 남기기",
     "rights": "All rights reserved"
   },
-
   "RestaurantPage": {
     "menu": "메뉴",
     "currentRestaurant": "현재 레스토랑",
@@ -88,7 +83,6 @@
     "changeRestaurant2": "장바구니에서 삭제됩니다.",
     "freeDeliveryAfter": "{price}원 이상 주문 시 무료 배달"
   },
-
   "BucketForm": {
     "fillForm": "양식을 작성하세요",
     "district": "구/동 *",
@@ -102,7 +96,6 @@
     "addNewAddress": "새 주소 추가",
     "createNewAddress": "새 주소 만들기"
   },
-
   "BucketPage": {
     "orders": "주문 내역",
     "tools": "수저",
@@ -117,7 +110,6 @@
     "restaurantComment": "레스토랑 요청사항",
     "restaurantCommentPlaceholder": "주문에 대한 요청사항을 적어주세요..."
   },
-
   "ProfilePage": {
     "yourProfile": "내 프로필",
     "yourName": "이름",
@@ -139,10 +131,8 @@
     "city": "도시",
     "houseNumber": "건물 *",
     "appartmentOffice": "호수 *",
-
     "dishTitle": "요리명"
   },
-
   "Status": {
     "pending": "대기 중",
     "recieved": "접수됨",
@@ -150,7 +140,6 @@
     "delivered": "배달 완료",
     "rejected": "거절됨"
   },
-
   "Placeholder": {
     "email": "이메일을 입력하세요",
     "password": "비밀번호",
@@ -161,7 +150,6 @@
     "enterHouseNumber": "건물 번호를 입력하세요",
     "enterAppartmentOffice": "호수를 입력하세요"
   },
-
   "Categories": {
     "all": "전체",
     "burgers": "버거",
@@ -171,7 +159,6 @@
     "lunches": "점심",
     "dinner": "저녁"
   },
-
   "KakaoAddress": {
     "searchAddress": "주소 검색",
     "confirmLocation": "위치 확인",
@@ -187,14 +174,11 @@
     "confirm": "확인",
     "step": "단계"
   },
-
   "Zod": {
     "invalidEmail": "유효한 이메일을 입력해주세요.",
     "invalidPassLength": "비밀번호는 8자 이상이어야 합니다.",
-
     "invalidUsername": "이름은 4자 이상이어야 합니다.",
     "invalidPhone": "전화번호 마지막 8자리",
-
     "invalidKakaoAddress": "유효한 주소를 선택해주세요",
     "invalidAddress": "배달 도시를 선택하세요",
     "invalidDistrict": "배달 지역을 입력하세요",
@@ -203,11 +187,9 @@
     "invalidEntrance": "동을 입력하세요 (해당되는 경우)",
     "invalidComment": "배달기사님이 찾기 쉽도록 메모를 남겨주세요"
   },
-
   "Errors": {
     "somethingWentWrong": "문제가 발생했습니다..."
   },
-
   "Actions": {
     "logoutUser": "로그아웃 완료",
     "maxAvailableAmount": "최대 수량을 추가했습니다.",
@@ -227,23 +209,19 @@
     "restaurantNotFound": "문제가 발생했습니다. 이 레스토랑이 폐업했을 수 있습니다.",
     "returnToMain": "메인 페이지로 돌아가기"
   },
-
   "Footer": {
     "coopHeading": "제휴",
     "coopSubHead": "가게를 확장하고 새로운 고객을 유치하고 싶으신가요? 신청하시면 곧 연락드리겠습니다.",
     "coopTellAbout": "가게에 대해 간략히 소개하고 주소를 알려주세요 *",
     "coopRestriction": "참고: 현재 저희 플랫폼은 투르크메나바트 시에서만 이용 가능합니다.",
     "coopSend": "신청하기",
-
     "feedbackHeading": "서비스 피드백 보내기",
     "feedbackSubHeading": "저희 서비스에 관심을 가져주시고 개선에 도움을 주셔서 감사합니다!",
     "feedbackSend": "신청하기",
     "feedbackTitle": "문제를 설명해주세요",
     "feedbackPlaceholder": "피드백을 보내시는 이유를 알려주세요",
-
     "earlyAccess": "🚧 얼리 액세스 — 일부 기능은 아직 개발 중입니다."
   },
-
   "ForRestaurantsPage": {
     "heroHeading": "수익을 빼앗기지 않고 레스토랑을 성장시키세요",
     "heroSubheading": "저희는 7%를 받습니다. 배달의민족은 27%를 받습니다.",
@@ -259,7 +237,7 @@
     "valueProp1Desc": "7% 단일 요율 — 숨겨진 수수료, 강제 광고, 예상치 못한 비용 없음.",
     "valueProp2Title": "당신의 고객, 당신의 데이터",
     "valueProp2Desc": "플랫폼 종속 없음. 단골 고객은 당신의 것입니다.",
-    "valueProp3Title": "Your own app — ₩299,000 setup",
+    "valueProp3Title": "나만의 앱 — ₩299,000 셋업",
     "valueProp3Desc": "foody7.com/r/your-restaurant에 설치 가능한 브랜드 앱 제공. 개발 비용 $50,000 불필요.",
     "valueProp4Title": "실질적인 지원",
     "valueProp4Desc": "전담 온보딩. 일주일 이내에 오픈.",
@@ -303,7 +281,7 @@
     "pricingEffectiveNote": "* 실효 요율 = 월 요금 ÷ (주문 수 × 평균 주문액). 물량이 늘수록 낮아집니다.",
     "pricingOverflowHeading": "한도를 초과하면 어떻게 되나요?",
     "pricingOverflowText": "주문은 절대 멈추지 않습니다. 월 한도에 도달하면 추가 주문은 표준 7% 수수료로 청구됩니다. 한도의 80%에 도달하면 알림을 받게 됩니다 — 저희가 아닌 여러분의 조건으로 업그레이드하세요.",
-    "pwaHeading": "Your Own App — ₩299,000 One-Time Setup",
+    "pwaHeading": "나만의 앱 — ₩299,000 일회성 셋업비",
     "pwaSubheading": "Foody7의 모든 레스토랑은 foody7.com/r/your-restaurant에 설치 가능한 브랜드 앱을 받습니다.",
     "pwaBrandingNote": "모든 요금제에는 은은한 \"Powered by Foody7\" 푸터가 포함됩니다. 전체 화이트레이블은 엔터프라이즈 고객에게 요청 시 제공됩니다.",
     "pwaMarketValue": "네이티브 iOS + Android 앱 개발 비용은 $30,000~100,000입니다. 여러분의 앱은 포함되어 있습니다.",
@@ -318,7 +296,7 @@
     "faq2Q": "배달은 누가 처리하나요?",
     "faq2A": "Foody7은 순수 마켓플레이스입니다 — 레스토랑, 고객, 독립 배달 제공업체를 연결합니다. 특정 배달 서비스를 이용하도록 강제하지 않습니다.",
     "faq3Q": "결제는 어떻게 처리되나요?",
-    "faq3A": "결제는 플랫폼을 통해 처리됩니다. 수수료를 제한 주문 금액은 정기 청구 주기에 따라 계좌로 정산되며 모든 거래 내역을 확인할 수 있습니다.",
+    "faq3A": "결제는 레스토랑과 고객 간에 직접 이루어집니다 — 현금 또는 자체 단말기를 통한 카드 결제. Foody7은 월정액 요금제 또는 수수료만 별도로 청구합니다.",
     "faq4Q": "주문 한도에 도달하면 어떻게 되나요?",
     "faq4A": "주문은 절대 멈추지 않습니다. 추가 주문은 7% 수수료로 청구됩니다. 업그레이드 여부를 결정할 수 있도록 한도의 80%에 도달하면 알림을 받게 됩니다 — 강요 없습니다.",
     "faq5Q": "요금제를 변경하거나 해지할 수 있나요?",
@@ -350,7 +328,6 @@
     "formSubmit": "신청 보내기",
     "formSuccess": "감사합니다! 24~48시간 이내에 연락 드리겠습니다."
   },
-
   "PartnerStrip": {
     "heading": "레스토랑을 운영하고 계신가요?",
     "subheading": "대한민국에서 가장 공정한 배달 플랫폼에 입점하세요. 주문당 최소 ₩877. 브랜드 앱 ₩299,000부터.",

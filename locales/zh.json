@@ -45,7 +45,6 @@
     "clearFilters": "清除筛选",
     "forRestaurants": "For Restaurants"
   },
-
   "Login": {
     "login": "登录",
     "rules": "继续即表示您同意我们的条款",
@@ -56,10 +55,8 @@
     "loginViaEmail": "使用您的邮箱登录",
     "registerAccount": "使用邮箱创建免费账户"
   },
-
   "MainPage": {
     "heading": "热门餐厅",
-
     "sortBy": "排序方式",
     "whichShow": "优先显示哪些？",
     "trustOne": "推荐",
@@ -68,7 +65,6 @@
     "budgetOne": "实惠",
     "expensiveOne": "高端",
     "average": "平均",
-
     "phone": "电话",
     "email": "邮箱",
     "address": "地址",
@@ -80,7 +76,6 @@
     "feedback": "提交反馈",
     "rights": "版权所有"
   },
-
   "RestaurantPage": {
     "menu": "菜单",
     "currentRestaurant": "当前餐厅",
@@ -88,7 +83,6 @@
     "changeRestaurant2": "将从购物车中移除。",
     "freeDeliveryAfter": "订单满 {price} $ 免费配送"
   },
-
   "BucketForm": {
     "fillForm": "填写表格",
     "district": "区 *",
@@ -102,7 +96,6 @@
     "addNewAddress": "添加新地址",
     "createNewAddress": "创建新地址"
   },
-
   "BucketPage": {
     "orders": "您的订单",
     "tools": "餐具",
@@ -117,7 +110,6 @@
     "restaurantComment": "给餐厅的备注",
     "restaurantCommentPlaceholder": "您可以在此添加订单备注..."
   },
-
   "ProfilePage": {
     "yourProfile": "您的个人资料",
     "yourName": "您的姓名",
@@ -139,10 +131,8 @@
     "city": "城市",
     "houseNumber": "门牌号 *",
     "appartmentOffice": "公寓/办公室 *",
-
     "dishTitle": "菜品名称"
   },
-
   "Status": {
     "pending": "待处理",
     "recieved": "已接收",
@@ -150,7 +140,6 @@
     "delivered": "已送达",
     "rejected": "已拒绝"
   },
-
   "Placeholder": {
     "email": "输入您的邮箱",
     "password": "密码",
@@ -161,7 +150,6 @@
     "enterHouseNumber": "输入您的门牌号",
     "enterAppartmentOffice": "输入公寓/办公室号"
   },
-
   "Categories": {
     "all": "全部",
     "burgers": "汉堡",
@@ -171,7 +159,6 @@
     "lunches": "午餐",
     "dinner": "晚餐"
   },
-
   "KakaoAddress": {
     "searchAddress": "搜索地址",
     "confirmLocation": "确认位置",
@@ -187,14 +174,11 @@
     "confirm": "确认",
     "step": "步骤"
   },
-
   "Zod": {
     "invalidEmail": "请输入有效的邮箱地址。",
     "invalidPassLength": "密码至少需要8个字符。",
-
     "invalidUsername": "姓名至少需要4个字符。",
     "invalidPhone": "电话号码的最后8位数字",
-
     "invalidKakaoAddress": "请选择有效地址",
     "invalidAddress": "请选择您的配送城市",
     "invalidDistrict": "请输入您的配送区",
@@ -203,11 +187,9 @@
     "invalidEntrance": "请输入单元（如适用）",
     "invalidComment": "请为快递员留言以帮助定位"
   },
-
   "Errors": {
     "somethingWentWrong": "出了些问题..."
   },
-
   "Actions": {
     "logoutUser": "成功退出",
     "maxAvailableAmount": "您已添加最大可用数量。",
@@ -227,130 +209,125 @@
     "restaurantNotFound": "出了些问题，也许这家餐厅已关闭。",
     "returnToMain": "返回主页"
   },
-
   "Footer": {
     "coopHeading": "合作",
     "coopSubHead": "想扩大您的业务并吸引新客户？提交申请，我们将尽快联系您。",
     "coopTellAbout": "简短介绍您的餐厅并提供地址 *",
     "coopRestriction": "注意：目前，我们的平台仅在特定城市提供服务。",
     "coopSend": "发送申请",
-
     "feedbackHeading": "提交服务反馈",
     "feedbackSubHeading": "我们重视您对我们服务的关注，感谢您愿意帮助我们改进！",
     "feedbackSend": "发送申请",
     "feedbackTitle": "描述问题",
     "feedbackPlaceholder": "告诉我们您提交反馈的原因",
-
     "earlyAccess": "🚧 内测阶段 — 部分功能仍在开发中。"
   },
-
   "ForRestaurantsPage": {
-    "heroHeading": "Grow your restaurant without giving away your profits",
-    "heroSubheading": "We charge 7%. Baemin charges 27%.",
-    "heroCta": "Apply to Join",
-    "heroStat1Label": "Our commission",
+    "heroHeading": "在不牺牲利润的情况下发展您的餐厅",
+    "heroSubheading": "我们收取7%。Baemin收取27%。",
+    "heroCta": "申请加入",
+    "heroStat1Label": "我们的佣金",
     "heroStat1Value": "7%",
-    "heroStat2Label": "Competitors charge",
+    "heroStat2Label": "竞争对手收取",
     "heroStat2Value": "27%",
-    "heroStat3Label": "Effective rate",
-    "heroStat3Value": "from 2.0%",
-    "valuePropsHeading": "Why Foody7",
-    "valueProp1Title": "Fair commission",
-    "valueProp1Desc": "7% flat — no hidden fees, no mandatory promotions, no surprises.",
-    "valueProp2Title": "Your customers, your data",
-    "valueProp2Desc": "No aggregator lock-in. Your repeat customers belong to you.",
-    "valueProp3Title": "Your own app — ₩299,000 setup",
-    "valueProp3Desc": "Branded installable app at foody7.com/r/your-restaurant. No $50,000 development cost.",
-    "valueProp4Title": "Real support",
-    "valueProp4Desc": "Dedicated onboarding. Go live in under a week.",
-    "howItWorksHeading": "How It Works",
-    "step1Title": "Submit your request",
-    "step1Desc": "Fill in the form below. We review every application within 24–48 hours.",
-    "step2Title": "We set up your profile",
-    "step2Desc": "Menu upload, branding, photos — we help you get it right.",
-    "step3Title": "Start receiving orders",
-    "step3Desc": "Go live in under a week. Orders start immediately.",
-    "pricingHeading": "Transparent Pricing",
-    "pricingSubheading": "No contracts. No lock-in. Cancel anytime.",
-    "pricingColumnPlan": "Plan",
-    "pricingColumnPrice": "Price / mo",
-    "pricingColumnRate": "Effective rate*",
-    "pricingColumnCap": "Order cap",
-    "pricingColumnBestFor": "Best for",
-    "pricingTierStarterPrice": "No fee",
-    "pricingTierStarterRate": "7% per order",
-    "pricingTierStarterCap": "Unlimited",
-    "pricingTierStarterFor": "New & testing",
-    "pricingTierF70Price": "₩70,000 / mo",
-    "pricingTierF70Rate": "from 4.3%",
-    "pricingTierF70Cap": "Up to 65 orders",
-    "pricingTierF70For": "Small & growing",
-    "pricingTierF170Price": "₩170,000 / mo",
-    "pricingTierF170Rate": "from 3.6%",
-    "pricingTierF170Cap": "Up to 194 orders",
-    "pricingTierF170For": "Mid-size active",
-    "pricingTierF350Price": "₩350,000 / mo",
-    "pricingTierF350Rate": "from 2.9%",
-    "pricingTierF350Cap": "Up to 399 orders",
-    "pricingTierF350For": "High-volume",
-    "pricingTierF700Price": "₩700,000 / mo",
-    "pricingTierF700Rate": "from 2.0%",
-    "pricingTierF700Cap": "Up to 799 orders",
-    "pricingTierF700For": "Chains & enterprise",
-    "pricingTierEnterprisePrice": "Custom",
-    "pricingTierEnterpriseFor": "White-label & special needs",
-    "pricingTierEnterpriseContact": "Contact us →",
-    "pricingEffectiveNote": "* Effective rate = monthly price ÷ (orders × avg order). Lower as volume grows.",
-    "pricingOverflowHeading": "What happens when you reach the cap?",
-    "pricingOverflowText": "Orders never stop. Once you hit your monthly cap, additional orders are billed at the standard 7% commission. You'll get a notification at 80% of your cap — upgrade on your terms, not ours.",
-    "pwaHeading": "Your Own App — ₩299,000 One-Time Setup",
-    "pwaSubheading": "Every restaurant on Foody7 gets a branded installable app at foody7.com/r/your-restaurant.",
-    "pwaBrandingNote": "All plans include a subtle \"Powered by Foody7\" footer. Full white-label is available for Enterprise clients on request.",
-    "pwaMarketValue": "Building a native iOS + Android app costs $30,000–100,000. Yours is included.",
-    "pwaF70Feature": "Custom colors & full logo branding",
-    "pwaF170Feature": "Push notifications to installed customers",
-    "pwaF350Feature": "Custom domain — yourrestaurant.com",
-    "pwaF700Feature": "Advanced analytics + priority support",
-    "pwaEnterpriseFeature": "Full white-label (negotiated)",
-    "faqHeading": "Frequently Asked Questions",
-    "faq1Q": "How long does it take to get listed?",
-    "faq1A": "We review every application within 24–48 hours. Most restaurants go live within 3–7 days.",
-    "faq2Q": "Who handles delivery?",
-    "faq2A": "Foody7 is a pure marketplace — we connect your restaurant with customers and independent delivery providers. You are never forced to use a specific courier service.",
-    "faq3Q": "How are payments processed?",
-    "faq3A": "Payment is handled directly between your restaurant and the customer — cash or card via your own acquiring. Foody7 only charges the monthly plan fee or commission separately.",
-    "faq4Q": "What happens when I reach my order cap?",
-    "faq4A": "Orders never stop. Additional orders are billed at 7% commission. You'll get a notification at 80% of your cap so you can decide whether to upgrade — no pressure.",
-    "faq5Q": "Can I switch plans or cancel?",
-    "faq5A": "Yes — no lock-in contracts. Upgrade, downgrade, or cancel anytime. Changes take effect from the next billing month.",
-    "faq6Q": "Do I keep my customer data?",
-    "faq6A": "Yes. Unlike Baemin, we do not use your customers' data to redirect them to other restaurants. Your customer relationships are yours.",
-    "formHeading": "Apply to Join Foody7",
-    "formSubheading": "Fill in the form and we'll get back to you within 24–48 hours.",
-    "formRestaurantName": "Restaurant name",
-    "formOwnerName": "Your name",
-    "formPhone": "Phone number",
-    "formEmail": "Email address",
-    "formCity": "City / Area",
-    "formCuisine": "Cuisine type",
-    "formCuisineKorean": "Korean",
-    "formCuisineJapanese": "Japanese",
-    "formCuisineChinese": "Chinese",
-    "formCuisineWestern": "Western",
-    "formCuisineCafe": "Cafe / Dessert",
-    "formCuisineOther": "Other",
-    "formMonthlyOrders": "Monthly order estimate",
-    "formMonthlyOrdersUnder50": "Under 50 orders",
-    "formMonthlyOrders50to150": "50–150 orders",
-    "formMonthlyOrders150to400": "150–400 orders",
-    "formMonthlyOrdersOver400": "Over 400 orders",
-    "formInterestedTier": "Plan you're interested in",
-    "formTierNotSure": "Not sure yet",
-    "formMessage": "Anything else (optional)",
-    "formSubmit": "Send Request",
-    "formSuccess": "Thank you! We'll be in touch within 24–48 hours."
+    "heroStat3Label": "实际费率",
+    "heroStat3Value": "低至2.0%",
+    "valuePropsHeading": "为什么选择Foody7",
+    "valueProp1Title": "公平的佣金",
+    "valueProp1Desc": "7%固定费率 — 无隐藏费用、无强制推广、无意外。",
+    "valueProp2Title": "您的顾客，您的数据",
+    "valueProp2Desc": "无平台锁定。回头客属于您。",
+    "valueProp3Title": "您的专属应用 — ₩299,000起",
+    "valueProp3Desc": "在foody7.com/r/your-restaurant上提供品牌可安装应用。一次性设置费。无需$50,000开发费用。",
+    "valueProp4Title": "真正的支持",
+    "valueProp4Desc": "专属入职服务。一周内上线。",
+    "howItWorksHeading": "如何运作",
+    "step1Title": "提交您的申请",
+    "step1Desc": "填写下方表格。我们在24-48小时内审核所有申请。",
+    "step2Title": "我们设置您的档案",
+    "step2Desc": "菜单上传、品牌设计、照片 — 我们帮您做好。",
+    "step3Title": "开始接收订单",
+    "step3Desc": "一周内上线。订单立即开始。",
+    "pricingHeading": "透明定价",
+    "pricingSubheading": "无合同。无锁定。随时取消。",
+    "pricingColumnPlan": "套餐",
+    "pricingColumnPrice": "月费",
+    "pricingColumnRate": "实际费率*",
+    "pricingColumnCap": "订单上限",
+    "pricingColumnBestFor": "最适合",
+    "pricingTierStarterPrice": "免费",
+    "pricingTierStarterRate": "每单7%",
+    "pricingTierStarterCap": "无限",
+    "pricingTierStarterFor": "新店 & 测试",
+    "pricingTierF70Price": "₩70,000 / 月",
+    "pricingTierF70Rate": "低至4.3%",
+    "pricingTierF70Cap": "最多65单",
+    "pricingTierF70For": "小规模 & 成长中",
+    "pricingTierF170Price": "₩170,000 / 月",
+    "pricingTierF170Rate": "低至3.6%",
+    "pricingTierF170Cap": "最多194单",
+    "pricingTierF170For": "中等规模活跃",
+    "pricingTierF350Price": "₩350,000 / 月",
+    "pricingTierF350Rate": "低至2.9%",
+    "pricingTierF350Cap": "最多399单",
+    "pricingTierF350For": "高流量",
+    "pricingTierF700Price": "₩700,000 / 月",
+    "pricingTierF700Rate": "低至2.0%",
+    "pricingTierF700Cap": "最多799单",
+    "pricingTierF700For": "连锁 & 企业",
+    "pricingTierEnterprisePrice": "定制",
+    "pricingTierEnterpriseFor": "白标 & 特殊需求",
+    "pricingTierEnterpriseContact": "联系我们 →",
+    "pricingEffectiveNote": "* 实际费率 = 月费 ÷（订单数 × 平均订单额）。销量越大，费率越低。",
+    "pricingOverflowHeading": "达到上限后会怎样？",
+    "pricingOverflowText": "订单不会停止。达到月度上限后，额外订单按标准7%佣金计费。达到上限80%时您将收到通知 — 按您的意愿升级。",
+    "pwaHeading": "您的专属应用 — ₩299,000一次性设置",
+    "pwaSubheading": "Foody7上的每家餐厅都能获得foody7.com/r/your-restaurant上的品牌可安装应用。一次性设置费₩299,000（约$199）。",
+    "pwaBrandingNote": "所有套餐均包含低调的「由Foody7提供支持」页脚。企业客户可申请完整白标服务。",
+    "pwaMarketValue": "开发原生iOS + Android应用需花费$30,000-100,000。您的应用从₩299,000起。",
+    "pwaF70Feature": "自定义颜色 & 完整Logo品牌",
+    "pwaF170Feature": "向已安装用户推送通知",
+    "pwaF350Feature": "自定义域名 — yourrestaurant.com",
+    "pwaF700Feature": "高级分析 + 优先支持",
+    "pwaEnterpriseFeature": "完整白标（协商）",
+    "faqHeading": "常见问题",
+    "faq1Q": "上线需要多长时间？",
+    "faq1A": "我们在24-48小时内审核所有申请。大多数餐厅在3-7天内上线。",
+    "faq2Q": "谁负责配送？",
+    "faq2A": "Foody7是纯粹的市场平台 — 我们连接您的餐厅、顾客和独立配送服务商。我们不会强制您使用特定的快递服务。",
+    "faq3Q": "支付如何处理？",
+    "faq3A": "支付直接在您的餐厅和顾客之间进行 — 现金或通过您自己的收单终端刷卡。Foody7仅单独收取月度套餐费或佣金。",
+    "faq4Q": "达到订单上限会怎样？",
+    "faq4A": "订单不会停止。额外订单按7%佣金计费。您将在达到上限80%时收到通知，以便决定是否升级 — 不会有任何压力。",
+    "faq5Q": "可以更换套餐或取消吗？",
+    "faq5A": "可以 — 没有锁定合同。随时升级、降级或取消。更改从下个计费月起生效。",
+    "faq6Q": "我能保留顾客数据吗？",
+    "faq6A": "可以。与Baemin不同，我们不会将您的顾客数据用于引导他们前往其他餐厅。顾客关系属于您。",
+    "formHeading": "申请加入Foody7",
+    "formSubheading": "填写表格，我们将在24-48小时内与您联系。",
+    "formRestaurantName": "餐厅名称",
+    "formOwnerName": "您的姓名",
+    "formPhone": "电话号码",
+    "formEmail": "电子邮件地址",
+    "formCity": "城市 / 地区",
+    "formCuisine": "菜系类型",
+    "formCuisineKorean": "韩国料理",
+    "formCuisineJapanese": "日本料理",
+    "formCuisineChinese": "中国料理",
+    "formCuisineWestern": "西餐",
+    "formCuisineCafe": "咖啡 / 甜点",
+    "formCuisineOther": "其他",
+    "formMonthlyOrders": "预计月订单量",
+    "formMonthlyOrdersUnder50": "50单以下",
+    "formMonthlyOrders50to150": "50-150单",
+    "formMonthlyOrders150to400": "150-400单",
+    "formMonthlyOrdersOver400": "400单以上",
+    "formInterestedTier": "感兴趣的套餐",
+    "formTierNotSure": "还不确定",
+    "formMessage": "其他信息（可选）",
+    "formSubmit": "发送申请",
+    "formSuccess": "谢谢！我们将在24-48小时内与您联系。"
   },
-
   "PartnerStrip": {
     "heading": "Own a restaurant?",
     "subheading": "Join Korea's fairest delivery platform. As low as ₩877/order. Your branded app from ₩299,000.",
