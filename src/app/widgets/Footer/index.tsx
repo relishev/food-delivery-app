@@ -65,7 +65,7 @@ const Index: FC<Props> = () => {
   const links = [
     { title: "MainPage.about" },
     { title: "MainPage.advertisement" },
-    { title: "MainPage.collab", fn: () => { window.location.href = `https://join.foody7.com/${locale}`; } },
+    { title: "MainPage.collab", fn: () => { window.location.href = `/join/${locale}`; } },
     { title: "MainPage.feedback", fn: () => setModals((prev) => ({ ...prev, feedbackModal: true })) },
   ];
 
