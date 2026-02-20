@@ -110,20 +110,7 @@ const Index: FC<Props> = ({}) => {
 
   const isBucketPage = pathName.includes("bucket");
   return (
-    <header style={{ paddingTop: "env(safe-area-inset-top)" }} className="fixed top-0 z-20 w-screen bg-bg-1 shadow-md">
-      {/* For Restaurants top bar — desktop only */}
-      <div className="hidden lg:flex items-center justify-end border-b border-gray-2 bg-bg-2 px-6 py-1.5">
-        <a
-          href="https://join.foody7.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs font-medium text-text-3 transition hover:text-primary"
-        >
-          {t("Index.forRestaurants")} →
-        </a>
-      </div>
-      {/* Main nav row */}
-      <div className="flex h-20 w-full items-center justify-between space-x-6 py-4 pl-3 pr-6 xl:space-x-6 xl:pl-2 xl:pr-4 lg:space-x-4 md:h-16 md:space-x-2 md:px-3 md:py-2">
+    <header style={{ paddingTop: "env(safe-area-inset-top)" }} className="fixed top-0 z-20 flex h-20 w-screen items-center justify-between space-x-6 bg-bg-1 py-4 pl-3 pr-6 shadow-md xl:space-x-6 xl:pl-2 xl:pr-4 lg:space-x-4 md:h-16 md:space-x-2 md:px-3 md:py-2">
       {isBucketPage && (
         <button className="flex items-center space-x-2 text-text-3 md:hidden" onClick={back}>
           <BackIcon fill="text-text-3" />
@@ -159,7 +146,6 @@ const Index: FC<Props> = ({}) => {
 
         <MiniBucketMobile t={t} />
         {isAuth ? <Profile t={t} /> : <Authorization t={t} />}
-      </div>
       </div>
     </header>
   );
