@@ -34,7 +34,7 @@ export default async function JoinLayout({ children, params }: Props) {
       </head>
       <body className={`${inter.className} antialiased`}>
         <JotaiProvider>
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
             <TanstackQueryProvider>
               {children}
             </TanstackQueryProvider>
