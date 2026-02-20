@@ -14,7 +14,21 @@ export default async function (req: any) {
   const host = req.headers.get('host') ?? '';
   if (host.startsWith('join.')) {
     const url = req.nextUrl.clone();
-    url.pathname = `/join${url.pathname === '/' ? '' : url.pathname}`;
+    const joinPath = url.pathname === '/' ? '' : url.pathname;
+    // If no locale segment yet, detect and redirect
+    const localeList = locales as readonly string[];
+    const firstSegment = url.pathname.split('/')[1] ?? '';
+    if (!localeList.includes(firstSegment)) {
+      const cookieLocale = req.cookies.get('NEXT_LOCALE')?.value ?? '';
+      const acceptLang = req.headers.get('accept-language') ?? '';
+      const preferred = acceptLang.split(',')[0]?.split(';')[0]?.trim().slice(0, 2) ?? '';
+      const locale = localeList.includes(cookieLocale) ? cookieLocale
+        : localeList.includes(preferred) ? preferred
+        : 'en';
+      url.pathname = `/join/${locale}${joinPath}`;
+      return NextResponse.redirect(url);
+    }
+    url.pathname = `/join${joinPath}`;
     return NextResponse.rewrite(url);
   }
 

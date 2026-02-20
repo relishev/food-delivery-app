@@ -105,7 +105,7 @@ export default async function RootLayout({ children, params }: Props) {
                 easing="ease"
                 crawl={true}
               />
-              <div className="mt-20 w-full md:mt-16" style={{ paddingTop: "env(safe-area-inset-top)" }}>{children}</div>
+              <div className="mt-20 w-full md:mt-16 lg:mt-[calc(5rem+2.25rem)]" style={{ paddingTop: "env(safe-area-inset-top)" }}>{children}</div>
               <Footer />
               <TailwindIndicator />
             </TanstackQueryProvider>
