@@ -46,6 +46,11 @@ export default function ForRestaurantsPWA({ t }: Props) {
         ))}
       </div>
 
+      {/* Coming soon note */}
+      <p className="mb-4 text-center text-xs text-text-3">
+        {t("ForRestaurantsPage.pwaComingSoon")}
+      </p>
+
       {/* Branding note */}
       <div className="rounded-xl border border-orange-200 bg-orange-50 p-4 text-sm text-text-2">
         {t("ForRestaurantsPage.pwaBrandingNote")}

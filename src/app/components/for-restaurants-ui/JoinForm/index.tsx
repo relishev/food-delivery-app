@@ -188,6 +188,10 @@ export default function ForRestaurantsJoinForm({ t }: Props) {
             {t("ForRestaurantsPage.formSubmit")}
           </Button>
         </div>
+
+        <p className="mt-4 text-center text-xs leading-relaxed text-text-3">
+          {t("ForRestaurantsPage.legalDisclaimer")}
+        </p>
       </form>
     </section>
   );
